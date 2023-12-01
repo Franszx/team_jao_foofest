@@ -6,7 +6,7 @@ export default function Home() {
 	return (
 		<>
 			<Header />
-			<main>
+			<main className="container mx-auto max-w-6xl px-6">
 				<LiveArtists />
 			</main>
 			<Footer />
