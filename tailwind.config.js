@@ -9,4 +9,19 @@ module.exports = {
     },
   },
   plugins: [require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        foofest: {
+          "primary": "#059669",
+          "accent": "#BE185D",
+          "neutral": "#374151",
+          "base-100": "#030712",
+          "base-content": "#F9FAFB",
+          "neutral-content": "#F9FAFB",
+          "primary-content": "#F9FAFB",
+        },
+      },
+    ],
+  },
 };
