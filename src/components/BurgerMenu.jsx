@@ -18,7 +18,7 @@ export default function BurgerMenu() {
         {isMobile && (
           <div className=" dropdown dropdown-left">
             <div tabIndex={0} role="button" className="btn m-1 bg-transparent rounded-full" onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? <Image className="w-32 lg:w-82" src="./cross.svg" height="200" width="200" alt="logo" /> : <Image className="w-32 lg:w-82" src="./burger.svg" height="200" width="200" alt="logo" />}
+              {isOpen ? <Image className="w-32" src="./cross.svg" height="200" width="200" alt="logo" /> : <Image className="w-32" src="./burger.svg" height="200" width="200" alt="logo" />}
             </div>
             {isOpen && (
               <ul tabIndex={0} className="dropdown-content z-[1] menu shadow bg-neutral rounded-box w-52">
