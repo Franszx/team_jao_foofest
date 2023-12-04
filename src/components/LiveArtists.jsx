@@ -29,7 +29,7 @@ export default function LiveArtists() {
 	const date = new Date();
 	const dayName = days[date.getDay()];
 	const currentHour = date.getHours();
-	console.log(dayName, currentHour);
+	// const currentHour = 21;
 
 	const getCurrentAct = (schedule) => {
 		return schedule.find((act) => {
@@ -40,7 +40,20 @@ export default function LiveArtists() {
 	};
 
 	const getBandInfo = (bandName) => {
-		return dataBands.find((band) => (band.name = bandName));
+		if (bandName === "break") {
+			return { name: "break", logo: "break.jpg" };
+		}
+		return dataBands.find((band) => band.name === bandName);
+	};
+
+	const getBandLogo = (bandInfo) => {
+		if (bandInfo.logo && bandInfo.logo.startsWith("https")) {
+			return bandInfo.logo;
+		} else if (bandInfo.name === "break") {
+			return `../img/${bandInfo.logo}`;
+		} else {
+			return `http://localhost:8080/logos/${bandInfo.logo}`;
+		}
 	};
 
 	// console.log(dataBands.map((band) => band.name));
@@ -55,6 +68,8 @@ export default function LiveArtists() {
 					const bandName = currentAct.act;
 					const bandInfo = getBandInfo(bandName);
 					console.log(bandInfo);
+					const bandLogo = getBandLogo(bandInfo);
+					console.log(bandLogo);
 
 					if (currentAct && bandName) {
 						return (
@@ -63,7 +78,8 @@ export default function LiveArtists() {
 								scene={scene}
 								artist={currentAct.act}
 								time={currentAct.end}
-								src={"https://source.unsplash.com/random/720x480?random=38459"}
+								src={bandLogo}
+								logoCredits={bandInfo.logoCredits}
 							/>
 						);
 					}
