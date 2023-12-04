@@ -23,7 +23,7 @@ export default function Hero() {
           <h2 className="grid gap-2 auto-rows-auto text-3xl lg:text-6xl text-stroke-1 font-bold text-transparent ">
             {pages.map((band) => {
               return (
-                <Link href="/" key={band.id}>
+                <Link href={`/artist/${band.slug}`} key={band.id}>
                   {band.name}
                 </Link>
               );
