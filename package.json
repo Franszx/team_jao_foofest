@@ -12,7 +12,10 @@
     "aos": "^2.3.4",
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-burger-menu": "^3.0.9",
+    "react-dom": "^18",
+    "react-hamburgers": "^1.0.0",
+    "react-responsive": "^9.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
