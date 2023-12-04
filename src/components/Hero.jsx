@@ -3,25 +3,25 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function Hero() {
-  //   const [pages, setPages] = useState([]);
+  const [pages, setPages] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch("http://localhost:8080/bands/");
       const data = await res.json();
       const bands = data.slice(0, 10);
-      console.log(bands);
-      //   setPages(bands);
+
+      setPages(bands);
     };
 
     fetchData();
   }, []);
   return (
-    <div className="hero bg-gray-900 mt-10 lg:mt-32">
-      <div className="hero-content text-center">
-        {/* <div className="max-w-md lg:max-w-3xl">
-          <h2 className="text-3xl lg:text-6xl font-bold flex flex-row">
-            {bands.map(() => {
+    <div className="hero flex flex-col bg-gray-900 mt-10 lg:mt-32">
+      <div className="hero-content">
+        <div className="grid ">
+          <h2 className="grid gap-2 auto-rows-auto text-3xl lg:text-6xl text-stroke-1 font-bold text-transparent ">
+            {pages.map((band) => {
               return (
                 <Link href="/" key={band.id}>
                   {band.name}
@@ -29,16 +29,13 @@ export default function Hero() {
               );
             })}
           </h2>
-          <p className="py-6 flex flex-row text-md lg:text-xl">{band.name}</p>
-        </div> */}
+        </div>
       </div>
-      <div>
-        <h1>hej ole</h1>
-        {/* <nav className="">
-          <ul className="">
-            <li className=""></li>
-            <li className="">
-              {bands.map(() => {
+      <div className="">
+        <nav className="">
+          <ul className="flex grow">
+            <li className="grid text-base font-light">
+              {pages.map((band) => {
                 return (
                   <Link href="/" key={band.id}>
                     {band.name}
@@ -47,7 +44,7 @@ export default function Hero() {
               })}
             </li>
           </ul>
-        </nav> */}
+        </nav>
       </div>
     </div>
   );
