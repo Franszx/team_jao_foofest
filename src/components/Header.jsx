@@ -16,7 +16,11 @@ function Header() {
   }, []);
 
   return (
-    <header className="flex justify-center items-center py-8 px-8">
+    <header className="flex justify-center items-center pt-8 px-8">
+      <div
+        className="absolute w-60 h-1/3 left-1/2 transform -translate-x-1/4  opacity-20
+         bg-gradient-to-r from-emerald-700  rounded-full"
+      ></div>
       <div className="flex justify-between items-center w-full max-w-5xl">
         <div>
           <Image className="w-32 lg:w-82" src="./foofest-logo.svg" height="200" width="200" alt="logo" />
