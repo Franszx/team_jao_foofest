@@ -15,7 +15,8 @@
     "react-burger-menu": "^3.0.9",
     "react-dom": "^18",
     "react-hamburgers": "^1.0.0",
-    "react-responsive": "^9.0.2"
+    "react-responsive": "^9.0.2",
+    "react-social-icons": "^6.7.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
