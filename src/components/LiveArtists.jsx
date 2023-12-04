@@ -28,8 +28,8 @@ export default function LiveArtists() {
 	const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 	const date = new Date();
 	const dayName = days[date.getDay()];
-	const currentHour = date.getHours();
-	// const currentHour = 21;
+	// const currentHour = date.getHours();
+	const currentHour = 21;
 
 	const getCurrentAct = (schedule) => {
 		return schedule.find((act) => {
@@ -56,12 +56,10 @@ export default function LiveArtists() {
 		}
 	};
 
-	// console.log(dataBands.map((band) => band.name));
-
 	return (
 		<>
 			<h2 className="">Playing Now</h2>
-			<div className="flex gap-4 justify-around">
+			<div className="flex gap-4 md:justify-around overflow-x-scroll overflow-y-hidden snap-mandatory scrollbar-hide">
 				{Object.keys(dataSchedule).map((scene) => {
 					const schedule = dataSchedule[scene][dayName];
 					const currentAct = getCurrentAct(schedule);
@@ -75,6 +73,7 @@ export default function LiveArtists() {
 						return (
 							<ArtistCard
 								key={scene}
+								slug={bandInfo === "break" ? "#" : bandInfo.slug}
 								scene={scene}
 								artist={currentAct.act}
 								time={currentAct.end}
