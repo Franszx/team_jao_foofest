@@ -6,14 +6,15 @@ import ArtistCard from "./ArtistCard";
 export default function LiveArtists() {
 	const [dataSchedule, setDataSchedule] = useState(null);
 	const [dataBands, setDataBands] = useState(null);
+	const url = "http://localhost:8080";
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const resSchedule = await fetch("http://localhost:8080/schedule");
+			const resSchedule = await fetch(`${url}/schedule`);
 			const dataSchedule = await resSchedule.json();
 			setDataSchedule(dataSchedule);
 
-			const resBands = await fetch("http://localhost:8080/bands");
+			const resBands = await fetch(`${url}/bands`);
 			const dataBandsInfo = await resBands.json();
 			setDataBands(dataBandsInfo);
 		};
@@ -55,7 +56,7 @@ export default function LiveArtists() {
 		} else if (bandInfo.name === "break") {
 			return `/img/${bandInfo.logo}`;
 		} else {
-			return `http://localhost:8080/logos/${bandInfo.logo}`;
+			return `${url}/logos/${bandInfo.logo}`;
 		}
 	};
 
