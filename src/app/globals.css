@@ -19,7 +19,7 @@ body {
 }
 .custom-class:hover .social-svg-icon {
   fill: #ffffff;
-
+}
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
