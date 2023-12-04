@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
@@ -15,7 +16,7 @@ function Header() {
   }, []);
 
   return (
-    <header className="flex justify-center items-center py-4 px-4">
+    <header className="flex justify-center items-center py-8 px-8">
       <div className="flex justify-between items-center w-full max-w-5xl">
         <div>
           <Image className="w-32 lg:w-82" src="./foofest-logo.svg" height="200" width="200" alt="logo" />

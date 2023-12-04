@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
@@ -13,11 +14,11 @@ export default function BurgerMenu() {
   }, []);
 
   return (
-    <div className="fixed left-2/3 top-2/4">
+    <div className="fixed left-2/3 top-3/4 z-50">
       <div>
         {isMobile && (
           <div className=" dropdown dropdown-left">
-            <div tabIndex={0} role="button" className="btn m-1 bg-transparent rounded-full" onClick={() => setIsOpen(!isOpen)}>
+            <div tabIndex={0} role="button" className="btn m-1 bg-transparent border-0" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <Image className="w-32" src="./cross.svg" height="200" width="200" alt="logo" /> : <Image className="w-32" src="./burger.svg" height="200" width="200" alt="logo" />}
             </div>
             {isOpen && (
