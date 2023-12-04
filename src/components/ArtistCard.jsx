@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function ArtistCard(props) {
 	return (
 		<div>
-			<Link href={`/artist/${props.slug}`}>
+			<Link href={`${props.slug}`}>
 				<article className="w-64 h-48 md:h-56 md:w-80 grid grid-rows-2 snap-start">
 					<p className="ml-6 mt-4 text-gray-300 col-start-1 row-start-1 z-20">
 						{props.scene}

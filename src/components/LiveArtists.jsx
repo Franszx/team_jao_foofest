@@ -28,8 +28,8 @@ export default function LiveArtists() {
 	const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 	const date = new Date();
 	const dayName = days[date.getDay()];
-	// const currentHour = date.getHours();
-	const currentHour = 21;
+	const currentHour = date.getHours();
+	// const currentHour = 11;
 
 	const getCurrentAct = (schedule) => {
 		return schedule.find((act) => {
@@ -73,7 +73,7 @@ export default function LiveArtists() {
 						return (
 							<ArtistCard
 								key={scene}
-								slug={bandInfo === "break" ? "#" : bandInfo.slug}
+								slug={bandName === "break" ? "/" : `/artist/${bandInfo.slug}`}
 								scene={scene}
 								artist={currentAct.act}
 								time={currentAct.end}
