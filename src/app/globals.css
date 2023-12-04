@@ -14,3 +14,9 @@ body {
 .text-stroke-2 {
   -webkit-text-stroke: 2px #d1d5db;
 }
+.custom-class .social-svg-icon {
+  fill: #d1d5db;
+}
+.custom-class:hover .social-svg-icon {
+  fill: #ffffff;
+}
