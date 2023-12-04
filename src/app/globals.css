@@ -19,4 +19,13 @@ body {
 }
 .custom-class:hover .social-svg-icon {
   fill: #ffffff;
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;
 }

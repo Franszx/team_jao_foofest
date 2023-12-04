@@ -5,6 +5,11 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Inter", "system-ui"],
+        grayscale: {
+
+          50: '50%',
+ 
+        }
       },
     },
   },

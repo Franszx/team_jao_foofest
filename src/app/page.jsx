@@ -1,7 +1,6 @@
-// "use client";
-
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import LiveArtists from "@/components/LiveArtists";
 import BurgerMenu from "@/components/BurgerMenu";
 import Hero from "@/components/Hero";
 
@@ -10,19 +9,14 @@ import Hero from "@/components/Hero";
 // import { useEffect } from "react";
 
 export default function Home() {
-  // useEffect(() => {
-  //   AOS.init();
-  // }, []);
-
-  return (
-    <>
-      <Header />
-      <BurgerMenu />
-      <Hero />
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <button className="btn w-64 rounded-full">Button</button>
-      </main>
-      <Footer />
-    </>
-  );
+	return (
+		<>
+			<Header />
+			<BurgerMenu />
+			<main className="container mx-auto max-w-6xl px-6">
+				<LiveArtists />
+			</main>
+			<Footer />
+		</>
+	);
 }
