@@ -48,10 +48,10 @@ export default function Footer() {
         </ul>
       </div>
       <div className="hero-content flex flex-wrap mb-4">
-        <SocialIcon network="facebook" bgColor="#030712" fgColor="#A1A1AA" />
-        <SocialIcon network="x" bgColor="#030712" fgColor="#A1A1AA" />
-        <SocialIcon network="instagram" bgColor="#030712" fgColor="#A1A1AA" />
-        <SocialIcon network="snapchat" bgColor="#030712" fgColor="#A1A1AA" />
+        <SocialIcon network="facebook" bgColor="#030712" fgColor="#A1A1AA" url="www.facebook.com" />
+        <SocialIcon network="x" bgColor="#030712" fgColor="#A1A1AA" url="www.twitterx.com" />
+        <SocialIcon network="instagram" bgColor="#030712" fgColor="#A1A1AA" url="www.instagram.com" />
+        <SocialIcon network="snapchat" bgColor="#030712" fgColor="#A1A1AA" url="www.snapchat.com" />
       </div>
       <div>
         <p className="text-gray-300">info@foofest.com</p>
