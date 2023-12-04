@@ -1,3 +1,4 @@
+import PlayingWhen from "@/components/PlayingWhen";
 import Image from "next/image";
 
 // Function to generate static paths for each band
@@ -45,7 +46,7 @@ export default async function Page({ params }) {
                 alt="Random Unsplash Image"
                 width={2000}
                 height={2000}
-                className="w-screen h-[40vh] overflow-hidden object-cover object-center opacity-30"
+                className="w-screen h-[40vh] overflow-hidden object-cover object-center opacity-30 band-image"
               />
 
               <div className="container mx-auto max-w-4xl px-6 relative">
@@ -54,24 +55,24 @@ export default async function Page({ params }) {
                 </h1>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row container mx-auto max-w-4xl px-6 mt-6 md:mt-12">
-              <div className="space-y-6  w-full order-2 md:order-1">
-                <div className="badge badge-outline border-gray-700 text-gray-300  rounded-lg  h-fit py-1">
-                  {band.genre}
+            <div className="flex flex-col md:flex-row mt-6 md:mt-12 mb-12">
+              <div className="space-y-12  w-full order-2 md:order-1">
+                <div className="flex container flex-col md:flex-row mx-auto max-w-4xl px-6 gap-6 justify-between">
+                  <div className="badge badge-outline border-gray-700 text-gray-300  rounded-lg  h-fit py-1">
+                    {band.genre}
+                  </div>
+                  <PlayingWhen band={band} />
                 </div>
-                <p className="max-w-xl">{band.bio}</p>
-                <ul className="list-none space-y-1">
-                  <span className="mb-1">Members</span>
-                  {band.members.map((member) => (
-                    <li key={member} className="text-sm text-gray-300">
-                      {member}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="flex md:justify-end md:w-2/5 order-1 md:order-2 mb-6 md:mb-0 ">
-                <div className="badge badge-accent text-rose-200 rounded-lg h-fit py-1 whitespace-nowrap">
-                  Tuesday at 8:00 PM on Vanaheim
+                <div className="container mx-auto max-w-4xl px-6 space-y-6">
+                  <p className="max-w-xl">{band.bio}</p>
+                  <ul className="list-none space-y-1">
+                    <span className="mb-1">Members</span>
+                    {band.members.map((member) => (
+                      <li key={member} className="text-sm text-gray-300">
+                        {member}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>
