@@ -1,10 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ArtistCard(props) {
 	return (
-		<div>
+		<div className="w-64 md:w-80">
 			<Link href={`${props.slug}`}>
-				<article className="w-64 h-48 md:h-56 md:w-80 grid grid-rows-2 snap-start">
+				<article className="h-48 w-64 md:w-80 md:h-56 grid grid-rows-2 snap-start">
 					<p className="ml-6 mt-4 text-gray-300 col-start-1 row-start-1 z-20">
 						{props.scene}
 					</p>
@@ -12,14 +13,26 @@ export default function ArtistCard(props) {
 						<p className="capitalize text-2xl text-gray-50">{props.artist}</p>
 						<p className="text-gray-300">Until {props.time}</p>
 					</div>
-					<img
+					<Image
 						className="col-start-1 col-end-2 row-start-1 row-end-3 object-cover z-0 brightness-50 rounded-lg border-2 border-gray-800 h-full w-full"
+						width={320}
+						height={320}
 						src={props.src}
-						alt=""
+						alt="Band logo"
 					/>
 				</article>
 			</Link>
-			<p className="italic text-gray-500 text-sm">{props.logoCredits}</p>
+			<div className="grid">
+				<p className="italic text-gray-500 text-[0.5rem]">
+					{props.logoCredits}
+				</p>
+				<Link href={props.nextSlug}>
+					<p className=" text-sm text-gray-400 bg-gray-900 border-2 border-gray-800 w-fit py-2 px-3 mt-2 rounded-lg">
+						&#8594; {props.nextTime}{" "}
+						<span className="text-gray-50 capitalize">{props.nextBand}</span>
+					</p>
+				</Link>
+			</div>
 		</div>
 	);
 }

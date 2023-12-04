@@ -29,7 +29,7 @@ export default function LiveArtists() {
 	const date = new Date();
 	const dayName = days[date.getDay()];
 	const currentHour = date.getHours();
-	// const currentHour = 11;
+	// const currentHour = 14;
 
 	const getCurrentAct = (schedule) => {
 		return schedule.find((act) => {
@@ -50,9 +50,21 @@ export default function LiveArtists() {
 		if (bandInfo.logo && bandInfo.logo.startsWith("https")) {
 			return bandInfo.logo;
 		} else if (bandInfo.name === "break") {
-			return `../img/${bandInfo.logo}`;
+			return `/img/${bandInfo.logo}`;
 		} else {
 			return `http://localhost:8080/logos/${bandInfo.logo}`;
+		}
+	};
+
+	const getnextActlink = (nextAct, schedule) => {
+		if (nextAct) {
+			if (nextAct.act === "break") {
+				return "/";
+			} else {
+				return `/artist/${getBandInfo(nextAct.act).slug}`;
+			}
+		} else {
+			return "/schedule";
 		}
 	};
 
@@ -65,9 +77,10 @@ export default function LiveArtists() {
 					const currentAct = getCurrentAct(schedule);
 					const bandName = currentAct.act;
 					const bandInfo = getBandInfo(bandName);
-					console.log(bandInfo);
 					const bandLogo = getBandLogo(bandInfo);
-					console.log(bandLogo);
+					const nextAct = schedule[schedule.indexOf(currentAct) + 1];
+					const nextActLink = getnextActlink(nextAct, schedule);
+					console.log(nextActLink);
 
 					if (currentAct && bandName) {
 						return (
@@ -79,6 +92,9 @@ export default function LiveArtists() {
 								time={currentAct.end}
 								src={bandLogo}
 								logoCredits={bandInfo.logoCredits}
+								nextTime={nextAct ? nextAct.start : "tomorrow"}
+								nextBand={nextAct ? nextAct.act : "check schedule"}
+								nextSlug={nextActLink}
 							/>
 						);
 					}
