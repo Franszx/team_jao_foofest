@@ -20,7 +20,7 @@ export default function Hero() {
     fetchData();
   }, []);
   return (
-    <div className="hero flex flex-col lg:mt-10 lg:mt-32">
+    <div className="hero flex flex-col lg:mt-10 lg:mt-16">
       <div className="hero-content text-center">
         <div>
           <h2 className="flex flex-wrap font-sans justify-center gap-4 text-4xl lg:text-6xl w-fit font-extrabold text-transparent tracking-tight lg:tracking-tighter lg:leading-58 ">
