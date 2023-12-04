@@ -10,8 +10,8 @@ export default function Hero() {
     const fetchData = async () => {
       const res = await fetch("http://localhost:8080/bands/");
       const data = await res.json();
-      const bands1 = data.slice(0, 10);
-      const bands2 = data.slice(11, 30);
+      const bands1 = data.slice(60, 68);
+      const bands2 = data.slice(31, 50);
 
       setPages1(bands1);
       setPages2(bands2);
