@@ -23,7 +23,7 @@ export default function LiveArtists() {
 			setDataBands(dataBandsInfo);
 		};
 
-		// fetchData();
+		fetchData();
 	}, []);
 
 	if (!dataSchedule || !dataBands) {
