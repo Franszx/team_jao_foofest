@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ArtistCard from "./ArtistCard";
+import ArtistCardLoading from "./ArtistCardLoading";
 
 export default function LiveArtists() {
 	const [dataSchedule, setDataSchedule] = useState(null);
@@ -26,17 +27,26 @@ export default function LiveArtists() {
 	}, []);
 
 	if (!dataSchedule || !dataBands) {
-		return <div>Loading...</div>;
+		return (
+			<>
+				<h2 className="text-xl">Playing Now</h2>
+				<div className="flex gap-4 md:justify-around overflow-x-scroll overflow-y-hidden snap-mandatory scrollbar-hide">
+					<ArtistCardLoading scene="Midgard" />
+					<ArtistCardLoading scene="Vanaheim" />
+					<ArtistCardLoading scene="Jotunheim" />
+				</div>
+			</>
+		);
 	}
 
 	const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 	const date = new Date();
 	const dayName = days[date.getDay()];
-	const currentHour = date.getHours();
+	// const currentHour = date.getHours();
 
 	// Manual override for testing, comment out when done:
 	// const dayName = "fri";
-	// const currentHour = 23;
+	const currentHour = 20;
 
 	const getCurrentAct = (schedule) => {
 		return schedule.find((act) => {
@@ -66,7 +76,7 @@ export default function LiveArtists() {
 	const getnextActlink = (nextAct, schedule) => {
 		if (nextAct) {
 			if (nextAct.act === "break") {
-				return "/";
+				return "/schedule";
 			} else {
 				return `/artist/${getBandInfo(nextAct.act).slug}`;
 			}
@@ -77,7 +87,7 @@ export default function LiveArtists() {
 
 	return (
 		<>
-			<h2 className="">Playing Now</h2>
+			<h2 className="text-xl mb-3">Playing Now</h2>
 			<div className="flex gap-4 md:justify-around overflow-x-scroll overflow-y-hidden snap-mandatory scrollbar-hide">
 				{Object.keys(dataSchedule).map((scene) => {
 					const schedule = dataSchedule[scene][dayName];
@@ -87,13 +97,16 @@ export default function LiveArtists() {
 					const bandLogo = getBandLogo(bandInfo);
 					const nextAct = schedule[schedule.indexOf(currentAct) + 1];
 					const nextActLink = getnextActlink(nextAct, schedule);
-					console.log(nextActLink);
 
 					if (currentAct && bandName) {
 						return (
 							<ArtistCard
 								key={scene}
-								slug={bandName === "break" ? "/" : `/artist/${bandInfo.slug}`}
+								slug={
+									bandName === "break"
+										? "/schedule"
+										: `/artist/${bandInfo.slug}`
+								}
 								scene={scene}
 								artist={currentAct.act}
 								time={currentAct.end}

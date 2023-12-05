@@ -3,9 +3,9 @@ import Image from "next/image";
 
 export default function ArtistCard(props) {
 	return (
-		<div className="w-64 md:w-80">
+		<div className="w-64 md:w-80 snap-start">
 			<Link href={`${props.slug}`}>
-				<article className="h-48 w-64 md:w-80 md:h-56 grid grid-rows-2 snap-start">
+				<article className="h-48 w-64 md:w-80 md:h-56 grid grid-rows-2">
 					<p className="ml-6 mt-4 text-gray-300 col-start-1 row-start-1 z-20">
 						{props.scene}
 					</p>
