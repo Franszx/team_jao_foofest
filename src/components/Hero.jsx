@@ -29,7 +29,7 @@ export default function Hero() {
           <h2 className="flex flex-wrap font-sans justify-center gap-4 text-4xl lg:text-6xl w-fit font-extrabold text-transparent tracking-tight lg:tracking-tighter lg:leading-58 ">
             {pages1.map((band) => {
               return (
-                <Link href={`/artist/${band.slug}`} key={band.id} className="hover:text-gray-300 text-stroke-1">
+                <Link href={`/artist/${band.slug}`} key={band.slug} className="hover:text-gray-300 text-stroke-1">
                   {band.name}
                 </Link>
               );
