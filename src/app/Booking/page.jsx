@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import TicketAndCamp from "@/components/TicketAndCamp";
+import Link from "next/link";
 
 function Booking() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -99,152 +101,81 @@ function Booking() {
     <main className="md:container mx-auto  flex flex-col justify-center items-center h-screen w-screen">
       <section
         className="w-full h-full md:h-5/6 bg-gray-900 max-w-7xl flex flex-col md:flex-row md:rounded-xl overflow-hidden md:border border-gray-700 border-opacity-60"
-        data-aos="fade-up"
+        // data-aos="fade-up"
       >
         <div className="bg-gray-900 w-full md:w-7/12 h-full order-2 md:order-1 p-6 md:p-12 flex flex-col justify-between">
-          <h1 className="font-medium text-lg">Tickets & Camp</h1>
-          <div className="place-self-center flex flex-col gap-4">
-            <div className="space-y-12">
-              <div className="flex items-center gap-6 w-60 justify-end">
-                <div className="font-medium text-end">
-                  <h2 className="text-gray-400">Regular</h2>
-                  <p>799 DKK</p>
-                </div>
-                <div className="flex items-center w-32 justify-between font-medium">
-                  <button
-                    className="bg-primary text-emerald-100 font-medium text-base p-2 rounded-full w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 transition-colors"
-                    onClick={() => updateTickets("regular", "decrement")}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="icon icon-tabler icon-tabler-minus"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke="currentColor"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M5 12l14 0" />
-                    </svg>
-                  </button>
-                  <p>{regularTickets}</p>
-                  <button
-                    className="bg-primary text-emerald-100 font-medium text-base p-2 rounded-full w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 transition-colors"
-                    onClick={() => updateTickets("regular", "increment")}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="icon icon-tabler icon-tabler-plus"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke="currentColor"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M12 5l0 14" />
-                      <path d="M5 12l14 0" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div className="flex items-center gap-6 w-60 justify-end">
-                <div className="font-medium text-end">
-                  <h2 className="text-gray-400">VIP</h2>
-                  <p>1299 DKK</p>
-                </div>
-                <div className="flex items-center w-32 justify-between font-medium">
-                  <button
-                    className="bg-primary text-emerald-100 font-medium text-base p-2 rounded-full w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 transition-colors"
-                    onClick={() => updateTickets("vip", "decrement")}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="icon icon-tabler icon-tabler-minus"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke="currentColor"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M5 12l14 0" />
-                    </svg>
-                  </button>
-                  <p>{vipTickets}</p>
-                  <button
-                    className="bg-primary text-emerald-100 font-medium text-base p-2 rounded-full w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 transition-colors"
-                    onClick={() => updateTickets("vip", "increment")}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="icon icon-tabler icon-tabler-plus"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke="currentColor"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M12 5l0 14" />
-                      <path d="M5 12l14 0" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="font-medium text-sm text-gray-500 place-self-end flex flex-col items-end">
-              <p>Total Tickets</p>
-              <p>{totalTickets}</p>
-            </div>
-          </div>
-          <div>
-            <ul className="flex flex-wrap items-center justify-around gap-4">
-              {spots.map((spot) => (
-                <li key={spot.area}>
-                  <div className="flex flex-col justify-start gap-1">
-                    <button
-                      className={`btn ${
-                        totalTickets > 0 && totalTickets <= spot.available
-                          ? selectedSpot === spot.area
-                            ? "bg-gray-500 text-gray-50 border-gray-400 hover:bg-gray-500 hover:border-gray-400"
-                            : "bg-neutral text-gray-50 border-gray-600 hover:bg-gray-600 hover:border-gray-500"
-                          : "btn-disabled"
-                      } font-medium text-base rounded py-1 px-4 w-fit border  `}
-                      onClick={() => selectSpot(spot.area)}
-                    >
-                      {spot.area}
-                    </button>
-                    <p className="text-gray-400 text-sm font-medium">
-                      {spot.available === 1
-                        ? "1 Spot"
-                        : `${spot.available} Spots`}
-                    </p>
+          {(currentSlide === 0 && (
+            <TicketAndCamp
+              regularTickets={regularTickets}
+              vipTickets={vipTickets}
+              totalTickets={totalTickets}
+              spots={spots}
+              selectedSpot={selectedSpot}
+              updateTickets={updateTickets}
+              selectSpot={selectSpot}
+            />
+          )) ||
+            (currentSlide === 1 && (
+              <div className=" h-full flex flex-col justify-between">
+                <h1 className="font-medium text-lg">Tickets Holders</h1>
+                <div className="flex flex-col justify-evenly flex-grow">
+                  <div className="place-self-center flex flex-col gap-4">
+                    <form className=" w-full space-y-6">
+                      {regularTickets > 0 && (
+                        <div>
+                          <h2 className="mb-3 font-medium text-lg">
+                            Regular Ticket Holders
+                          </h2>
+                          <div className="flex flex-col gap-3">
+                            {[...Array(regularTickets)].map((_, i) => (
+                              <input
+                                key={i}
+                                type="text"
+                                placeholder={`Regular Ticket ${i + 1}`}
+                                className="input input-bordered bg-neutral w-full"
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {vipTickets > 0 && (
+                        <div>
+                          <h2 className="mb-3 font-medium text-lg">
+                            VIP Ticket Holders
+                          </h2>
+                          <div className="flex flex-col gap-3">
+                            {[...Array(vipTickets)].map((_, i) => (
+                              <input
+                                key={i}
+                                type="text"
+                                placeholder={`VIP Ticket ${i + 1}`}
+                                className="input input-bordered bg-neutral w-full"
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </form>
                   </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+                </div>
+              </div>
+            ))}
           <div className="place-self-end space-x-6">
-            <button
-              className="text-gray-500 hover:text-gray-400 transition-colors font-medium"
-              onClick={() => changeSlide("prev")}
-            >
-              Back
-            </button>
+            {currentSlide === 0 ? (
+              <Link
+                href="/"
+                className="text-gray-500 hover:text-gray-400 transition-colors font-medium"
+              >
+                Back
+              </Link>
+            ) : (
+              <button
+                className="text-gray-500 hover:text-gray-400 transition-colors font-medium"
+                onClick={() => changeSlide("prev")}
+              >
+                Back
+              </button>
+            )}
             <button
               className={`btn ${
                 totalTickets > 0 && selectedSpot
@@ -359,7 +290,7 @@ function Booking() {
               <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-tent"
+                  class="icon icon-tabler icon-tabler-flag"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -370,7 +301,8 @@ function Booking() {
                   stroke-linejoin="round"
                 >
                   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M11 14l4 6h6l-9 -16l-9 16h6l4 -6" />
+                  <path d="M5 5a5 5 0 0 1 7 0a5 5 0 0 0 7 0v9a5 5 0 0 1 -7 0a5 5 0 0 0 -7 0v-9z" />
+                  <path d="M5 21v-7" />
                 </svg>
               </div>
               <div className="flex flex-col">
