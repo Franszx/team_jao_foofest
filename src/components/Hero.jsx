@@ -43,7 +43,7 @@ export default function Hero() {
             <li className="flex flex-wrap font-sans text-gray-300 justify-center gap-2 font-extralight text-xs lg:text-lg lg:text-xl font-light ">
               {pages2.map((band) => {
                 return (
-                  <Link href={`/artist/${band.slug}`} key={band.id}>
+                  <Link href={`/artist/${band.slug}`} key={band.slug}>
                     {band.name}
                   </Link>
                 );
