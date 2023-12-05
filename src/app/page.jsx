@@ -13,8 +13,9 @@ export default function Home() {
     <>
       <Header />
       <BurgerMenu />
-      <Hero />
+
       <main className="container mx-auto max-w-6xl px-6">
+        <Hero />
         <LiveArtists />
       </main>
       <Footer />
