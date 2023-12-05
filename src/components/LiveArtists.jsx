@@ -23,13 +23,13 @@ export default function LiveArtists() {
 			setDataBands(dataBandsInfo);
 		};
 
-		fetchData();
+		// fetchData();
 	}, []);
 
 	if (!dataSchedule || !dataBands) {
 		return (
 			<>
-				<h2 className="text-xl">Playing Now</h2>
+				<h2 className="text-xl mb-3">Playing Now</h2>
 				<div className="flex gap-4 md:justify-around overflow-x-scroll overflow-y-hidden snap-mandatory scrollbar-hide">
 					<ArtistCardLoading scene="Midgard" />
 					<ArtistCardLoading scene="Vanaheim" />
