@@ -18,7 +18,13 @@ function Header() {
     <header className="flex justify-center items-center py-4 px-4">
       <div className="flex justify-between items-center w-full max-w-5xl">
         <div>
-          <Image className="w-32 lg:w-82" src="./foofest-logo.svg" height="200" width="200" alt="logo" />
+          <Image
+            className="w-32 lg:w-82"
+            src="./foofest-logo.svg"
+            height="200"
+            width="200"
+            alt="logo"
+          />
         </div>
 
         {isDesktopOrLaptop && (
@@ -37,7 +43,12 @@ function Header() {
           </nav>
         )}
       </div>
-      <button className="ml-4 bg-primary text-white px-8 py-2 rounded text-xs">Køb billeter</button>
+      <Link
+        href="/booking"
+        className="ml-4 bg-primary text-white px-8 py-2 rounded text-xs"
+      >
+        Køb billeter
+      </Link>
     </header>
   );
 }
