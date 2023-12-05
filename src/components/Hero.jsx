@@ -6,7 +6,7 @@ export default function Hero() {
   const [pages1, setPages1] = useState([]);
   const [pages2, setPages2] = useState([]);
   // ------------- manual override for local dev ------------- //
-  const url = "http://localhost:8080/";
+  const url = "http://localhost:8080";
   // const url = "http://foofest.glitch.me";
 
   useEffect(() => {
