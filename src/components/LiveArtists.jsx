@@ -6,6 +6,9 @@ import ArtistCard from "./ArtistCard";
 export default function LiveArtists() {
 	const [dataSchedule, setDataSchedule] = useState(null);
 	const [dataBands, setDataBands] = useState(null);
+	// const url = "http://foofest.glitch.me";
+
+	// Manual override for testing, comment out when done:
 	const url = "http://localhost:8080";
 
 	useEffect(() => {
@@ -33,7 +36,7 @@ export default function LiveArtists() {
 
 	// Manual override for testing, comment out when done:
 	// const dayName = "fri";
-	// const currentHour = 14;
+	// const currentHour = 23;
 
 	const getCurrentAct = (schedule) => {
 		return schedule.find((act) => {
