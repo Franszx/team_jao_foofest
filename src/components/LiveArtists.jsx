@@ -42,11 +42,11 @@ export default function LiveArtists() {
 	const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 	const date = new Date();
 	const dayName = days[date.getDay()];
-	// const currentHour = date.getHours();
+	const currentHour = date.getHours();
 
 	// Manual override for testing, comment out when done:
 	// const dayName = "fri";
-	const currentHour = 20;
+	// const currentHour = 20;
 
 	const getCurrentAct = (schedule) => {
 		return schedule.find((act) => {
