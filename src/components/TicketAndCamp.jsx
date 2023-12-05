@@ -164,7 +164,8 @@ function TicketAndCamp({
                   <div className="flex flex-col justify-start gap-1">
                     <div
                       className={`${
-                        spot.available != 0 || totalTickets > spot.available
+                        totalTickets > 0 &&
+                        (spot.available === 0 || totalTickets > spot.available)
                           ? "tooltip tooltip-accent z-50"
                           : ""
                       }`}
