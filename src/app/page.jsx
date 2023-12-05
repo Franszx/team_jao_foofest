@@ -9,14 +9,15 @@ import Hero from "@/components/Hero";
 // import { useEffect } from "react";
 
 export default function Home() {
-	return (
-		<>
-			<Header />
-			<BurgerMenu />
-			<main className="container mx-auto max-w-6xl px-6">
-				<LiveArtists />
-			</main>
-			<Footer />
-		</>
-	);
+  return (
+    <>
+      <Header />
+      <BurgerMenu />
+      <Hero />
+      <main className="container mx-auto max-w-6xl px-6">
+        <LiveArtists />
+      </main>
+      <Footer />
+    </>
+  );
 }

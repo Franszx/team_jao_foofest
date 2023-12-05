@@ -5,10 +5,13 @@ import Link from "next/link";
 export default function Hero() {
   const [pages1, setPages1] = useState([]);
   const [pages2, setPages2] = useState([]);
+  // ------------- manual override for local dev ------------- //
+  const url = "http://localhost:8080/";
+  // const url = "http://foofest.glitch.me";
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("http://localhost:8080/bands/");
+      const res = await fetch(`${url}/bands`);
       const data = await res.json();
       const bands1 = data.slice(60, 68);
       const bands2 = data.slice(31, 50);
