@@ -57,16 +57,16 @@ export default async function Page({ params }) {
                 </h1>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row mt-6 md:mt-12 mb-12">
+            <div className="flex flex-col md:flex-row mt-6 md:mt-12 mb-12 max-w-5xl mx-auto container">
               <div className="space-y-12  w-full order-2 md:order-1">
-                <div className="flex container flex-col md:flex-row mx-auto max-w-4xl px-6 gap-6 justify-between">
+                <div className="flex container flex-col md:flex-row mx-auto max-w-4xl px-6 gap-6 justify-start">
                   <div className="badge badge-outline border-gray-700 text-gray-300  rounded-lg  h-fit py-1">
                     {band.genre}
                   </div>
                   <PlayingWhen band={band} />
                 </div>
                 <div className="container mx-auto max-w-4xl px-6 space-y-6">
-                  <p className="max-w-xl">{band.bio}</p>
+                  <p className="">{band.bio}</p>
                   <ul className="list-none space-y-1">
                     <span className="mb-1">Members</span>
                     {band.members.map((member) => (
