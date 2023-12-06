@@ -5,8 +5,8 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className=" mx-auto px-6 py-12 absolute top-0 z-50 w-screen ">
-      <div className="flex justify-between items-center w-full max-w-6xl mx-auto ">
+    <header className=" mx-auto px-6 py-12 absolute top-0 z-50 w-screen">
+      <div className="flex justify-between items-center w-full max-w-7xl  mx-auto ">
         <div className="w-32 lg:w-60">
           <Image
             src="/foofest-logo.svg"
