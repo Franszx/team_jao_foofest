@@ -2,18 +2,18 @@
 import { useState } from "react";
 import ReactMapGl from "react-map-gl";
 
-export default function Map() {
+export default function Map(props) {
 	const [viewPort, setViewPort] = useState({
-		latitude: 45.4211,
-		longitude: -75.6903,
+		latitude: 55.515097,
+		longitude: 11.866122,
+		bearing: -90,
 		width: "100%",
 		height: "100%",
-		zoom: 10,
+		zoom: 7,
 	});
-	console.log(process.env.NEXT_PUBLIC_MAPBOX_TOKEN);
 
 	return (
-		<div className="h-96">
+		<div className={props.className}>
 			<ReactMapGl
 				{...viewPort}
 				mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
