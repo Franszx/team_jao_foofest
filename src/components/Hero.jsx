@@ -23,18 +23,23 @@ export default function Hero() {
     fetchData();
   }, []);
   return (
-    <div className="hero flex flex-col my-2 lg:my-16">
+    <div className="hero flex flex-col my-2 lg:my-16 ">
       <div className="hero-content text-center">
         <ul className="flex flex-wrap font-sans justify-center lg:gap-4 text-3xl lg:text-6xl w-fit font-extrabold tracking-tight lg:tracking-normal">
           {pages1.map((band, index, array) => {
             return (
               <>
                 <li key={band.slug}>
-                  <Link href={`/artist/${band.slug}`} className=" text-gray-950  hover:text-gray-50 transition text-stroke-1 hover:text-stroke-0">
+                  <Link
+                    href={`/artist/${band.slug}`}
+                    className=" text-gray-950  hover:text-gray-50 transition text-stroke-1 hover:text-stroke-0"
+                  >
                     {band.name}
                   </Link>
                 </li>
-                {index !== array.length - 1 && <li className=" text-gray-400 font-extralight"> / </li>}
+                {index !== array.length - 1 && (
+                  <li className=" text-gray-400 font-extralight"> / </li>
+                )}
               </>
             );
           })}
@@ -46,12 +51,17 @@ export default function Hero() {
             {pages2.map((band, index, array) => {
               return (
                 <>
-                  <li className="text-gray-400 hover:text-gray-50 transition-colors" key={band.slug}>
+                  <li
+                    className="text-gray-400 hover:text-gray-50 transition-colors"
+                    key={band.slug}
+                  >
                     <Link href={`/artist/${band.slug}`} key={band.slug}>
                       {band.name}
                     </Link>
                   </li>
-                  {index !== array.length - 1 && <li className="text-gray-400"> / </li>}
+                  {index !== array.length - 1 && (
+                    <li className="text-gray-400"> / </li>
+                  )}
                 </>
               );
             })}
