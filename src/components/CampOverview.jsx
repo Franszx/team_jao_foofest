@@ -2,6 +2,7 @@
 
 import CampMap from "./CampMap";
 import CampDisplay from "./CampDisplay";
+import BuyButton from "./BuyButton";
 import { useEffect, useState } from "react";
 
 export default function CampOverview() {
@@ -27,8 +28,8 @@ export default function CampOverview() {
 			<h2 className="text-gray-600 mb-4">
 				<span className="text-xl text-gray-50">Camp Map</span> & Avaliable Spots
 			</h2>
-			<div className="grid grid-cols-3 gap-6">
-				<div>
+			<div className="md:grid md:grid-cols-3 md:gap-6">
+				<div className="hidden md:flex md:flex-col md:items-center">
 					{dataCamps &&
 						dataCamps.map((camp) => {
 							return (
@@ -40,8 +41,12 @@ export default function CampOverview() {
 								/>
 							);
 						})}
+					<BuyButton />
 				</div>
-				<CampMap className="col-start-2 col-end-4 aspect-square" />
+				<CampMap className="aspect-[4/5] md:col-start-2 md:col-end-4 md:aspect-[5/4]" />
+				<div className="flex justify-center mt-24 md:hidden">
+					<BuyButton />
+				</div>
 			</div>
 		</section>
 	);
