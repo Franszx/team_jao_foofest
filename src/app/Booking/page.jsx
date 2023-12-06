@@ -1,7 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import TicketAndCamp from "@/components/TicketAndCamp";
 import Link from "next/link";
 
@@ -22,25 +20,23 @@ function Booking() {
     const price = isVip ? 1299 : 799;
 
     if (
-      operation === "increment" ||
-      (operation === "decrement" && currentTickets > 0)
+      operation === "increase" ||
+      (operation === "decrease" && currentTickets > 0)
     ) {
       const newTickets =
-        operation === "increment" ? currentTickets + 1 : currentTickets - 1;
+        operation === "increase" ? currentTickets + 1 : currentTickets - 1;
       const setTickets = isVip ? setVipTickets : setRegularTickets;
       setTickets(newTickets);
       const newTotalTickets =
-        totalTickets + (operation === "increment" ? 1 : -1);
+        totalTickets + (operation === "increase" ? 1 : -1);
       setTotalTickets(newTotalTickets);
       setAllChoices({
         ...allChoices,
         [type + "Tickets"]: newTickets,
         totalTickets: newTotalTickets,
       });
-      if (totalPrice > 99 || operation === "increment") {
-        setTotalPrice(
-          totalPrice + (operation === "increment" ? price : -price)
-        );
+      if (totalPrice > 99 || operation === "increase") {
+        setTotalPrice(totalPrice + (operation === "increase" ? price : -price));
       }
     }
   };
@@ -80,10 +76,6 @@ function Booking() {
   }, [allChoices]);
 
   useEffect(() => {
-    AOS.init();
-  }, []);
-
-  useEffect(() => {
     const fetchSpots = () => {
       fetch("http://localhost:8080/available-spots")
         .then((res) => res.json())
@@ -99,10 +91,7 @@ function Booking() {
 
   return (
     <main className="md:container mx-auto  flex flex-col justify-center items-center h-screen w-screen">
-      <section
-        className="w-full h-full md:h-5/6 bg-gray-900 max-w-7xl flex flex-col md:flex-row md:rounded-xl overflow-hidden md:border border-gray-700 border-opacity-60"
-        // data-aos="fade-up"
-      >
+      <section className="w-full h-full md:h-5/6 bg-gray-900 max-w-7xl flex flex-col md:flex-row md:rounded-xl overflow-hidden md:border border-gray-700 border-opacity-60">
         <div className="bg-gray-900 w-full md:w-7/12 h-full order-2 md:order-1 p-6 md:p-12 flex flex-col justify-between">
           {(currentSlide === 0 && (
             <TicketAndCamp
@@ -188,6 +177,9 @@ function Booking() {
                 }
               }}
             >
+              Continue
+            </button>
+            <button className="btn bg-primary text-emerald-100 font-medium text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400">
               Continue
             </button>
           </div>

@@ -21,7 +21,7 @@ function TicketAndCamp({
               <div className="flex items-center w-32 justify-between font-medium">
                 <button
                   className="bg-neutral text-gray-100 font-medium text-base p-2 rounded-full w-fit border border-gray-500 hover:bg-gray-600 hover:border-gray-500 transition-colors"
-                  onClick={() => updateTickets("regular", "decrement")}
+                  onClick={() => updateTickets("regular", "decrease")}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +55,7 @@ function TicketAndCamp({
                         : "bg-primary text-emerald-100 border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 "
                     }`}
                     onClick={() =>
-                      totalTickets < 8 && updateTickets("regular", "increment")
+                      totalTickets < 8 && updateTickets("regular", "increase")
                     }
                   >
                     <svg
@@ -88,7 +88,7 @@ function TicketAndCamp({
               <div className="flex items-center w-32 justify-between font-medium">
                 <button
                   className="bg-neutral text-gray-100 font-medium text-base p-2 rounded-full w-fit border border-gray-500 hover:bg-gray-600 hover:border-gray-500 transition-colors"
-                  onClick={() => updateTickets("vip", "decrement")}
+                  onClick={() => updateTickets("vip", "decrease")}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +122,7 @@ function TicketAndCamp({
                         : "bg-primary text-emerald-100 border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 "
                     }`}
                     onClick={() =>
-                      totalTickets < 8 && updateTickets("vip", "increment")
+                      totalTickets < 8 && updateTickets("vip", "increase")
                     }
                   >
                     <svg
@@ -161,19 +161,19 @@ function TicketAndCamp({
             <ul className="flex flex-wrap items-center justify-around gap-4 h-24">
               {spots.map((spot) => (
                 <li key={spot.area}>
-                  <div className="flex flex-col justify-start gap-1">
+                  <div className="flex flex-col justify-start gap-1 mb-4">
                     <div
                       className={`${
                         totalTickets > 0 &&
                         (spot.available === 0 || totalTickets > spot.available)
-                          ? "tooltip tooltip-accent z-50"
+                          ? "tooltip tooltip-accent"
                           : ""
                       }`}
                       data-tip={
                         spot.available === 0
-                          ? "No more spots!"
+                          ? "No more spots"
                           : totalTickets > spot.available
-                          ? "Not enough room!"
+                          ? "Not enough room"
                           : ""
                       }
                     >
