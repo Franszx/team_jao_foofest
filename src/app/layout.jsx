@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "FooFest 2024",
-  description: "The best festival in the world",
+  title: "FooFest",
+  description: "The biggest music festival in the world",
 };
 
 export default function RootLayout({ children }) {
