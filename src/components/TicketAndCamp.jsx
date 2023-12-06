@@ -6,6 +6,7 @@ function TicketAndCamp({
   selectedSpot,
   updateTickets,
   selectSpot,
+  ticketsReserved,
 }) {
   return (
     <div className=" h-full flex flex-col justify-between">

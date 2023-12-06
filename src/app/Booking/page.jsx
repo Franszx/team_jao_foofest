@@ -4,38 +4,61 @@ import TicketAndCamp from "@/components/TicketAndCamp";
 import Link from "next/link";
 
 function Booking() {
+  const url = "http://localhost:8080";
   const [currentSlide, setCurrentSlide] = useState(0);
+
   const [regularTickets, setRegularTickets] = useState(0);
   const [vipTickets, setVipTickets] = useState(0);
   const [totalTickets, setTotalTickets] = useState(0);
   const [totalPrice, setTotalPrice] = useState(99);
+
   const [allChoices, setAllChoices] = useState({});
 
   const [spots, setSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
 
+  const [countdown, setCountdown] = useState(300);
+  const [countdownInterval, setCountdownInterval] = useState(null);
+  const [minutes, setMinutes] = useState(5);
+  const [seconds, setSeconds] = useState(0);
+
+  const [ticketsReserved, setTicketsReserved] = useState(false);
+
+  // Function to update the number of tickets
   const updateTickets = (type, operation) => {
+    // Check if the ticket type is VIP
     const isVip = type === "vip";
+    // Get the current number of tickets based on the type
     const currentTickets = isVip ? vipTickets : regularTickets;
+    // Set the price based on the ticket type
     const price = isVip ? 1299 : 799;
 
+    // Check if the operation is to increase the number of tickets or decrease when there are tickets
     if (
       operation === "increase" ||
       (operation === "decrease" && currentTickets > 0)
     ) {
+      // Calculate the new number of tickets based on the operation
       const newTickets =
         operation === "increase" ? currentTickets + 1 : currentTickets - 1;
+      // Get the function to set the number of tickets based on the type
       const setTickets = isVip ? setVipTickets : setRegularTickets;
+      // Update the number of tickets
       setTickets(newTickets);
+      // Calculate the new total number of tickets based on the operation
       const newTotalTickets =
         totalTickets + (operation === "increase" ? 1 : -1);
+      // Update the total number of tickets
       setTotalTickets(newTotalTickets);
+      // Update the choices with the new number of tickets
       setAllChoices({
         ...allChoices,
         [type + "Tickets"]: newTickets,
         totalTickets: newTotalTickets,
       });
+      // Check if the total price is greater than 99 or the operation is to increase the number of tickets
       if (totalPrice > 99 || operation === "increase") {
+        // Update the total price based on the operation and the price of the ticket
         setTotalPrice(totalPrice + (operation === "increase" ? price : -price));
       }
     }
@@ -49,19 +72,89 @@ function Booking() {
     }
   }
 
+  function handleContinue() {
+    if (currentSlide === 0) {
+      changeSlide("next");
+      reserveSpot();
+    }
+  }
+
   function selectSpot(spot) {
     setSelectedSpot(spot);
     setAllChoices({ ...allChoices, spot });
   }
 
+  // This function is used to reserve a spot.
+  function reserveSpot() {
+    // It sends a PUT request to the server with the selected spot and the total number of tickets.
+    if (ticketsReserved) {
+      return;
+    }
+
+    fetch(`${url}/reserve-spot`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        area: selectedSpot,
+        amount: totalTickets,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // If the request is successful, it logs the response data,
+        // sets the ticketsReserved state to true,
+        // and starts a countdown interval.
+        console.log("Success:", data);
+        setTicketsReserved(true);
+        setCountdownInterval(
+          setInterval(() => {
+            // The countdown interval decreases the countdown state by 1 every second.
+            // When the countdown reaches 0, it clears the interval.
+            // It also updates the 'minutes' and 'seconds' states.
+            setCountdown((prevCountdown) => {
+              if (prevCountdown > 0) {
+                let minutes = Math.floor(prevCountdown / 60);
+                let seconds = prevCountdown % 60;
+                setMinutes(minutes);
+                setSeconds(seconds);
+                return prevCountdown - 1;
+              } else {
+                clearInterval(countdownInterval);
+                setMinutes(5);
+                setSeconds(0);
+                return 0;
+              }
+            });
+          }, 1000)
+        );
+      })
+      .catch((error) => {
+        // If there is an error, it logs the error.
+        console.error("Error:", error);
+      });
+  }
+
   useEffect(() => {
+    console.log(countdown);
+  }, [countdown]);
+
+  // This effect hook is used to check if the selected spot can accommodate the total tickets.
+  // If the selected spot cannot accommodate the total tickets or if the total tickets is zero,
+  // it will reset the selected spot and remove the spot from all choices.
+  useEffect(() => {
+    // Find the details of the selected spot from the spots array.
     const selectedSpotDetails = spots.find(
       (spot) => spot.area === selectedSpot
     );
+    // Check if the selected spot can accommodate the total tickets or if the total tickets is zero.
     if (
       (selectedSpotDetails && totalTickets > selectedSpotDetails.available) ||
       totalTickets === 0
     ) {
+      // If the selected spot cannot accommodate the total tickets or if the total tickets is zero,
+      // reset the selected spot and remove the spot from all choices.
       setSelectedSpot(null);
       setAllChoices((prevChoices) => {
         const newChoices = { ...prevChoices };
@@ -71,21 +164,23 @@ function Booking() {
     }
   }, [totalTickets, selectedSpot, spots]);
 
+  // This effect hook is used to fetch the available spots from the server.
+  // It runs once when the component mounts and then every 30 seconds.
   useEffect(() => {
-    console.log(allChoices);
-  }, [allChoices]);
-
-  useEffect(() => {
+    // Define a function to fetch the available spots from the server.
     const fetchSpots = () => {
-      fetch("http://localhost:8080/available-spots")
+      fetch(`${url}/available-spots`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          // Update the state with the fetched spots.
           setSpots(data);
         });
     };
+    // Call the fetchSpots function immediately when the component mounts.
     fetchSpots();
-    const interval = setInterval(fetchSpots, 30000);
+    // Set an interval to call the fetchSpots function every 30 seconds.
+    const interval = setInterval(fetchSpots, 30);
+    // Clean up the interval when the component unmounts.
     return () => clearInterval(interval);
   }, []);
 
@@ -102,6 +197,7 @@ function Booking() {
               selectedSpot={selectedSpot}
               updateTickets={updateTickets}
               selectSpot={selectSpot}
+              ticketsReserved={ticketsReserved}
             />
           )) ||
             (currentSlide === 1 && (
@@ -173,7 +269,7 @@ function Booking() {
               } font-medium text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 `}
               onClick={() => {
                 if (totalTickets > 0 && selectedSpot) {
-                  changeSlide("next");
+                  handleContinue();
                 }
               }}
             >
@@ -304,11 +400,23 @@ function Booking() {
               </div>
             </div>
           </div>
-          <div className=" divider hidden md:flex "></div>
+          <div className=" divider hidden md:flex"></div>
           <div className="font-medium flex flex-row md:flex-col gap-2 md:gap-0">
             <p className="text-gray-400">Total</p>
             <p>{totalPrice} DKK</p>
           </div>
+          {ticketsReserved && (
+            <div className="font-medium">
+              <p className="text-gray-400">Tickets Reserved</p>
+              <span class="countdown">
+                <span style={{ "--value": minutes }}> :</span>
+              </span>
+              <span>:</span>
+              <span class="countdown">
+                <span style={{ "--value": seconds }}></span>
+              </span>
+            </div>
+          )}
         </div>
       </section>
     </main>
