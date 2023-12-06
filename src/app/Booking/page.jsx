@@ -2,6 +2,13 @@
 import { useState, useEffect } from "react";
 import TicketAndCamp from "@/components/TicketAndCamp";
 import Link from "next/link";
+import {
+  IconCash,
+  IconFlag,
+  IconInfoCircle,
+  IconTicket,
+  IconVip,
+} from "@tabler/icons-react";
 
 function Booking() {
   const url = "http://localhost:8080";
@@ -17,21 +24,29 @@ function Booking() {
   const [spots, setSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
 
+  const [greenCamping, setGreenCamping] = useState(false);
+
   const [countdown, setCountdown] = useState(300);
   const [countdownInterval, setCountdownInterval] = useState(null);
   const [minutes, setMinutes] = useState(5);
   const [seconds, setSeconds] = useState(0);
+  const [isPulsing, setIsPulsing] = useState(false);
 
   const [ticketsReserved, setTicketsReserved] = useState(false);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // Function to update the number of tickets
   const updateTickets = (type, operation) => {
+    if (ticketsReserved === true) {
+      setIsModalOpen(true);
+      return;
+    }
     // Check if the ticket type is VIP
     const isVip = type === "vip";
     // Get the current number of tickets based on the type
     const currentTickets = isVip ? vipTickets : regularTickets;
     // Set the price based on the ticket type
-    const price = isVip ? 1299 : 799;
 
     // Check if the operation is to increase the number of tickets or decrease when there are tickets
     if (
@@ -46,21 +61,6 @@ function Booking() {
       // Update the number of tickets
       setTickets(newTickets);
       // Calculate the new total number of tickets based on the operation
-      const newTotalTickets =
-        totalTickets + (operation === "increase" ? 1 : -1);
-      // Update the total number of tickets
-      setTotalTickets(newTotalTickets);
-      // Update the choices with the new number of tickets
-      setAllChoices({
-        ...allChoices,
-        [type + "Tickets"]: newTickets,
-        totalTickets: newTotalTickets,
-      });
-      // Check if the total price is greater than 99 or the operation is to increase the number of tickets
-      if (totalPrice > 99 || operation === "increase") {
-        // Update the total price based on the operation and the price of the ticket
-        setTotalPrice(totalPrice + (operation === "increase" ? price : -price));
-      }
     }
   };
 
@@ -76,21 +76,33 @@ function Booking() {
     if (currentSlide === 0) {
       changeSlide("next");
       reserveSpot();
+    } else {
+      changeSlide("next");
     }
   }
 
+  function handleModalClose() {
+    setIsModalOpen(false);
+  }
+
+  function handleModalConfirm() {
+    resetCountdown();
+    setIsModalOpen(false);
+  }
+
   function selectSpot(spot) {
-    setSelectedSpot(spot);
-    setAllChoices({ ...allChoices, spot });
+    if (ticketsReserved === true) {
+      setIsModalOpen(true);
+    } else {
+      setSelectedSpot(spot);
+    }
   }
 
   // This function is used to reserve a spot.
   function reserveSpot() {
-    // It sends a PUT request to the server with the selected spot and the total number of tickets.
     if (ticketsReserved) {
       return;
     }
-
     fetch(`${url}/reserve-spot`, {
       method: "PUT",
       headers: {
@@ -108,6 +120,8 @@ function Booking() {
         // and starts a countdown interval.
         console.log("Success:", data);
         setTicketsReserved(true);
+        setIsPulsing(true);
+        setTimeout(() => setIsPulsing(false), 4000);
         setCountdownInterval(
           setInterval(() => {
             // The countdown interval decreases the countdown state by 1 every second.
@@ -136,56 +150,84 @@ function Booking() {
       });
   }
 
-  useEffect(() => {
-    console.log(countdown);
-  }, [countdown]);
+  function resetCountdown() {
+    setCountdown(300);
+    setMinutes(5);
+    setSeconds(0);
+    clearInterval(countdownInterval);
+    setCountdownInterval(null);
+    setTicketsReserved(false);
+  }
 
-  // This effect hook is used to check if the selected spot can accommodate the total tickets.
-  // If the selected spot cannot accommodate the total tickets or if the total tickets is zero,
-  // it will reset the selected spot and remove the spot from all choices.
   useEffect(() => {
-    // Find the details of the selected spot from the spots array.
     const selectedSpotDetails = spots.find(
       (spot) => spot.area === selectedSpot
     );
-    // Check if the selected spot can accommodate the total tickets or if the total tickets is zero.
+
     if (
       (selectedSpotDetails && totalTickets > selectedSpotDetails.available) ||
       totalTickets === 0
     ) {
-      // If the selected spot cannot accommodate the total tickets or if the total tickets is zero,
-      // reset the selected spot and remove the spot from all choices.
       setSelectedSpot(null);
-      setAllChoices((prevChoices) => {
-        const newChoices = { ...prevChoices };
-        delete newChoices.spot;
-        return newChoices;
-      });
     }
   }, [totalTickets, selectedSpot, spots]);
 
-  // This effect hook is used to fetch the available spots from the server.
-  // It runs once when the component mounts and then every 30 seconds.
   useEffect(() => {
-    // Define a function to fetch the available spots from the server.
     const fetchSpots = () => {
       fetch(`${url}/available-spots`)
         .then((res) => res.json())
         .then((data) => {
-          // Update the state with the fetched spots.
           setSpots(data);
         });
     };
-    // Call the fetchSpots function immediately when the component mounts.
     fetchSpots();
-    // Set an interval to call the fetchSpots function every 30 seconds.
     const interval = setInterval(fetchSpots, 30);
-    // Clean up the interval when the component unmounts.
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    let totalPrice = regularTickets * 799 + vipTickets * 1299;
+    setTotalTickets(regularTickets + vipTickets);
+    if (greenCamping) {
+      totalPrice += 249;
+    }
+    setTotalPrice(totalPrice);
+    setAllChoices({
+      regularTickets: regularTickets,
+      vipTickets: vipTickets,
+      totalTickets: totalTickets,
+      area: selectedSpot,
+      greenCamping: greenCamping,
+      totalPrice: totalPrice,
+    });
+  }, [regularTickets, vipTickets, selectedSpot, greenCamping, totalTickets]);
+
+  useEffect(() => {
+    console.log(allChoices);
+  }, [allChoices]);
+
   return (
     <main className="md:container mx-auto  flex flex-col justify-center items-center h-screen w-screen">
+      <dialog
+        id="my_modal_1"
+        className={isModalOpen ? "modal modal-open" : "modal"}
+      >
+        <div className="modal-box bg-gray-800">
+          <h3 className="font-bold text-lg">Warning!</h3>
+          <p className="py-4">
+            Changing this will reset your reservation. Are you sure you want to
+            continue?
+          </p>
+          <div className="modal-action font-medium">
+            <button className="btn btn-neutral" onClick={handleModalClose}>
+              Cancel
+            </button>
+            <button className="btn btn-primary" onClick={handleModalConfirm}>
+              Confirm
+            </button>
+          </div>
+        </div>
+      </dialog>
       <section className="w-full h-full md:h-5/6 bg-gray-900 max-w-7xl flex flex-col md:flex-row md:rounded-xl overflow-hidden md:border border-gray-700 border-opacity-60">
         <div className="bg-gray-900 w-full md:w-7/12 h-full order-2 md:order-1 p-6 md:p-12 flex flex-col justify-between">
           {(currentSlide === 0 && (
@@ -201,6 +243,37 @@ function Booking() {
             />
           )) ||
             (currentSlide === 1 && (
+              <div className=" h-full flex flex-col justify-between">
+                <h1 className="font-medium text-lg">Tents & Options</h1>
+                <div className="flex flex-col justify-evenly flex-grow">
+                  <div className="place-self-center flex flex-col gap-4">
+                    <div className="flex items-center gap-6 w-60 justify-end">
+                      <div className="font-medium text-end space-y-1">
+                        <div className="flex gap-1">
+                          <h2 className="text-gray-400">Green Camping</h2>
+                          <div
+                            className="tooltip"
+                            data-tip="
+                        Support the environment by choosing a green camping spot.
+                        "
+                          >
+                            <IconInfoCircle color="rgb(156 163 175)" />
+                          </div>
+                        </div>
+                        <p>249 DKK</p>
+                      </div>
+                      <input
+                        type="checkbox"
+                        className="toggle toggle-primary"
+                        onChange={() => setGreenCamping(!greenCamping)}
+                        checked={greenCamping}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )) ||
+            (currentSlide === 2 && (
               <div className=" h-full flex flex-col justify-between">
                 <h1 className="font-medium text-lg">Tickets Holders</h1>
                 <div className="flex flex-col justify-evenly flex-grow">
@@ -282,23 +355,7 @@ function Booking() {
           <div className="space-y-6 font-medium hidden md:block">
             <div className="flex items-center gap-3">
               <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-cash"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M7 9m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z" />
-                  <path d="M14 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                  <path d="M17 9v-2a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v6a2 2 0 0 0 2 2h2" />
-                </svg>
+                <IconCash />
               </div>
               <div className="flex flex-col">
                 <p className="text-gray-400">Booking Fee</p>
@@ -310,24 +367,7 @@ function Booking() {
 
             <div className="flex items-center gap-3">
               <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-ticket"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M15 5l0 2" />
-                  <path d="M15 11l0 2" />
-                  <path d="M15 17l0 2" />
-                  <path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2" />
-                </svg>
+                <IconTicket />
               </div>
               <div className="flex flex-col">
                 <p className="text-gray-400">Regular Tickets</p>
@@ -341,25 +381,7 @@ function Booking() {
             </div>
             <div className="flex items-center gap-3">
               <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-vip"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M3 5h18" />
-                  <path d="M3 19h18" />
-                  <path d="M4 9l2 6h1l2 -6" />
-                  <path d="M12 9v6" />
-                  <path d="M16 15v-6h2a2 2 0 1 1 0 4h-2" />
-                </svg>
+                <IconVip />
               </div>
               <div className="flex flex-col">
                 <p className="text-gray-400">VIP Tickets</p>
@@ -373,22 +395,7 @@ function Booking() {
             </div>
             <div className="flex items-center gap-3">
               <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-flag"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M5 5a5 5 0 0 1 7 0a5 5 0 0 0 7 0v9a5 5 0 0 1 -7 0a5 5 0 0 0 -7 0v-9z" />
-                  <path d="M5 21v-7" />
-                </svg>
+                <IconFlag />
               </div>
               <div className="flex flex-col">
                 <p className="text-gray-400">Selected Camp</p>
@@ -406,8 +413,10 @@ function Booking() {
             <p>{totalPrice} DKK</p>
           </div>
           {ticketsReserved && (
-            <div className="font-medium">
-              <p className="text-gray-400">Tickets Reserved</p>
+            <div className={`font-medium ${isPulsing ? " animate-pulse" : ""}`}>
+              <p className="text-gray-400">
+                {totalTickets > 1 ? "Tickets Reserved" : "Ticket Reserved"}
+              </p>
               <span class="countdown">
                 <span style={{ "--value": minutes }}> :</span>
               </span>
