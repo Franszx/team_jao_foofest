@@ -25,14 +25,14 @@ export default function Hero() {
   return (
     <div className="hero flex flex-col lg:my-16">
       <div className="hero-content text-center">
-        <ul className="flex flex-wrap font-sans justify-center  gap-4 text-4xl lg:text-6xl w-fit font-extrabold text-transparent tracking-tight lg:tracking-tighter lg:leading-58 ">
+        <ul className="flex flex-wrap font-sans justify-center  gap-4 text-4xl lg:text-6xl w-fit font-extrabold tracking-tight lg:tracking-normal">
           {pages1.map((band, index, array) => {
             return (
               <>
                 <li key={band.slug}>
                   <Link
                     href={`/artist/${band.slug}`}
-                    className="  hover:text-gray-50 transition-colors text-stroke-1"
+                    className=" text-gray-950  hover:text-gray-50 transition text-stroke-1 hover:text-stroke-0"
                   >
                     {band.name}
                   </Link>
