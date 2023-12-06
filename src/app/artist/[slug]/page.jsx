@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import PlayingWhen from "@/components/PlayingWhen";
 import Image from "next/image";
 
@@ -36,6 +37,7 @@ export default async function Page({ params }) {
 
   return (
     <>
+      <Header />
       {bands
         .filter((band) => band.slug === slug)
         .map((band) => (
