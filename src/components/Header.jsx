@@ -1,37 +1,52 @@
 "use client";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import BuyButton from "./BuyButton";
 import Image from "next/image";
 
-function Header() {
-  return (
-    <header className="flex justify-center items-center gap-8 py-12 px-6 absolute top-0 w-full z-50">
-      <div className="flex justify-between items-center w-full max-w-5xl">
-        <Link href="/">
-          <Image
-            className="w-32 lg:w-82"
-            src="/foofest-logo.svg"
-            height="200"
-            width="200"
-            alt="logo"
-          />
-        </Link>
+export default function Header() {
+  const [isDesktopOrLaptop, setIsDesktopOrLaptop] = useState(false);
 
-        <nav className="hidden lg:flex font-medium text-sm">
-          <ul className="flex space-x-8">
-            <li>
-              <Link href="/schedule">Schedule</Link>
-            </li>
-          </ul>
-        </nav>
+  useEffect(() => {
+    const isDesktopOrLaptopQuery = window.matchMedia("(min-width: 1224px)");
+    setIsDesktopOrLaptop(isDesktopOrLaptopQuery.matches);
+    const listener = () => setIsDesktopOrLaptop(isDesktopOrLaptopQuery.matches);
+    isDesktopOrLaptopQuery.addListener(listener);
+    return () => isDesktopOrLaptopQuery.removeListener(listener);
+  }, []);
+
+  return (
+    <header className="container mx-auto max-w-6xl px-6">
+      <div className="flex justify-center items-center py-4 px-4 mt-8 lg:mt-16 ">
+        <div className="flex justify-between items-center w-full max-w-5xl">
+          <div className="w-32 lg:w-60">
+            <Image src="./foofest-logo.svg" height="500" width="500" alt="logo" />
+          </div>
+
+          {isDesktopOrLaptop && (
+            <nav className="flex ml-4">
+              <ul className="flex space-x-6">
+                <li>
+                  <Link className="font-extralight" href="/schedule">
+                    Schedule
+                  </Link>
+                </li>
+                <li>
+                  <Link className="font-extralight" href="/">
+                    Stages
+                  </Link>
+                </li>
+                <li>
+                  <Link className="font-extralight" href="/">
+                    About FF
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          )}
+        </div>
+        <BuyButton />
       </div>
-      <Link
-        href="/booking"
-        className="btn  bg-primary hover:bg-emerald-500 border-emerald-500 hover:border-emerald-400 text-emerald-100 font-medium  w-fit whitespace-nowrap"
-      >
-        Buy Tickets
-      </Link>
     </header>
   );
 }
-
-export default Header;
