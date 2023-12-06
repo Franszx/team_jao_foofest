@@ -7,7 +7,12 @@ import {
   IconFlag,
   IconInfoCircle,
   IconTicket,
+  IconTrees,
   IconVip,
+  IconMinus,
+  IconPlus,
+  IconTent,
+  IconBuildingCircus,
 } from "@tabler/icons-react";
 
 function Booking() {
@@ -16,14 +21,21 @@ function Booking() {
 
   const [regularTickets, setRegularTickets] = useState(0);
   const [vipTickets, setVipTickets] = useState(0);
+  const [ticketHolders, setTicketHolders] = useState({
+    regular: [],
+    vip: [],
+  });
+
   const [totalTickets, setTotalTickets] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(99);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const [allChoices, setAllChoices] = useState({});
 
   const [spots, setSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
 
+  const [twoPersonTents, setTwoPersonTents] = useState(0);
+  const [threePersonTents, setThreePersonTents] = useState(0);
   const [greenCamping, setGreenCamping] = useState(false);
 
   const [countdown, setCountdown] = useState(300);
@@ -36,33 +48,36 @@ function Booking() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Function to update the number of tickets
   const updateTickets = (type, operation) => {
     if (ticketsReserved === true) {
       setIsModalOpen(true);
       return;
     }
-    // Check if the ticket type is VIP
     const isVip = type === "vip";
-    // Get the current number of tickets based on the type
     const currentTickets = isVip ? vipTickets : regularTickets;
-    // Set the price based on the ticket type
-
-    // Check if the operation is to increase the number of tickets or decrease when there are tickets
     if (
       operation === "increase" ||
       (operation === "decrease" && currentTickets > 0)
     ) {
-      // Calculate the new number of tickets based on the operation
       const newTickets =
         operation === "increase" ? currentTickets + 1 : currentTickets - 1;
-      // Get the function to set the number of tickets based on the type
       const setTickets = isVip ? setVipTickets : setRegularTickets;
-      // Update the number of tickets
       setTickets(newTickets);
-      // Calculate the new total number of tickets based on the operation
     }
   };
+
+  function updateTents(type, operation) {
+    const currentTents = type === "two" ? twoPersonTents : threePersonTents;
+    if (
+      operation === "increase" ||
+      (operation === "decrease" && currentTents > 0)
+    ) {
+      const newTents =
+        operation === "increase" ? currentTents + 1 : currentTents - 1;
+      const setTents = type === "two" ? setTwoPersonTents : setThreePersonTents;
+      setTents(newTents);
+    }
+  }
 
   function changeSlide(direction) {
     if (direction === "next") {
@@ -98,7 +113,6 @@ function Booking() {
     }
   }
 
-  // This function is used to reserve a spot.
   function reserveSpot() {
     if (ticketsReserved) {
       return;
@@ -115,18 +129,12 @@ function Booking() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // If the request is successful, it logs the response data,
-        // sets the ticketsReserved state to true,
-        // and starts a countdown interval.
         console.log("Success:", data);
         setTicketsReserved(true);
         setIsPulsing(true);
-        setTimeout(() => setIsPulsing(false), 4000);
+        setTimeout(() => setIsPulsing(false), 3800);
         setCountdownInterval(
           setInterval(() => {
-            // The countdown interval decreases the countdown state by 1 every second.
-            // When the countdown reaches 0, it clears the interval.
-            // It also updates the 'minutes' and 'seconds' states.
             setCountdown((prevCountdown) => {
               if (prevCountdown > 0) {
                 let minutes = Math.floor(prevCountdown / 60);
@@ -145,7 +153,6 @@ function Booking() {
         );
       })
       .catch((error) => {
-        // If there is an error, it logs the error.
         console.error("Error:", error);
       });
   }
@@ -157,6 +164,8 @@ function Booking() {
     clearInterval(countdownInterval);
     setCountdownInterval(null);
     setTicketsReserved(false);
+    setSelectedSpot(null);
+    setTicketHolders({ regular: [], vip: [] });
   }
 
   useEffect(() => {
@@ -185,8 +194,15 @@ function Booking() {
     return () => clearInterval(interval);
   }, []);
 
+  // Update the choices object whenever the user changes their choices
   useEffect(() => {
-    let totalPrice = regularTickets * 799 + vipTickets * 1299;
+    let bookingFee = 99;
+    let totalPrice =
+      regularTickets * 799 +
+      vipTickets * 1299 +
+      bookingFee +
+      twoPersonTents * 299 +
+      threePersonTents * 399;
     setTotalTickets(regularTickets + vipTickets);
     if (greenCamping) {
       totalPrice += 249;
@@ -199,8 +215,20 @@ function Booking() {
       area: selectedSpot,
       greenCamping: greenCamping,
       totalPrice: totalPrice,
+      twoPersonTents: twoPersonTents,
+      threePersonTents: threePersonTents,
+      ticketHolders: ticketHolders,
     });
-  }, [regularTickets, vipTickets, selectedSpot, greenCamping, totalTickets]);
+  }, [
+    regularTickets,
+    vipTickets,
+    selectedSpot,
+    greenCamping,
+    totalTickets,
+    twoPersonTents,
+    threePersonTents,
+    ticketHolders,
+  ]);
 
   useEffect(() => {
     console.log(allChoices);
@@ -210,25 +238,31 @@ function Booking() {
     <main className="md:container mx-auto  flex flex-col justify-center items-center h-screen w-screen">
       <dialog
         id="my_modal_1"
-        className={isModalOpen ? "modal modal-open" : "modal"}
+        className={isModalOpen ? "modal modal-open " : "modal"}
       >
-        <div className="modal-box bg-gray-800">
+        <div className="modal-box bg-gray-800 border border-gray-700 rounded-lg">
           <h3 className="font-bold text-lg">Warning!</h3>
           <p className="py-4">
-            Changing this will reset your reservation. Are you sure you want to
-            continue?
+            Changing your order will reset your reservation. <br></br>Are you
+            sure you want to continue?
           </p>
           <div className="modal-action font-medium">
-            <button className="btn btn-neutral" onClick={handleModalClose}>
+            <button
+              className="btn btn-neutral font-medium text-base rounded py-1 px-4 w-fit"
+              onClick={handleModalClose}
+            >
               Cancel
             </button>
-            <button className="btn btn-primary" onClick={handleModalConfirm}>
+            <button
+              className="btn btn-primary font-medium text-emerald-100 text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400"
+              onClick={handleModalConfirm}
+            >
               Confirm
             </button>
           </div>
         </div>
       </dialog>
-      <section className="w-full h-full md:h-5/6 bg-gray-900 max-w-7xl flex flex-col md:flex-row md:rounded-xl overflow-hidden md:border border-gray-700 border-opacity-60">
+      <section className="w-full h-full md:h-5/6 bg-gray-900 max-w-7xl flex flex-col md:flex-row md:rounded-xl overflow-hidden md:border border-gray-700 border-opacity-60 relative">
         <div className="bg-gray-900 w-full md:w-7/12 h-full order-2 md:order-1 p-6 md:p-12 flex flex-col justify-between">
           {(currentSlide === 0 && (
             <TicketAndCamp
@@ -246,8 +280,64 @@ function Booking() {
               <div className=" h-full flex flex-col justify-between">
                 <h1 className="font-medium text-lg">Tents & Options</h1>
                 <div className="flex flex-col justify-evenly flex-grow">
-                  <div className="place-self-center flex flex-col gap-4">
-                    <div className="flex items-center gap-6 w-60 justify-end">
+                  <div className="place-self-center flex flex-col gap-12">
+                    <div className="flex items-center gap-5 justify-end">
+                      <div className="font-medium text-end">
+                        <h2 className="text-gray-400 whitespace-nowrap">
+                          2 Person Tent
+                        </h2>
+                        <p>299 DKK</p>
+                      </div>
+                      <div className="flex items-center w-32 justify-between font-medium">
+                        <button
+                          className="bg-neutral text-gray-100 font-medium text-base p-2 rounded-full w-fit border border-gray-500 hover:bg-gray-600 hover:border-gray-500 transition-colors"
+                          onClick={() => updateTents("two", "decrease")}
+                        >
+                          <IconMinus />
+                        </button>
+                        <p>{twoPersonTents}</p>
+
+                        <button
+                          className={`  font-medium text-base p-2 rounded-full w-fit border transition-colors ${
+                            totalTickets >= 8
+                              ? "btn-disabled bg-gray-800 border-gray-800 stroke-gray-800"
+                              : "bg-primary text-emerald-100 border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 "
+                          }`}
+                          onClick={() => updateTents("two", "increase")}
+                        >
+                          <IconPlus />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-5 justify-end">
+                      <div className="font-medium text-end">
+                        <h2 className="text-gray-400 whitespace-nowrap">
+                          3 Person Tent
+                        </h2>
+                        <p>399 DKK</p>
+                      </div>
+                      <div className="flex items-center w-32 justify-between font-medium">
+                        <button
+                          className="bg-neutral text-gray-100 font-medium text-base p-2 rounded-full w-fit border border-gray-500 hover:bg-gray-600 hover:border-gray-500 transition-colors"
+                          onClick={() => updateTents("three", "decrease")}
+                        >
+                          <IconMinus />
+                        </button>
+                        <p>{threePersonTents}</p>
+
+                        <button
+                          className={`  font-medium text-base p-2 rounded-full w-fit border transition-colors ${
+                            totalTickets >= 8
+                              ? "btn-disabled bg-gray-800 border-gray-800 stroke-gray-800"
+                              : "bg-primary text-emerald-100 border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 "
+                          }`}
+                          onClick={() => updateTents("three", "increase")}
+                        >
+                          <IconPlus />
+                        </button>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-5  justify-end">
                       <div className="font-medium text-end space-y-1">
                         <div className="flex gap-1">
                           <h2 className="text-gray-400">Green Camping</h2>
@@ -278,7 +368,7 @@ function Booking() {
                 <h1 className="font-medium text-lg">Tickets Holders</h1>
                 <div className="flex flex-col justify-evenly flex-grow">
                   <div className="place-self-center flex flex-col gap-4">
-                    <form className=" w-full space-y-6">
+                    <form className=" w-full space-y-5">
                       {regularTickets > 0 && (
                         <div>
                           <h2 className="mb-3 font-medium text-lg">
@@ -291,6 +381,18 @@ function Booking() {
                                 type="text"
                                 placeholder={`Regular Ticket ${i + 1}`}
                                 className="input input-bordered bg-neutral w-full"
+                                onChange={(e) => {
+                                  let newRegularTicketHolders = [
+                                    ...ticketHolders.regular,
+                                  ];
+                                  newRegularTicketHolders[i] = e.target.value;
+                                  const newTicketHolders = {
+                                    ...ticketHolders,
+                                    regular: newRegularTicketHolders,
+                                  };
+                                  setTicketHolders(newTicketHolders);
+                                }}
+                                value={ticketHolders.regular[i]}
                               />
                             ))}
                           </div>
@@ -308,6 +410,18 @@ function Booking() {
                                 type="text"
                                 placeholder={`VIP Ticket ${i + 1}`}
                                 className="input input-bordered bg-neutral w-full"
+                                onChange={(e) => {
+                                  let newVipTicketHolders = [
+                                    ...ticketHolders.vip,
+                                  ];
+                                  newVipTicketHolders[i] = e.target.value;
+                                  const newTicketHolders = {
+                                    ...ticketHolders,
+                                    vip: newVipTicketHolders,
+                                  };
+                                  setTicketHolders(newTicketHolders);
+                                }}
+                                value={ticketHolders.vip[i]}
                               />
                             ))}
                           </div>
@@ -336,12 +450,28 @@ function Booking() {
             )}
             <button
               className={`btn ${
-                totalTickets > 0 && selectedSpot
+                totalTickets > 0 &&
+                selectedSpot &&
+                !(
+                  currentSlide === 2 &&
+                  ticketHolders.regular.filter(Boolean).length +
+                    ticketHolders.vip.filter(Boolean).length !==
+                    totalTickets
+                )
                   ? "bg-primary text-emerald-100"
                   : "btn-disabled"
               } font-medium text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 `}
               onClick={() => {
-                if (totalTickets > 0 && selectedSpot) {
+                if (
+                  totalTickets > 0 &&
+                  selectedSpot &&
+                  !(
+                    currentSlide === 2 &&
+                    ticketHolders.regular.filter(Boolean).length +
+                      ticketHolders.vip.filter(Boolean).length !==
+                      totalTickets
+                  )
+                ) {
                   handleContinue();
                 }
               }}
@@ -350,82 +480,146 @@ function Booking() {
             </button>
           </div>
         </div>
-        <div className="bg-gray-800 bg-opacity-70 h-24 md:h-full w-full md:w-5/12 flex flex-row md:flex-col justify-start items-center md:items-start gap-6 order-1 md:order-2 md:border-l border-l-gray-700 border-opacity-60 p-6 md:p-12">
-          <h1 className="font-medium text-lg">Order Summary</h1>
-          <div className="space-y-6 font-medium hidden md:block">
-            <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
-                <IconCash />
+        <div className="bg-gray-800 bg-opacity-70 h-24 md:h-full w-full md:w-5/12 flex flex-row md:flex-col justify-between items-center md:items-start gap-5 order-1 md:order-2 md:border-l border-l-gray-700 border-opacity-60 p-6 md:p-12">
+          <div className="space-y-5">
+            <h1 className="font-medium text-lg">Order Summary</h1>
+            <div className="space-y-5 font-medium hidden md:block">
+              <div className="flex items-center gap-3">
+                <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
+                  <IconCash />
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-gray-400">Booking Fee</p>
+                  <p className="text-gray-50">
+                    <span>99</span> DKK
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <p className="text-gray-400">Booking Fee</p>
-                <p className="text-gray-50">
-                  <span>99</span> DKK
-                </p>
-              </div>
-            </div>
+              {regularTickets > 0 && (
+                <div className="flex items-center gap-3">
+                  <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
+                    <IconTicket />
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="text-gray-400">Regular Tickets</p>
+                    <p className="text-gray-50">
+                      <span>
+                        799 DKK{" "}
+                        <span className="text-gray-400">
+                          * {regularTickets}
+                        </span>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              )}
+              {vipTickets > 0 && (
+                <div className="flex items-center gap-3">
+                  <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
+                    <IconVip />
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="text-gray-400">VIP Tickets</p>
+                    <p className="text-gray-50">
+                      <span>
+                        1299 DKK{" "}
+                        <span className="text-gray-400">* {vipTickets}</span>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              )}
 
-            <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
-                <IconTicket />
+              <div className="flex items-center gap-3">
+                <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
+                  <IconFlag />
+                </div>
+                <div className="flex flex-col">
+                  <p className="text-gray-400">Selected Camp</p>
+                  <p className="text-gray-50">
+                    <span>
+                      {selectedSpot ? selectedSpot : "No camp selected"}
+                    </span>
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-col">
-                <p className="text-gray-400">Regular Tickets</p>
-                <p className="text-gray-50">
-                  <span>
-                    799 DKK{" "}
-                    <span className="text-gray-400">* {regularTickets}</span>
-                  </span>
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                <IconVip />
-              </div>
-              <div className="flex flex-col">
-                <p className="text-gray-400">VIP Tickets</p>
-                <p className="text-gray-50">
-                  <span>
-                    1299 DKK{" "}
-                    <span className="text-gray-400">* {vipTickets}</span>
-                  </span>
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                <IconFlag />
-              </div>
-              <div className="flex flex-col">
-                <p className="text-gray-400">Selected Camp</p>
-                <p className="text-gray-50">
-                  <span>
-                    {selectedSpot ? selectedSpot : "No camp selected"}
-                  </span>
-                </p>
-              </div>
+              {greenCamping && (
+                <div className="flex items-center gap-3">
+                  <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
+                    <IconTrees />
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="text-gray-400">Green Camping</p>
+                    <p className="text-gray-50">
+                      <span>249 DKK</span>
+                    </p>
+                  </div>
+                </div>
+              )}
+              {twoPersonTents > 0 && (
+                <div className="flex items-center gap-3">
+                  <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
+                    <IconTent />
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="text-gray-400">2 Person Tents</p>
+                    <p className="text-gray-50">
+                      <span>
+                        299 DKK{" "}
+                        <span className="text-gray-400">
+                          * {twoPersonTents}
+                        </span>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              )}
+              {threePersonTents > 0 && (
+                <div className="flex items-center gap-3">
+                  <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
+                    <IconBuildingCircus />
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="text-gray-400">3 Person Tents</p>
+                    <p className="text-gray-50">
+                      <span>
+                        399 DKK{" "}
+                        <span className="text-gray-400">
+                          * {threePersonTents}
+                        </span>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-          <div className=" divider hidden md:flex"></div>
-          <div className="font-medium flex flex-row md:flex-col gap-2 md:gap-0">
-            <p className="text-gray-400">Total</p>
-            <p>{totalPrice} DKK</p>
-          </div>
-          {ticketsReserved && (
-            <div className={`font-medium ${isPulsing ? " animate-pulse" : ""}`}>
-              <p className="text-gray-400">
-                {totalTickets > 1 ? "Tickets Reserved" : "Ticket Reserved"}
-              </p>
-              <span class="countdown">
-                <span style={{ "--value": minutes }}> :</span>
-              </span>
-              <span>:</span>
-              <span class="countdown">
-                <span style={{ "--value": seconds }}></span>
-              </span>
+          <div className="w-full h-fit space-y-5 ">
+            <div className=" divider mt-0 hidden md:flex "></div>
+
+            {ticketsReserved && (
+              <div
+                className={`hidden md:block font-medium ${
+                  isPulsing ? " animate-pulse" : ""
+                }`}
+              >
+                <p className="text-gray-400">
+                  {totalTickets > 1 ? "Tickets Reserved" : "Ticket Reserved"}
+                </p>
+                <span className="countdown">
+                  <span style={{ "--value": minutes }}> :</span>
+                </span>
+                <span>:</span>
+                <span className="countdown">
+                  <span style={{ "--value": seconds }}></span>
+                </span>
+              </div>
+            )}
+            <div className="font-medium flex flex-row md:flex-col gap-2 md:gap-0">
+              <p className="text-gray-400">Total</p>
+              <p>{totalPrice} DKK</p>
             </div>
-          )}
+          </div>
         </div>
       </section>
     </main>
