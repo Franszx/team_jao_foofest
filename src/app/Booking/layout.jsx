@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "FooFest Billetter",
-  description: "Køb billetter til FooFest 2024",
+  title: "FooFest Tickets",
+  description: "Buy tickets for FooFest 2024",
 };
 
 export default function RootLayout({ children }) {
