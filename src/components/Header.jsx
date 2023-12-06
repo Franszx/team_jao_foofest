@@ -19,7 +19,7 @@ function Header() {
         <nav className="hidden lg:flex font-medium text-sm">
           <ul className="flex space-x-8">
             <li>
-              <Link href="/">Schedule</Link>
+              <Link href="/schedule">Schedule</Link>
             </li>
           </ul>
         </nav>
