@@ -28,8 +28,8 @@ export default function CampOverview() {
 			<h2 className="text-gray-600 mb-4">
 				<span className="text-xl text-gray-50">Camp Map</span> & Avaliable Spots
 			</h2>
-			<div className="md:grid md:grid-cols-3 md:gap-6">
-				<div className="hidden md:flex md:flex-col md:items-center">
+			<div className="md:grid md:grid-cols-3 md:gap-6 md:place-items-center">
+				<div className="hidden md:flex md:flex-col md:items-center md:w-full">
 					{dataCamps &&
 						dataCamps.map((camp) => {
 							return (
@@ -41,9 +41,11 @@ export default function CampOverview() {
 								/>
 							);
 						})}
-					<BuyButton />
+					<div className="mt-4">
+						<BuyButton />
+					</div>
 				</div>
-				<CampMap className="aspect-[4/5] md:col-start-2 md:col-end-4 md:aspect-[5/4]" />
+				<CampMap className="aspect-[4/5] md:col-start-2 md:col-end-4 md:aspect-[5/4] w-full" />
 				<div className="flex justify-center mt-24 md:hidden">
 					<BuyButton />
 				</div>
