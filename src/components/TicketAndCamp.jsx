@@ -25,7 +25,7 @@ function TicketAndCamp({
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="icon icon-tabler icon-tabler-minus"
+                    className="icon icon-tabler icon-tabler-minus"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -60,7 +60,7 @@ function TicketAndCamp({
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      class={`icon icon-tabler icon-tabler-plus ${
+                      className={`icon icon-tabler icon-tabler-plus ${
                         totalTickets >= 8 ? "stroke-gray-600" : "stroke-gray-50"
                       }`}
                       width="24"
@@ -92,7 +92,7 @@ function TicketAndCamp({
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="icon icon-tabler icon-tabler-minus"
+                    className="icon icon-tabler icon-tabler-minus"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -127,7 +127,7 @@ function TicketAndCamp({
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      class={`icon icon-tabler icon-tabler-plus ${
+                      className={`icon icon-tabler icon-tabler-plus ${
                         totalTickets >= 8 ? "stroke-gray-600" : "stroke-gray-50"
                       }`}
                       width="24"
