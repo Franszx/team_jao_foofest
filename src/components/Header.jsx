@@ -9,7 +9,13 @@ export default function Header() {
       <div className="flex justify-between items-center w-full max-w-7xl  mx-auto ">
         <div className="w-32 lg:w-60">
           <Link href="/">
-            <Image src="/foofest-logo.svg" height="500" width="500" alt="logo" className="w-36" />
+            <Image
+              src="/foofest-logo.svg"
+              height="500"
+              width="500"
+              alt="logo"
+              className="w-36"
+            />
           </Link>
         </div>
 
@@ -22,7 +28,7 @@ export default function Header() {
               <Link href="/">Stages</Link>
             </li>
             <li>
-              <Link href="/">About FF</Link>
+              <Link href="/about">About FF</Link>
             </li>
             <li>
               <BuyButton />
