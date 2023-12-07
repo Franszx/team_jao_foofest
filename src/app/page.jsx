@@ -14,7 +14,7 @@ export default function Home() {
     <>
       <Header />
       <BurgerMenu />
-      <main className="container mx-auto max-w-6xl px-6 mt-40">
+      <main className="container mx-auto max-w-6xl px-6 mt-40 flex flex-col gap-16">
         <Hero />
         <LiveArtists />
         <CampOverview />

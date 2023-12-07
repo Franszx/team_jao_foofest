@@ -86,7 +86,7 @@ export default function LiveArtists() {
   };
 
   return (
-    <>
+    <div>
       <h2 className="text-xl mb-3">Playing Now</h2>
       <div className="flex gap-4 md:justify-around overflow-x-scroll overflow-y-hidden snap-mandatory scrollbar-hide">
         {Object.keys(dataSchedule).map((scene) => {
@@ -102,7 +102,11 @@ export default function LiveArtists() {
             return (
               <ArtistCard
                 key={scene}
-                slug={bandName === "break" ? "/schedule" : `/artist/${bandInfo.slug}`}
+                slug={
+                  bandName === "break"
+                    ? "/schedule"
+                    : `/artist/${bandInfo.slug}`
+                }
                 scene={scene}
                 artist={currentAct.act}
                 time={currentAct.end}
@@ -118,6 +122,6 @@ export default function LiveArtists() {
           return null;
         })}
       </div>
-    </>
+    </div>
   );
 }
