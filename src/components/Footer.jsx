@@ -12,7 +12,7 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <Link className="text-sm lg:text-sm text-gray-300" href="/Booking">
+              <Link className="text-sm lg:text-sm text-gray-300" href="/booking">
                 Tickets
               </Link>
             </li>
