@@ -21,12 +21,11 @@ export default function ScheduleCard(props) {
         <div className="card-body">
           <h2 className="card-title">{props.scene}</h2>
           <p>{props.time}</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">{props.artist}</button>
-          </div>
+          <Link className="card-actions justify-end">
+            <button className="btn-primary">{props.artist}</button>
+          </Link>
         </div>
       </div>
-      <Bu
     </div>
   );
 }
