@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import ReactMapGl, { Marker, Popup } from "react-map-gl";
 import MapPin from "./MapPin";
+import PopUpContent from "./PopUpContent";
 
 export default function Map(props) {
 	const [viewPort, setViewPort] = useState({
@@ -72,12 +73,7 @@ export default function Map(props) {
 							setSelectedCamp(null);
 						}}
 					>
-						<div className="text-red-900">
-							<h2 className="text-xl font-semibold">{selectedCamp.area}</h2>
-							<p>
-								{selectedCamp.available} / {selectedCamp.spots}
-							</p>
-						</div>
+						<PopUpContent selectedCamp={selectedCamp} />
 					</Popup>
 				) : null}
 			</ReactMapGl>
