@@ -1,4 +1,6 @@
 import { IconMinus, IconPlus } from "@tabler/icons-react";
+import CampMap from "./CampMap";
+import { useState } from "react";
 
 function TicketAndCamp({
   regularTickets,
@@ -6,10 +8,15 @@ function TicketAndCamp({
   totalTickets,
   spots,
   selectedSpot,
+  setSelectedSpot,
   updateTickets,
-  selectSpot,
-  ticketsReserved,
 }) {
+  const [selectedCamp, setSelectedCamp] = useState(null);
+
+  function chooseSpot(selectedCamp) {
+    setSelectedSpot(selectedCamp);
+  }
+
   return (
     <div className=" h-full flex flex-col justify-between">
       <h1 className="font-medium text-lg">Tickets & Camp</h1>
@@ -99,54 +106,61 @@ function TicketAndCamp({
           </div>
         </div>
         {spots.length === 0 ? (
-          <div className="w-full flex justify-center items-center h-48">
+          <div className="w-full flex justify-center items-center h-64">
             <div className="loading loading-ring loading-xl"></div>
           </div>
         ) : (
-          <div>
-            <ul className="flex flex-wrap items-center gap-12 justify-center h-48 max-w-md mx-auto ">
-              {spots.map((spot) => (
-                <li
-                  key={spot.area}
-                  className="flex flex-col justify-center items-center gap-1 "
-                >
-                  <div
-                    className={`${
-                      totalTickets > 0 &&
-                      (spot.available === 0 || totalTickets > spot.available)
-                        ? "tooltip tooltip-accent"
-                        : ""
-                    }`}
-                    data-tip={
-                      spot.available === 0
-                        ? "No more spots"
-                        : totalTickets > spot.available
-                        ? "Not enough room"
-                        : ""
-                    }
-                  >
-                    <button
-                      className={`btn ${
-                        totalTickets > 0 && totalTickets <= spot.available
-                          ? selectedSpot === spot.area
-                            ? "bg-gray-500 text-gray-50 border-gray-400 hover:bg-gray-500 hover:border-gray-400"
-                            : "bg-neutral text-gray-50 border-gray-600 hover:bg-gray-600 hover:border-gray-500"
-                          : "btn-disabled"
-                      } font-medium text-base rounded py-1 px-4 w-fit border  `}
-                      onClick={() => selectSpot(spot.area)}
-                    >
-                      {spot.area}
-                    </button>
-                  </div>
-                  <p className="text-gray-400 text-sm font-medium">
-                    {spot.available === 1
-                      ? "1 Spot"
-                      : `${spot.available} Spots`}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <CampMap
+            selectedCamp={selectedCamp}
+            setSelectedCamp={setSelectedCamp}
+            chooseSpot={chooseSpot}
+            totalTickets={totalTickets}
+            className="aspect-[4/5] w-full md:col-start-2 md:col-end-4 md:aspect-[2/1]"
+          />
+          // <div>
+          //   <ul className="flex flex-wrap items-center gap-12 justify-center h-48 max-w-md mx-auto ">
+          //     {spots.map((spot) => (
+          //       <li
+          //         key={spot.area}
+          //         className="flex flex-col justify-center items-center gap-1 "
+          //       >
+          //         <div
+          //           className={`${
+          //             totalTickets > 0 &&
+          //             (spot.available === 0 || totalTickets > spot.available)
+          //               ? "tooltip tooltip-accent"
+          //               : ""
+          //           }`}
+          //           data-tip={
+          //             spot.available === 0
+          //               ? "No more spots"
+          //               : totalTickets > spot.available
+          //               ? "Not enough room"
+          //               : ""
+          //           }
+          //         >
+          //           <button
+          //             className={`btn ${
+          //               totalTickets > 0 && totalTickets <= spot.available
+          //                 ? selectedSpot === spot.area
+          //                   ? "bg-gray-500 text-gray-50 border-gray-400 hover:bg-gray-500 hover:border-gray-400"
+          //                   : "bg-neutral text-gray-50 border-gray-600 hover:bg-gray-600 hover:border-gray-500"
+          //                 : "btn-disabled"
+          //             } font-medium text-base rounded py-1 px-4 w-fit border  `}
+          //             onClick={() => selectSpot(spot.area)}
+          //           >
+          //             {spot.area}
+          //           </button>
+          //         </div>
+          //         <p className="text-gray-400 text-sm font-medium">
+          //           {spot.available === 1
+          //             ? "1 Spot"
+          //             : `${spot.available} Spots`}
+          //         </p>
+          //       </li>
+          //     ))}
+          //   </ul>
+          // </div>
         )}
       </div>
     </div>

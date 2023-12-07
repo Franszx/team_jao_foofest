@@ -37,8 +37,6 @@ function Booking() {
 
   const [twoPersonTents, setTwoPersonTents] = useState(0);
   const [threePersonTents, setThreePersonTents] = useState(0);
-  const [totalTentSpots, setTotalTentSpots] = useState(0);
-
   const [greenCamping, setGreenCamping] = useState(false);
 
   const [reservationId, setReservationId] = useState(null);
@@ -54,6 +52,7 @@ function Booking() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [displayToast, setDisplayToast] = useState(false);
 
   const updateTickets = (type, operation) => {
     if (ticketsReserved === true) {
@@ -210,6 +209,11 @@ function Booking() {
       if (!reservationId) {
         setSelectedSpot(null);
       }
+      if (totalTickets > 0) {
+        setDisplayToast(true); // Show the toast
+      } else {
+        setDisplayToast(false); // Hide the toast
+      }
     }
   }, [totalTickets, selectedSpot, spots, reservationId]);
 
@@ -235,10 +239,6 @@ function Booking() {
       bookingFee +
       twoPersonTents * 299 +
       threePersonTents * 399;
-
-    let totalTentSpots = twoPersonTents * 2 + threePersonTents * 3;
-    setTotalTentSpots(totalTentSpots);
-
     setTotalTickets(regularTickets + vipTickets);
     if (greenCamping) {
       totalPrice += 249;
@@ -255,7 +255,6 @@ function Booking() {
       threePersonTents: threePersonTents,
       ticketHolders: ticketHolders,
       reservationId: reservationId,
-      totalTentSpots: totalTentSpots,
     });
   }, [
     regularTickets,
@@ -275,6 +274,13 @@ function Booking() {
 
   return (
     <main className="md:container mx-auto  flex flex-col justify-center items-center h-screen w-screen">
+      {displayToast === true && (
+        <div class="toast toast-center">
+          <div class="alert alert-error">
+            <span>Not enough available spots! Please select a new camp.</span>
+          </div>
+        </div>
+      )}
       <dialog
         id="my_modal_1"
         className={isModalOpen ? "modal modal-open " : "modal"}
@@ -312,6 +318,7 @@ function Booking() {
               selectedSpot={selectedSpot}
               updateTickets={updateTickets}
               selectSpot={selectSpot}
+              setSelectedSpot={setSelectedSpot}
               ticketsReserved={ticketsReserved}
             />
           )) ||
@@ -338,14 +345,11 @@ function Booking() {
 
                         <button
                           className={`  font-medium text-base p-2 rounded-full w-fit border transition-colors ${
-                            totalTentSpots + twoPersonTents * 2 + 2 >
-                            totalTickets
+                            totalTickets >= 8
                               ? "btn-disabled bg-gray-800 border-gray-800 stroke-gray-800"
                               : "bg-primary text-emerald-100 border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 "
                           }`}
-                          onClick={() => {
-                            updateTents("two", "increase");
-                          }}
+                          onClick={() => updateTents("two", "increase")}
                         >
                           <IconPlus />
                         </button>
@@ -369,14 +373,11 @@ function Booking() {
 
                         <button
                           className={`  font-medium text-base p-2 rounded-full w-fit border transition-colors ${
-                            totalTentSpots + threePersonTents * 3 + 3 >
-                              totalTickets || totalTentSpots >= totalTickets
+                            totalTickets >= 8
                               ? "btn-disabled bg-gray-800 border-gray-800 stroke-gray-800"
                               : "bg-primary text-emerald-100 border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 "
                           }`}
-                          onClick={() => {
-                            updateTents("three", "increase");
-                          }}
+                          onClick={() => updateTents("three", "increase")}
                         >
                           <IconPlus />
                         </button>
