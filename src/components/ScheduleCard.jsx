@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function ScheduleCard(props) {
   return (
     <div className="">
-      {/* <Link href={`${props.slug}`}>
+      <Link href={`${props.slug}`}>
         <article className="card grid gap-4">
           <p className="ml-6 mt-4 text-gray-300  text-xs z-20">{props.scene}</p>
           <div className="ml-6 mb-4  z-20 self-end text-center">
@@ -13,7 +13,7 @@ export default function ScheduleCard(props) {
           </div>
           <Image className="col-start-1 col-end-2 row-start-1 row-end-3 object-cover z-0 brightness-50 rounded-lg border-2 border-gray-800 h-full w-full" width={320} height={320} src={props.src} alt="Band logo" />
         </article>
-      </Link> */}
+      </Link>
       <div className="card w-40 bg-base-100 shadow-xl image-full">
         <figure>
           <Image className=" object-cover z-0 brightness-50 rounded-lg border-2 border-gray-800 " width={320} height={320} src={props.src} alt="Band logo" />
