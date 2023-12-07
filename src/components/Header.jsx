@@ -35,6 +35,9 @@ export default function Header() {
             </li>
           </ul>
         </nav>
+        <div className="block lg:hidden font-medium">
+          <BuyButton />
+        </div>
       </div>
     </header>
   );
