@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
     "@tabler/icons-react": "^2.42.0",
     "@types/mapbox-gl": "^2.7.19",
     "aos": "^2.3.4",
