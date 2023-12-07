@@ -14,6 +14,7 @@ import {
   IconTent,
   IconBuildingCircus,
 } from "@tabler/icons-react";
+import Payment from "@/components/Payment";
 
 function Booking() {
   const url = "http://localhost:8080";
@@ -22,8 +23,8 @@ function Booking() {
   const [regularTickets, setRegularTickets] = useState(0);
   const [vipTickets, setVipTickets] = useState(0);
   const [ticketHolders, setTicketHolders] = useState({
-    regular: [],
-    vip: [],
+    regular: new Array(regularTickets).fill(""),
+    vip: new Array(vipTickets).fill(""),
   });
 
   const [totalTickets, setTotalTickets] = useState(0);
@@ -37,6 +38,8 @@ function Booking() {
   const [twoPersonTents, setTwoPersonTents] = useState(0);
   const [threePersonTents, setThreePersonTents] = useState(0);
   const [greenCamping, setGreenCamping] = useState(false);
+
+  const [reservationId, setReservationId] = useState(null);
 
   const [countdown, setCountdown] = useState(300);
   const [countdownInterval, setCountdownInterval] = useState(null);
@@ -131,6 +134,7 @@ function Booking() {
       .then((data) => {
         console.log("Success:", data);
         setTicketsReserved(true);
+        setReservationId(data.id);
         setIsPulsing(true);
         setTimeout(() => setIsPulsing(false), 3800);
         setCountdownInterval(
@@ -143,14 +147,35 @@ function Booking() {
                 setSeconds(seconds);
                 return prevCountdown - 1;
               } else {
+                setTicketsReserved(false);
+                setSelectedSpot(null);
+                setTicketHolders({ regular: [], vip: [] });
                 clearInterval(countdownInterval);
                 setMinutes(5);
                 setSeconds(0);
+                window.location.reload();
                 return 0;
               }
             });
           }, 1000)
         );
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
+  function fulfillReservation() {
+    fetch(`${url}/fulfill-reservation`, {
+      method: "POST",
+      headers: {
+        id: reservationId,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        resetCountdown();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -177,9 +202,11 @@ function Booking() {
       (selectedSpotDetails && totalTickets > selectedSpotDetails.available) ||
       totalTickets === 0
     ) {
-      setSelectedSpot(null);
+      if (!reservationId) {
+        setSelectedSpot(null);
+      }
     }
-  }, [totalTickets, selectedSpot, spots]);
+  }, [totalTickets, selectedSpot, spots, reservationId]);
 
   useEffect(() => {
     const fetchSpots = () => {
@@ -218,6 +245,7 @@ function Booking() {
       twoPersonTents: twoPersonTents,
       threePersonTents: threePersonTents,
       ticketHolders: ticketHolders,
+      reservationId: reservationId,
     });
   }, [
     regularTickets,
@@ -228,6 +256,7 @@ function Booking() {
     twoPersonTents,
     threePersonTents,
     ticketHolders,
+    reservationId,
   ]);
 
   useEffect(() => {
@@ -392,7 +421,7 @@ function Booking() {
                                   };
                                   setTicketHolders(newTicketHolders);
                                 }}
-                                value={ticketHolders.regular[i]}
+                                value={ticketHolders.regular[i] || ""}
                               />
                             ))}
                           </div>
@@ -421,7 +450,7 @@ function Booking() {
                                   };
                                   setTicketHolders(newTicketHolders);
                                 }}
-                                value={ticketHolders.vip[i]}
+                                value={ticketHolders.vip[i] || ""}
                               />
                             ))}
                           </div>
@@ -431,7 +460,8 @@ function Booking() {
                   </div>
                 </div>
               </div>
-            ))}
+            )) ||
+            (currentSlide === 3 && <Payment />)}
           <div className="place-self-end space-x-6">
             {currentSlide === 0 ? (
               <Link
@@ -476,13 +506,15 @@ function Booking() {
                 }
               }}
             >
-              Continue
+              {currentSlide === 3 ? "Finish Payment" : "Continue"}
             </button>
           </div>
         </div>
-        <div className="bg-gray-800 bg-opacity-70 h-24 md:h-full w-full md:w-5/12 flex flex-row md:flex-col justify-between items-center md:items-start gap-5 order-1 md:order-2 md:border-l border-l-gray-700 border-opacity-60 p-6 md:p-12">
+        <div className="bg-gray-800 bg-opacity-70 h-24 md:h-full w-full md:w-5/12 flex flex-row md:flex-col justify-between items-baseline md:items-start gap-5 order-1 md:order-2 md:border-l border-l-gray-700 border-opacity-60 p-6 md:p-12">
           <div className="space-y-5">
-            <h1 className="font-medium text-lg">Order Summary</h1>
+            <h1 className="font-medium text-lg whitespace-nowrap">
+              Order Summary
+            </h1>
             <div className="space-y-5 font-medium hidden md:block">
               <div className="flex items-center gap-3">
                 <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
