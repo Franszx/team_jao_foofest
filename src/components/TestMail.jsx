@@ -1,9 +1,12 @@
 "use client";
 import { sendMail } from "../../sendMail";
+import { useState } from "react";
 
 export default function TestMail() {
+	const [email, setEmail] = useState("");
+
 	const content = {
-		to: "jacob23077643@gmail.com",
+		to: email,
 		subject: "Order confirmation",
 		html: {
 			name: "Jacob",
@@ -21,14 +24,26 @@ export default function TestMail() {
 	};
 
 	return (
-		<button
-			className="btn"
-			onClick={() => {
-				console.log("clicked");
-				sendMail(content);
-			}}
-		>
-			Send Mail
-		</button>
+		<>
+			<input
+				type="email"
+				placeholder="Type here"
+				className="input input-bordered w-full max-w-xs"
+				value={email}
+				onChange={(e) => {
+					setEmail(e.target.value);
+				}}
+				required
+			/>
+			<button
+				className="btn"
+				onClick={() => {
+					console.log(content);
+					sendMail(content);
+				}}
+			>
+				Send Mail
+			</button>
+		</>
 	);
 }
