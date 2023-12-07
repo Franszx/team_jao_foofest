@@ -3,29 +3,36 @@ import Image from "next/image";
 
 export default function ScheduleCard(props) {
   return (
-    <div className="">
-      <Link href={`${props.slug}`}>
-        <article className="card grid gap-4">
-          <p className="ml-6 mt-4 text-gray-300  text-xs z-20">{props.scene}</p>
-          <div className="ml-6 mb-4  z-20 self-end text-center">
-            <p className="text-gray-300 text-base">{props.time}</p>
-            <p className="capitalize text-gray-50 text-xs">{props.artist}</p>
+    <>
+      <Link className="" href={`${props.slug}`}>
+        <div className="card w-48 pr-8 bg-base-100 image-full cursor-pointer text-center">
+          <figure className="h-44 relative">
+            <Image src={props.src} alt={props.artist} layout="fill" objectFit="cover" />
+          </figure>
+          {/* Showing the scene, timeslot and atistname from database */}
+          <div className="card-body p-0 gap-0 text-center self-center">
+            <p className="text-sm font-thin">{props.scene}</p>
+            <p className="text-2xl font-black">{props.time}</p>
+            <p className="text-xs font-semibold">{props.artist}</p>
           </div>
-          <Image className="col-start-1 col-end-2 row-start-1 row-end-3 object-cover z-0 brightness-50 rounded-lg border-2 border-gray-800 h-full w-full" width={320} height={320} src={props.src} alt="Band logo" />
-        </article>
-      </Link>
-      <div className="card w-40 bg-base-100 shadow-xl image-full">
-        <figure>
-          <Image className=" object-cover z-0 brightness-50 rounded-lg border-2 border-gray-800 " width={320} height={320} src={props.src} alt="Band logo" />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">{props.scene}</h2>
-          <p>{props.time}</p>
-          <Link className="card-actions justify-end">
-            <button className="btn-primary">{props.artist}</button>
-          </Link>
+          {/* Display logo credits if there are any */}
+          {props.logoCredits && (
+            <div className="absolute bottom-2 right-12 z-50" data-tip={props.logoCredits}>
+              <span title={props.logoCredits} className="italic bg-gray-300 ">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </span>
+            </div>
+          )}
         </div>
+      </Link>
+      {/* Showing a break at the specific nextTime slot */}
+      <div className="grid text-center">
+        <p className=" text-xs text-gray-400  w-fit py-2 px-3 mt-2">
+          &#8594; {props.nextTime} <span className="text-gray-50 capitalize">Break</span>
+        </p>
       </div>
-    </div>
+    </>
   );
 }
