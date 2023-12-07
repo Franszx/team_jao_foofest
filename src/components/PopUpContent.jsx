@@ -10,11 +10,20 @@ export default function PopUpContent({ selectedCamp }) {
 	};
 
 	return (
-		<div className={`text-red-900 ${campColors[area] || "text-gray-100"}`}>
-			<h2 className="text-xl font-semibold">{area}</h2>
-			<p>
-				{available} / {spots}
-			</p>
+		<div>
+			<h2
+				className={`text-xl font-semibold ${
+					campColors[area] || "text-gray-100"
+				}`}
+			>
+				{area}
+			</h2>
+			<div className="flex justify-between gap-4 text-gray-400">
+				<p>Avaliable Spots:</p>
+				<p>
+					{available} / {spots}
+				</p>
+			</div>
 		</div>
 	);
 }
