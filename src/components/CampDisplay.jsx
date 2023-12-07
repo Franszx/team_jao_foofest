@@ -5,11 +5,10 @@ export default function CampDisplay(props) {
 		Helheim: "bg-green-500 border-green-600",
 		Muspelheim: "bg-yellow-600 border-yellow-700",
 		Alfheim: "bg-sky-800 border-sky-900",
-		// Add more camps as needed
 	};
 	return (
 		<div
-			className={`font-thin flex justify-between w-full text-gray-400 border rounded-lg mb-4 py-7 px-6 bg-opacity-20 hover:bg-opacity-60 ${
+			className={`font-thin flex justify-between w-full text-gray-400 hover:text-gray-100 border rounded-lg mb-4 py-7 px-6 bg-opacity-20 hover:bg-opacity-60 ${
 				campColors[props.campName] || "bg-gray-700 border-gray-800"
 			}`}
 		>

@@ -8,10 +8,10 @@ import { useEffect, useState } from "react";
 export default function CampOverview() {
 	const [dataCamps, setDataCamps] = useState(null);
 
-	// const url = "http://foofest.glitch.me";
+	const url = "http://foofest.glitch.me";
 
 	// Manual override for testing, comment out when done:
-	const url = "http://localhost:8080";
+	// const url = "http://localhost:8080";
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -45,8 +45,8 @@ export default function CampOverview() {
 						<BuyButton />
 					</div>
 				</div>
-				<CampMap className="aspect-[4/5] md:col-start-2 md:col-end-4 md:aspect-[5/4] w-full" />
-				<div className="flex justify-center mt-24 md:hidden">
+				<CampMap />
+				<div className="flex justify-center mt-6 md:hidden">
 					<BuyButton />
 				</div>
 			</div>
