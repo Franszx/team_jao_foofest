@@ -40,6 +40,7 @@ export default function TestMail() {
 				onClick={() => {
 					console.log(content);
 					sendMail(content);
+					setEmail("");
 				}}
 			>
 				Send Mail
