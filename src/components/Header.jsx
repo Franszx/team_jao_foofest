@@ -16,7 +16,7 @@ export default function Header() {
         <nav className="hidden lg:flex gap-12">
           <ul className="flex gap-6 font-medium items-center">
             <li>
-              <Link href="/schedule/[slug]?slug=1">Schedule</Link>
+              <Link href="/schedule">Schedule</Link>
             </li>
             <li>
               <Link href="/">Stages</Link>
