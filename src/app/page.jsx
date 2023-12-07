@@ -10,16 +10,16 @@ import CampOverview from "@/components/CampOverview";
 // import { useEffect } from "react";
 
 export default function Home() {
-	return (
-		<>
-			<Header />
-			<BurgerMenu />
-			<main className="container mx-auto max-w-6xl px-6">
-				<Hero />
-				<LiveArtists />
-				<CampOverview />
-			</main>
-			<Footer />
-		</>
-	);
+  return (
+    <>
+      <Header />
+      <BurgerMenu />
+      <main className="container mx-auto max-w-6xl px-6 mt-40">
+        <Hero />
+        <LiveArtists />
+        <CampOverview />
+      </main>
+      <Footer />
+    </>
+  );
 }
