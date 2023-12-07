@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import ReactMapGl, { Marker, Popup } from "react-map-gl";
+import { url } from "/config";
 import MapPin from "./MapPin";
 import PopUpContent from "./PopUpContent";
 
@@ -15,11 +16,6 @@ export default function Map({ selectedCamp, setSelectedCamp }) {
 	});
 
 	const [dataCamps, setDataCamps] = useState(null);
-
-	// const url = "http://foofest.glitch.me";
-
-	// Manual override for testing, comment out when done:
-	const url = "http://localhost:8080";
 
 	useEffect(() => {
 		const fetchData = async () => {

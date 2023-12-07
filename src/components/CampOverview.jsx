@@ -4,15 +4,11 @@ import CampMap from "./CampMap";
 import CampDisplay from "./CampDisplay";
 import BuyButton from "./BuyButton";
 import { useEffect, useState } from "react";
+import { url } from "/config";
 
 export default function CampOverview() {
 	const [dataCamps, setDataCamps] = useState(null);
 	const [selectedCamp, setSelectedCamp] = useState(null);
-
-	// const url = "http://foofest.glitch.me";
-
-	// Manual override for testing, comment out when done:
-	const url = "http://localhost:8080";
 
 	useEffect(() => {
 		const fetchData = async () => {
