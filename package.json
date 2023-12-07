@@ -14,6 +14,7 @@
     "next": "14.0.3",
     "react": "^18",
     "react-burger-menu": "^3.0.9",
+    "react-credit-cards-2": "^1.0.1",
     "react-dom": "^18",
     "react-hamburgers": "^1.0.0",
     "react-responsive": "^9.0.2",
