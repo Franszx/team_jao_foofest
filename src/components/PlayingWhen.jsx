@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 function PlayingWhen({ band }) {
@@ -40,11 +41,11 @@ function PlayingWhen({ band }) {
   }, [band]);
 
   return (
-    <div className="flex md:justify-end ">
+    <Link href={`/schedule`}>
       <div className="badge badge-accent text-rose-200 rounded-lg h-fit py-1 whitespace-nowrap">
         {schedule ? <p>{schedule}</p> : <p>Loading...</p>}
       </div>
-    </div>
+    </Link>
   );
 }
 

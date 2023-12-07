@@ -24,13 +24,13 @@ export default function BurgerMenu() {
             {isOpen && (
               <ul tabIndex={0} className="dropdown-content z-[1] menu shadow bg-neutral rounded-box w-52">
                 <li>
-                  <a>Schedule</a>
+                  <a href="/schedule">Schedule</a>
                 </li>
                 <li>
                   <a>Stages</a>
                 </li>
                 <li>
-                  <a>About Foofest</a>
+                  <a>About FF</a>
                 </li>
               </ul>
             )}
