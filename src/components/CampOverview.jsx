@@ -9,10 +9,10 @@ export default function CampOverview() {
 	const [dataCamps, setDataCamps] = useState(null);
 	const [selectedCamp, setSelectedCamp] = useState(null);
 
-	const url = "http://foofest.glitch.me";
+	// const url = "http://foofest.glitch.me";
 
 	// Manual override for testing, comment out when done:
-	// const url = "http://localhost:8080";
+	const url = "http://localhost:8080";
 
 	useEffect(() => {
 		const fetchData = async () => {
