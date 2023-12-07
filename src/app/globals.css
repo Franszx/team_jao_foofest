@@ -32,3 +32,30 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+div .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip{
+  border-top-color: #070a10;
+}
+
+div .mapboxgl-popup-anchor-top .mapboxgl-popup-tip{
+  border-bottom-color: #070a10;
+}
+
+div .mapboxgl-popup-anchor-left .mapboxgl-popup-tip{
+  border-right-color: #070a10;
+}
+
+div .mapboxgl-popup-anchor-right .mapboxgl-popup-tip{
+  border-left-color: #070a10;
+}
+
+div .mapboxgl-popup-content{
+  background: none;
+  background-color: #0D131F;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+button.mapboxgl-popup-close-button{
+  right: 10px;
+}
