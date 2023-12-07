@@ -51,6 +51,8 @@ function Booking() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+
   const updateTickets = (type, operation) => {
     if (ticketsReserved === true) {
       setIsModalOpen(true);
@@ -166,15 +168,16 @@ function Booking() {
   }
 
   function fulfillReservation() {
-    fetch(`${url}/fulfill-reservation`, {
+    fetch(`${url}/fullfill-reservation`, {
       method: "POST",
-      headers: {
+      body: {
         id: reservationId,
       },
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        setPaymentSuccess(true);
         resetCountdown();
       })
       .catch((error) => {
@@ -462,6 +465,7 @@ function Booking() {
               </div>
             )) ||
             (currentSlide === 3 && <Payment />)}
+
           <div className="place-self-end space-x-6">
             {currentSlide === 0 ? (
               <Link
@@ -502,6 +506,9 @@ function Booking() {
                       totalTickets
                   )
                 ) {
+                  if (currentSlide === 3) {
+                    fulfillReservation();
+                  }
                   handleContinue();
                 }
               }}
