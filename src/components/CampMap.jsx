@@ -4,7 +4,7 @@ import ReactMapGl, { Marker, Popup } from "react-map-gl";
 import MapPin from "./MapPin";
 import PopUpContent from "./PopUpContent";
 
-export default function Map(props) {
+export default function Map({ selectedCamp, setSelectedCamp }) {
 	const [viewPort, setViewPort] = useState({
 		latitude: 55.515097,
 		longitude: 11.866122,
@@ -15,7 +15,6 @@ export default function Map(props) {
 	});
 
 	const [dataCamps, setDataCamps] = useState(null);
-	const [selectedCamp, setSelectedCamp] = useState(null);
 
 	const url = "http://foofest.glitch.me";
 
@@ -31,10 +30,6 @@ export default function Map(props) {
 
 		fetchData();
 	}, []);
-
-	useEffect(() => {
-		console.log("selectedCamp" + selectedCamp);
-	}, [selectedCamp]);
 
 	return (
 		<div className="aspect-[4/5] md:col-start-2 md:col-end-4 md:aspect-[5/4] w-full">
@@ -61,6 +56,7 @@ export default function Map(props) {
 										console.log("camp" + camp);
 									}}
 									campName={camp.area}
+									selectedCamp={selectedCamp}
 								/>
 							</Marker>
 						);

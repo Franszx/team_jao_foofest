@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 export default function CampOverview() {
 	const [dataCamps, setDataCamps] = useState(null);
+	const [selectedCamp, setSelectedCamp] = useState(null);
 
 	const url = "http://foofest.glitch.me";
 
@@ -38,6 +39,11 @@ export default function CampOverview() {
 									campName={camp.area}
 									available={camp.available}
 									spots={camp.spots}
+									camp={camp}
+									selectedCamp={selectedCamp}
+									onClick={(e) => {
+										setSelectedCamp(camp);
+									}}
 								/>
 							);
 						})}
@@ -45,7 +51,10 @@ export default function CampOverview() {
 						<BuyButton />
 					</div>
 				</div>
-				<CampMap />
+				<CampMap
+					selectedCamp={selectedCamp}
+					setSelectedCamp={setSelectedCamp}
+				/>
 				<div className="flex justify-center mt-6 md:hidden">
 					<BuyButton />
 				</div>
