@@ -9,20 +9,14 @@ export default function Header() {
       <div className="flex justify-between items-center w-full max-w-7xl  mx-auto ">
         <div className="w-32 lg:w-60">
           <Link href="/">
-            <Image
-              src="/foofest-logo.svg"
-              height="500"
-              width="500"
-              alt="logo"
-              className="w-36"
-            />
+            <Image src="/foofest-logo.svg" height="500" width="500" alt="logo" className="w-36" />
           </Link>
         </div>
 
         <nav className="hidden lg:flex gap-12">
           <ul className="flex gap-6 font-medium items-center">
             <li>
-              <Link href="/schedule">Schedule</Link>
+              <Link href="/schedule/[slug]?slug=1">Schedule</Link>
             </li>
             <li>
               <Link href="/">Stages</Link>
