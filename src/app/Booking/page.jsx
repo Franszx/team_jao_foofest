@@ -13,6 +13,7 @@ import {
   IconPlus,
   IconTent,
   IconBuildingCircus,
+  IconCheck,
 } from "@tabler/icons-react";
 import Payment from "@/components/Payment";
 import { url } from "/config";
@@ -52,7 +53,6 @@ function Booking() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [paymentSuccess, setPaymentSuccess] = useState(false);
-  const [displayToast, setDisplayToast] = useState(false);
 
   const updateTickets = (type, operation) => {
     if (ticketsReserved === true) {
@@ -209,11 +209,6 @@ function Booking() {
       if (!reservationId) {
         setSelectedSpot(null);
       }
-      if (totalTickets > 0) {
-        setDisplayToast(true); // Show the toast
-      } else {
-        setDisplayToast(false); // Hide the toast
-      }
     }
   }, [totalTickets, selectedSpot, spots, reservationId]);
 
@@ -274,13 +269,6 @@ function Booking() {
 
   return (
     <main className="md:container mx-auto  flex flex-col justify-center items-center h-screen w-screen">
-      {displayToast === true && (
-        <div class="toast toast-center">
-          <div class="alert alert-error">
-            <span>Not enough available spots! Please select a new camp.</span>
-          </div>
-        </div>
-      )}
       <dialog
         id="my_modal_1"
         className={isModalOpen ? "modal modal-open " : "modal"}
@@ -478,17 +466,47 @@ function Booking() {
                 </div>
               </div>
             )) ||
-            (currentSlide === 3 && <Payment />)}
+            (currentSlide === 3 && <Payment />) ||
+            (currentSlide === 4 && (
+              <div className="h-full flex flex-col justify-between">
+                <div className="flex flex-col justify-evenly flex-grow">
+                  <div className="place-self-center flex flex-col gap-4 items-center text-center">
+                    {paymentSuccess ? (
+                      <>
+                        <IconCheck className="text-emerald-500" size={64} />
+                        <h1 className="font-medium text-lg">Order Complete!</h1>
+                        <p className="text-gray-400 font-medium max-w-xs">
+                          Your order has been placed and you will receive a
+                          confirmation email shortly.
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <h1 className="font-medium text-lg">Payment Failed!</h1>
+                        <p className="text-gray-400 font-medium max-w-xs">
+                          There was an issue with your payment. Please try
+                          again.
+                        </p>
+                        <button className="btn btn-primary font-medium text-emerald-100 text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400">
+                          Try Again
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
 
           <div className="place-self-end space-x-6">
-            {currentSlide === 0 ? (
+            {currentSlide === 0 && (
               <Link
                 href="/"
                 className="text-gray-500 hover:text-gray-400 transition-colors font-medium"
               >
                 Back
               </Link>
-            ) : (
+            )}
+            {currentSlide > 0 && currentSlide < 4 && (
               <button
                 className="text-gray-500 hover:text-gray-400 transition-colors font-medium"
                 onClick={() => changeSlide("prev")}
@@ -496,21 +514,16 @@ function Booking() {
                 Back
               </button>
             )}
-            <button
-              className={`btn ${
-                totalTickets > 0 &&
-                selectedSpot &&
-                !(
-                  currentSlide === 2 &&
-                  ticketHolders.regular.filter(Boolean).length +
-                    ticketHolders.vip.filter(Boolean).length !==
-                    totalTickets
-                )
-                  ? "bg-primary text-emerald-100"
-                  : "btn-disabled"
-              } font-medium text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 `}
-              onClick={() => {
-                if (
+            {currentSlide === 4 ? (
+              <Link
+                href="/"
+                className="btn bg-primary text-emerald-100 font-medium text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400"
+              >
+                Return
+              </Link>
+            ) : (
+              <button
+                className={`btn ${
                   totalTickets > 0 &&
                   selectedSpot &&
                   !(
@@ -519,16 +532,30 @@ function Booking() {
                       ticketHolders.vip.filter(Boolean).length !==
                       totalTickets
                   )
-                ) {
-                  if (currentSlide === 3) {
-                    fulfillReservation();
+                    ? "bg-primary text-emerald-100"
+                    : "btn-disabled"
+                } font-medium text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 `}
+                onClick={() => {
+                  if (
+                    totalTickets > 0 &&
+                    selectedSpot &&
+                    !(
+                      currentSlide === 2 &&
+                      ticketHolders.regular.filter(Boolean).length +
+                        ticketHolders.vip.filter(Boolean).length !==
+                        totalTickets
+                    )
+                  ) {
+                    if (currentSlide === 3) {
+                      fulfillReservation();
+                    }
+                    handleContinue();
                   }
-                  handleContinue();
-                }
-              }}
-            >
-              {currentSlide === 3 ? "Finish Payment" : "Continue"}
-            </button>
+                }}
+              >
+                {currentSlide === 3 ? "Finish Payment" : "Continue"}
+              </button>
+            )}
           </div>
         </div>
         <div className="bg-gray-800 bg-opacity-70 h-24 md:h-full w-full md:w-5/12 flex flex-row md:flex-col justify-between items-baseline md:items-start gap-5 order-1 md:order-2 md:border-l border-l-gray-700 border-opacity-60 p-6 md:p-12">
