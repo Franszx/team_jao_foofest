@@ -1,17 +1,32 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function ScheduleCard(props) {
+export default function ScheduleCard({ scene, ...props }) {
+  let borderColor;
+
+  switch (scene) {
+    case "Midgard":
+      borderColor = "border-amber-500";
+      break;
+    case "Vanaheim":
+      borderColor = "border-emerald-500";
+      break;
+    case "Jotunheim":
+      borderColor = "border-pink-500";
+      break;
+    default:
+      borderColor = "border-gray-500";
+  }
   return (
     <>
       <Link className="" href={`${props.slug}`}>
         <div className="card w-36  bg-base-100 image-full cursor-pointer text-center ">
-          <figure className="h-36 relative border border-gray-300">
+          <figure className={`h-36 relative border border-4 ${borderColor}`}>
             <Image src={props.src} alt={props.artist} layout="fill" objectFit="cover" />
           </figure>
           {/* Showing the scene, timeslot and atistname from database */}
           <div className="card-body py-1 gap-0 text-center self-center">
-            <p className="text-sm font-thin">{props.scene}</p>
+            <p className="text-sm font-thin">{scene}</p>
             <p className="text-2xl font-black">{props.time}</p>
             <div>
               <p className="text-xs font-thin p-0 text-wrap">{props.artist}</p>
