@@ -76,6 +76,6 @@ button.mapboxgl-popup-close-button{
     transform: scale(1);
   }
   100% {
-    transform: scale(.95);
+    transform: scale(.98);
   }
 }
