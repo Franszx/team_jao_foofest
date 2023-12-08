@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
 					color="#5bbad5"
 				/>
 				<meta name="msapplication-TileColor" content="#da532c" />
-				<meta name="theme-color" content="#ffffff" />
+				<meta name="theme-color" content="#059669" />
 			</head>
 			<body className="bg-gray-950 text-gray-50">{children}</body>
 		</html>
