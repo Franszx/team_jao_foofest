@@ -89,7 +89,7 @@ function Page() {
 						className={
 							message.sender === deviceID
 								? "chat-bubble mt-4 chat-bubble-primary"
-								: "chat-bubble mt-4 chat-bubble-secondary"
+								: "chat-bubble mt-4 chat-bubble-accent"
 						}
 					>
 						{message.message}
