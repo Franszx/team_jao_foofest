@@ -18,8 +18,8 @@ export default function TestMail() {
 			greenCamping: "Yes",
 			totalPrice: "3544",
 		},
-		company: "FooFest - Festical",
-		sendername: "FooFest Customer Support",
+		company: "FooFest - Festival",
+		sendername: "FooFest Customer Support / support@foofest.com",
 		template: "foofest-template",
 	};
 
