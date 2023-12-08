@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 
-const Payment = () => {
+const Payment = ({ email, setEmail }) => {
   const [state, setState] = useState({
     number: "",
     expiry: "",
@@ -93,6 +93,15 @@ const Payment = () => {
               required
             />
           </form>
+          <input
+            type="email"
+            placeholder="Email"
+            className="input input-bordered bg-gray-700"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
         </div>
       </div>
     </div>

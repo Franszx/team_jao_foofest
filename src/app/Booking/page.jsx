@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import TicketAndCamp from "@/components/TicketAndCamp";
+import Payment from "@/components/Payment";
 import Link from "next/link";
 import {
   IconCash,
@@ -15,7 +16,7 @@ import {
   IconBuildingCircus,
   IconCheck,
 } from "@tabler/icons-react";
-import Payment from "@/components/Payment";
+
 import { url } from "/config";
 
 function Booking() {
@@ -39,6 +40,8 @@ function Booking() {
   const [twoPersonTents, setTwoPersonTents] = useState(0);
   const [threePersonTents, setThreePersonTents] = useState(0);
   const [greenCamping, setGreenCamping] = useState(false);
+
+  const [email, setEmail] = useState("");
 
   const [reservationId, setReservationId] = useState(null);
 
@@ -225,31 +228,28 @@ function Booking() {
     return () => clearInterval(interval);
   }, []);
 
-  // Update the choices object whenever the user changes their choices
   useEffect(() => {
-    let bookingFee = 99;
-    let totalPrice =
-      regularTickets * 799 +
-      vipTickets * 1299 +
-      bookingFee +
-      twoPersonTents * 299 +
-      threePersonTents * 399;
+    const bookingFee = 99;
+    const ticketPrice = regularTickets * 799 + vipTickets * 1299;
+    const tentPrice = twoPersonTents * 299 + threePersonTents * 399;
+    const greenCampingPrice = greenCamping ? 249 : 0;
+    const totalPrice = ticketPrice + tentPrice + bookingFee + greenCampingPrice;
+
     setTotalTickets(regularTickets + vipTickets);
-    if (greenCamping) {
-      totalPrice += 249;
-    }
     setTotalPrice(totalPrice);
+
     setAllChoices({
-      regularTickets: regularTickets,
-      vipTickets: vipTickets,
-      totalTickets: totalTickets,
+      regularTickets,
+      vipTickets,
+      totalTickets,
       area: selectedSpot,
-      greenCamping: greenCamping,
-      totalPrice: totalPrice,
-      twoPersonTents: twoPersonTents,
-      threePersonTents: threePersonTents,
-      ticketHolders: ticketHolders,
-      reservationId: reservationId,
+      greenCamping,
+      totalPrice,
+      twoPersonTents,
+      threePersonTents,
+      ticketHolders,
+      reservationId,
+      email,
     });
   }, [
     regularTickets,
@@ -261,6 +261,7 @@ function Booking() {
     threePersonTents,
     ticketHolders,
     reservationId,
+    email,
   ]);
 
   useEffect(() => {
@@ -296,7 +297,7 @@ function Booking() {
         </div>
       </dialog>
       <section className="w-full h-full md:h-5/6 bg-gray-900 max-w-7xl flex flex-col md:flex-row md:rounded-xl overflow-hidden md:border border-gray-700 border-opacity-60 relative">
-        <div className="bg-gray-900 w-full md:w-7/12 h-full order-2 md:order-1 p-6 md:p-12 flex flex-col justify-between">
+        <div className="bg-gray-900 w-full  h-full order-2 md:order-1 p-6 md:p-12 flex flex-col justify-between">
           {(currentSlide === 0 && (
             <TicketAndCamp
               regularTickets={regularTickets}
@@ -466,7 +467,9 @@ function Booking() {
                 </div>
               </div>
             )) ||
-            (currentSlide === 3 && <Payment />) ||
+            (currentSlide === 3 && (
+              <Payment email={email} setEmail={setEmail} />
+            )) ||
             (currentSlide === 4 && (
               <div className="h-full flex flex-col justify-between">
                 <div className="flex flex-col justify-evenly flex-grow">
@@ -558,149 +561,151 @@ function Booking() {
             )}
           </div>
         </div>
-        <div className="bg-gray-800 bg-opacity-70 h-24 md:h-full w-full md:w-5/12 flex flex-row md:flex-col justify-between items-baseline md:items-start gap-5 order-1 md:order-2 md:border-l border-l-gray-700 border-opacity-60 p-6 md:p-12">
-          <div className="space-y-5">
-            <h1 className="font-medium text-lg whitespace-nowrap">
-              Order Summary
-            </h1>
-            <div className="space-y-5 font-medium hidden md:block">
-              <div className="flex items-center gap-3">
-                <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
-                  <IconCash />
-                </div>
-                <div className="flex flex-col">
-                  <p className="text-gray-400">Booking Fee</p>
-                  <p className="text-gray-50">
-                    <span>99</span> DKK
-                  </p>
-                </div>
-              </div>
-              {regularTickets > 0 && (
+        {currentSlide !== 4 && (
+          <div className="bg-gray-800 bg-opacity-70 h-24 md:h-full w-full md:w-7/12 flex flex-row md:flex-col justify-between items-baseline md:items-start gap-5 order-1 md:order-2 md:border-l border-l-gray-700 border-opacity-60 p-6 md:p-12">
+            <div className="space-y-5">
+              <h1 className="font-medium text-lg whitespace-nowrap">
+                Order Summary
+              </h1>
+              <div className="space-y-5 font-medium hidden md:block">
                 <div className="flex items-center gap-3">
                   <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
-                    <IconTicket />
+                    <IconCash />
                   </div>
                   <div className="flex flex-col">
-                    <p className="text-gray-400">Regular Tickets</p>
+                    <p className="text-gray-400">Booking Fee</p>
                     <p className="text-gray-50">
-                      <span>
-                        799 DKK{" "}
-                        <span className="text-gray-400">
-                          * {regularTickets}
-                        </span>
-                      </span>
+                      <span>99</span> DKK
                     </p>
                   </div>
                 </div>
-              )}
-              {vipTickets > 0 && (
+                {regularTickets > 0 && (
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
+                      <IconTicket />
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="text-gray-400">Regular Tickets</p>
+                      <p className="text-gray-50">
+                        <span>
+                          799 DKK{" "}
+                          <span className="text-gray-400">
+                            * {regularTickets}
+                          </span>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {vipTickets > 0 && (
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
+                      <IconVip />
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="text-gray-400">VIP Tickets</p>
+                      <p className="text-gray-50">
+                        <span>
+                          1299 DKK{" "}
+                          <span className="text-gray-400">* {vipTickets}</span>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex items-center gap-3">
                   <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                    <IconVip />
+                    <IconFlag />
                   </div>
                   <div className="flex flex-col">
-                    <p className="text-gray-400">VIP Tickets</p>
+                    <p className="text-gray-400">Selected Camp</p>
                     <p className="text-gray-50">
                       <span>
-                        1299 DKK{" "}
-                        <span className="text-gray-400">* {vipTickets}</span>
+                        {selectedSpot ? selectedSpot : "No camp selected"}
                       </span>
                     </p>
                   </div>
                 </div>
-              )}
+                {greenCamping && (
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
+                      <IconTrees />
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="text-gray-400">Green Camping</p>
+                      <p className="text-gray-50">
+                        <span>249 DKK</span>
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {twoPersonTents > 0 && (
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
+                      <IconTent />
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="text-gray-400">2 Person Tents</p>
+                      <p className="text-gray-50">
+                        <span>
+                          299 DKK{" "}
+                          <span className="text-gray-400">
+                            * {twoPersonTents}
+                          </span>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {threePersonTents > 0 && (
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
+                      <IconBuildingCircus />
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="text-gray-400">3 Person Tents</p>
+                      <p className="text-gray-50">
+                        <span>
+                          399 DKK{" "}
+                          <span className="text-gray-400">
+                            * {threePersonTents}
+                          </span>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="w-full h-fit space-y-5 ">
+              <div className=" divider mt-0 hidden md:flex "></div>
 
-              <div className="flex items-center gap-3">
-                <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                  <IconFlag />
-                </div>
-                <div className="flex flex-col">
-                  <p className="text-gray-400">Selected Camp</p>
-                  <p className="text-gray-50">
-                    <span>
-                      {selectedSpot ? selectedSpot : "No camp selected"}
-                    </span>
+              {ticketsReserved && (
+                <div
+                  className={`hidden md:block font-medium ${
+                    isPulsing ? " animate-pulse" : ""
+                  }`}
+                >
+                  <p className="text-gray-400">
+                    {totalTickets > 1 ? "Tickets Reserved" : "Ticket Reserved"}
                   </p>
+                  <span className="countdown">
+                    <span style={{ "--value": minutes }}> :</span>
+                  </span>
+                  <span>:</span>
+                  <span className="countdown">
+                    <span style={{ "--value": seconds }}></span>
+                  </span>
                 </div>
+              )}
+              <div className="font-medium flex flex-row md:flex-col gap-2 md:gap-0">
+                <p className="text-gray-400">Total</p>
+                <p>{totalPrice} DKK</p>
               </div>
-              {greenCamping && (
-                <div className="flex items-center gap-3">
-                  <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                    <IconTrees />
-                  </div>
-                  <div className="flex flex-col">
-                    <p className="text-gray-400">Green Camping</p>
-                    <p className="text-gray-50">
-                      <span>249 DKK</span>
-                    </p>
-                  </div>
-                </div>
-              )}
-              {twoPersonTents > 0 && (
-                <div className="flex items-center gap-3">
-                  <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                    <IconTent />
-                  </div>
-                  <div className="flex flex-col">
-                    <p className="text-gray-400">2 Person Tents</p>
-                    <p className="text-gray-50">
-                      <span>
-                        299 DKK{" "}
-                        <span className="text-gray-400">
-                          * {twoPersonTents}
-                        </span>
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              )}
-              {threePersonTents > 0 && (
-                <div className="flex items-center gap-3">
-                  <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                    <IconBuildingCircus />
-                  </div>
-                  <div className="flex flex-col">
-                    <p className="text-gray-400">3 Person Tents</p>
-                    <p className="text-gray-50">
-                      <span>
-                        399 DKK{" "}
-                        <span className="text-gray-400">
-                          * {threePersonTents}
-                        </span>
-                      </span>
-                    </p>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
-          <div className="w-full h-fit space-y-5 ">
-            <div className=" divider mt-0 hidden md:flex "></div>
-
-            {ticketsReserved && (
-              <div
-                className={`hidden md:block font-medium ${
-                  isPulsing ? " animate-pulse" : ""
-                }`}
-              >
-                <p className="text-gray-400">
-                  {totalTickets > 1 ? "Tickets Reserved" : "Ticket Reserved"}
-                </p>
-                <span className="countdown">
-                  <span style={{ "--value": minutes }}> :</span>
-                </span>
-                <span>:</span>
-                <span className="countdown">
-                  <span style={{ "--value": seconds }}></span>
-                </span>
-              </div>
-            )}
-            <div className="font-medium flex flex-row md:flex-col gap-2 md:gap-0">
-              <p className="text-gray-400">Total</p>
-              <p>{totalPrice} DKK</p>
-            </div>
-          </div>
-        </div>
+        )}
       </section>
     </main>
   );
