@@ -8,11 +8,19 @@ const supabase = createClient(
 	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVyaG5jZnV3c3Fidm55b3RkcW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5ODAzOTIsImV4cCI6MjAxNzU1NjM5Mn0.p3JncVVNOfKr1dMrWFcYxXKxHesdYaRlwIwZs7hqd_Y"
 );
 
+let deviceID = localStorage.getItem("deviceID");
+
+if (!deviceID) {
+	deviceID = uuidv4();
+	localStorage.setItem("deviceID", deviceID);
+}
+
+console.log(deviceID);
+// 07ac6188-d428-41e4-a8a0-22b58267596f
+
 function Page() {
 	const [messages, setMessages] = useState([]);
 	const [newMessage, setNewMessage] = useState("");
-	const deviceID = uuidv4();
-	console.log(deviceID);
 
 	const handleInserts = (payload) => {
 		setMessages((messages) => [...messages, payload.new]);
