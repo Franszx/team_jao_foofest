@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
+import { IconSend } from "@tabler/icons-react";
 
 const supabase = createClient(
 	"https://urhncfuwsqbvnyotdqmh.supabase.co",
@@ -14,9 +15,6 @@ if (!deviceID) {
 	deviceID = uuidv4();
 	localStorage.setItem("deviceID", deviceID);
 }
-
-console.log(deviceID);
-// 07ac6188-d428-41e4-a8a0-22b58267596f
 
 export default function LiveChat(props) {
 	const [messages, setMessages] = useState([]);
@@ -71,33 +69,41 @@ export default function LiveChat(props) {
 		};
 	}, [props.tableName]);
 
-	// Rest of your component
 	return (
-		<div>
+		<div className="w-96">
 			<h1>Chat</h1>
-			<form onSubmit={handleNewMessage}>
+			<div className="max-h-[500px] overflow-y-auto scrollbar-hide">
+				{messages.map((message, index) => {
+					if (message.sender === deviceID) {
+						return (
+							<div key={index} className="chat chat-end">
+								<div className="chat-bubble mt-4 chat-bubble-primary">
+									{message.message}
+								</div>
+							</div>
+						);
+					} else {
+						return (
+							<div key={index} className="chat chat-start">
+								<div className="chat-bubble mt-4 chat-bubble-accent max-w-[300px] break-words">
+									{message.message}
+								</div>
+							</div>
+						);
+					}
+				})}
+			</div>
+			<form className="flex" onSubmit={handleNewMessage}>
 				<input
 					type="text"
 					className="bg-gray-900"
 					value={newMessage}
 					onChange={handleNewMessageChange}
 				/>
-				<button type="submit">Send</button>
+				<button type="submit">
+					<IconSend color="#059669" />
+				</button>
 			</form>
-			<div className="chat chat-end">
-				{messages.map((message, index) => (
-					<div
-						key={index}
-						className={
-							message.sender === deviceID
-								? "chat-bubble mt-4 chat-bubble-primary"
-								: "chat-bubble mt-4 chat-bubble-accent"
-						}
-					>
-						{message.message}
-					</div>
-				))}
-			</div>
 		</div>
 	);
 }
