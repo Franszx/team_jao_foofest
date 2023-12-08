@@ -7,11 +7,6 @@ export default function Footer() {
         <div className="hero-content flex flex-wrap mb-4">
           <ul className="grid grid-cols-2 lg:grid-cols-4 gap-x-9 lg:gap-x-36 justify-items-center ">
             <li>
-              <a className="text-sm lg:text-sm text-gray-300" href="/">
-                News
-              </a>
-            </li>
-            <li>
               <Link
                 className="text-sm lg:text-sm text-gray-300"
                 href="/booking"
@@ -21,17 +16,22 @@ export default function Footer() {
             </li>
             <li>
               <a className="text-sm lg:text-sm text-gray-300" href="/">
+                Chat
+              </a>
+            </li>
+            <li>
+              <Link href="/about" className="text-sm lg:text-sm text-gray-300">
+                About FooFest
+              </Link>
+            </li>
+            <li>
+              <a className="text-sm lg:text-sm text-gray-300" href="/">
                 Responsibility
               </a>
             </li>
             <li>
               <a className="text-sm lg:text-sm text-gray-300" href="/">
-                Volunteer
-              </a>
-            </li>
-            <li>
-              <a className="text-sm lg:text-sm text-gray-300" href="/">
-                About FooFest
+                News
               </a>
             </li>
             <li>

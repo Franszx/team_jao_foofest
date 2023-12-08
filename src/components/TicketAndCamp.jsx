@@ -115,7 +115,7 @@ function TicketAndCamp({
             setSelectedCamp={setSelectedCamp}
             chooseSpot={chooseSpot}
             totalTickets={totalTickets}
-            className="aspect-[4/5] w-full md:col-start-2 md:col-end-4 md:aspect-[2/1]"
+            className="aspect-[3/2] w-full md:col-start-2 md:col-end-4 md:aspect-[2/1]"
           />
           // <div>
           //   <ul className="flex flex-wrap items-center gap-12 justify-center h-48 max-w-md mx-auto ">

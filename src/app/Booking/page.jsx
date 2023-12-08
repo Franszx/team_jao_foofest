@@ -15,9 +15,9 @@ import {
   IconBuildingCircus,
 } from "@tabler/icons-react";
 import Payment from "@/components/Payment";
+import { url } from "/config";
 
 function Booking() {
-  const url = "http://localhost:8080";
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const [regularTickets, setRegularTickets] = useState(0);
