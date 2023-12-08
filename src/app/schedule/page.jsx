@@ -97,16 +97,16 @@ export default function Schedule() {
         <h2 className="font-sans font-black text-3xl lg:text-5xl">Schedule</h2>
         <h3 className="font-sans font-black text-2xl lg:text-4xl text-stroke-1 text-transparent">Stage</h3>
         <div className="flex gap-2">
-          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-emerald-400" onClick={() => showSelectedScene(`Midgard`)}>
+          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-amber-500" onClick={() => showSelectedScene(`Midgard`)}>
             Midgard
           </button>
-          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-emerald-400" onClick={() => showSelectedScene(`Vanaheim`)}>
+          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-emerald-500" onClick={() => showSelectedScene(`Vanaheim`)}>
             Vanaheim
           </button>
-          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-emerald-400" onClick={() => showSelectedScene(`Jotunheim`)}>
+          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-pink-500" onClick={() => showSelectedScene(`Jotunheim`)}>
             Jotunheim
           </button>
-          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-emerald-400" onClick={() => showSelectedScene(`All stages`)}>
+          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-gray-300" onClick={() => showSelectedScene(`All stages`)}>
             All stages
           </button>
         </div>
