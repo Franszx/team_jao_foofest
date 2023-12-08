@@ -82,7 +82,7 @@ export default function LiveChat(props) {
 	}, [messages]);
 
 	return (
-		<div className="w-80 md:w-96">
+		<div className="w-80">
 			<h2 className="capitalize text-xl mb-3 text-primary font-semibold hidden md:block">
 				{props.tableName}
 			</h2>

@@ -47,7 +47,7 @@ export default function WrapperLiveChat() {
 				{activeChat === "jotunheim" && <LiveChat tableName="jotunheim" />}
 			</div>
 
-			<div className="hidden gap-4 md:flex md:flex-row md:justify-between">
+			<div className="hidden gap-8 md:flex md:justify-between w-full">
 				<LiveChat tableName="midgard" />
 				<LiveChat tableName="vanaheim" />
 				<LiveChat tableName="jotunheim" />
