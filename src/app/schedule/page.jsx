@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/components/Header";
 import ScheduleCard from "@/components/ScheduleCard";
-
+import { url } from "/config";
 import BuyButton from "@/components/BuyButton";
 import Footer from "@/components/Footer";
 
@@ -11,10 +11,6 @@ export default function Schedule() {
   const [dataSchedule, setDataSchedule] = useState(null);
   const [dataBands, setDataBands] = useState(null);
   const [selectedScene, showSelectedScene] = useState("All stages");
-  // const url = "http://foofest.glitch.me";
-
-  // Manual override for testing, comment out when done:
-  const url = "http://localhost:8080";
 
   useEffect(() => {
     const fetchData = async () => {
