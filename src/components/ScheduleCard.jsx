@@ -5,15 +5,18 @@ export default function ScheduleCard(props) {
   return (
     <>
       <Link className="" href={`${props.slug}`}>
-        <div className="card w-48 pr-8 bg-base-100 image-full cursor-pointer text-center">
-          <figure className="h-44 relative">
+        <div className="card w-36  bg-base-100 image-full cursor-pointer text-center ">
+          <figure className="h-36 relative border border-gray-300">
             <Image src={props.src} alt={props.artist} layout="fill" objectFit="cover" />
           </figure>
           {/* Showing the scene, timeslot and atistname from database */}
-          <div className="card-body p-0 gap-0 text-center self-center">
+          <div className="card-body py-1 gap-0 text-center self-center">
             <p className="text-sm font-thin">{props.scene}</p>
             <p className="text-2xl font-black">{props.time}</p>
-            <p className="text-xs font-semibold">{props.artist}</p>
+            <div>
+              <p className="text-xs font-thin p-0 text-wrap">{props.artist}</p>
+            </div>
+            {/* <p className="text-xs font-normal p-2">{props.artist}</p> */}
           </div>
           {/* Display logo credits if there are any */}
           {props.logoCredits && (
@@ -29,7 +32,7 @@ export default function ScheduleCard(props) {
       </Link>
       {/* Showing a break at the specific nextTime slot */}
       <div className="grid text-center">
-        <p className=" text-xs text-gray-400  w-fit py-2 px-3 mt-2">
+        <p className=" text-xs text-gray-400 w-fit py-2 px-3">
           &#8594; {props.nextTime} <span className="text-gray-50 capitalize">Break</span>
         </p>
       </div>

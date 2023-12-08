@@ -1,15 +1,16 @@
 "use client";
 import Header from "@/components/Header";
 import ScheduleCard from "@/components/ScheduleCard";
-import ArtistCardLoading from "@/components/ArtistCardLoading";
-import Image from "next/image";
+
 import BuyButton from "@/components/BuyButton";
+import Footer from "@/components/Footer";
 
 import { useEffect, useState } from "react";
 
 export default function Schedule() {
   const [dataSchedule, setDataSchedule] = useState(null);
   const [dataBands, setDataBands] = useState(null);
+  const [selectedScene, showSelectedScene] = useState("All stages");
   // const url = "http://foofest.glitch.me";
 
   // Manual override for testing, comment out when done:
@@ -92,6 +93,7 @@ export default function Schedule() {
     sat: "Saturday",
     sun: "Sunday",
   };
+
   return (
     <>
       <Header />
@@ -99,20 +101,31 @@ export default function Schedule() {
         <h2 className="font-sans font-black text-3xl lg:text-5xl">Schedule</h2>
         <h3 className="font-sans font-black text-2xl lg:text-4xl text-stroke-1 text-transparent">Stage</h3>
         <div className="flex gap-2">
-          <button>stage</button>
-          <button>stage</button>
-          <button>stage</button>
-          <button>All stages</button>
+          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-emerald-400" onClick={() => showSelectedScene(`Midgard`)}>
+            Midgard
+          </button>
+          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-emerald-400" onClick={() => showSelectedScene(`Vanaheim`)}>
+            Vanaheim
+          </button>
+          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-emerald-400" onClick={() => showSelectedScene(`Jotunheim`)}>
+            Jotunheim
+          </button>
+          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-emerald-400" onClick={() => showSelectedScene(`All stages`)}>
+            All stages
+          </button>
         </div>
 
         <div className="grid grid-cols-7 gap-4">
           {["mon", "tue", "wed", "thu", "fri", "sat", "sun"].map((dayName) => (
-            <div key={dayName} className="flex flex-col items-start">
-              <h2 className="text-xl font-bold mb-3">{dayName.toUpperCase()}</h2>
+            <div key={dayName} className="flex flex-col items-center">
+              <h2 className="text-xl font-bold mb-3 text-center">{dayNames[dayName].toUpperCase()}</h2>
 
               {Object.keys(dataSchedule).map((scene) => {
                 const schedule = dataSchedule[scene][dayName];
                 return schedule.map((slot, index) => {
+                  if (selectedScene !== "All stages" && scene !== selectedScene) {
+                    return null;
+                  }
                   const bandName = slot.act;
                   if (bandName === "break") return null;
                   const bandInfo = getBandInfo(bandName);
@@ -144,8 +157,11 @@ export default function Schedule() {
             </div>
           ))}
         </div>
+        <div className="grid place-content-center">
+          <BuyButton />
+        </div>
       </div>
-      <BuyButton />
+      <Footer />
     </>
   );
 }
