@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { v4 as uuidv4 } from "uuid";
 
 const supabase = createClient(
 	"https://urhncfuwsqbvnyotdqmh.supabase.co",
@@ -10,6 +11,8 @@ const supabase = createClient(
 function Page() {
 	const [messages, setMessages] = useState([]);
 	const [newMessage, setNewMessage] = useState("");
+	const deviceID = uuidv4();
+	console.log(deviceID);
 
 	const handleInserts = (payload) => {
 		setMessages((messages) => [...messages, payload.new]);
@@ -24,7 +27,7 @@ function Page() {
 		console.log(newMessage);
 		const { data, error } = await supabase
 			.from("midgard")
-			.insert([{ message: newMessage }]);
+			.insert([{ message: newMessage, sender: deviceID }]);
 		if (error) {
 			console.error("Error inserting:", error);
 		} else {
@@ -71,11 +74,20 @@ function Page() {
 				/>
 				<button type="submit">Send</button>
 			</form>
-			<ul>
+			<div className="chat chat-end">
 				{messages.map((message, index) => (
-					<li key={index}>{message.message}</li>
+					<div
+						key={index}
+						className={
+							message.sender === deviceID
+								? "chat-bubble mt-4 chat-bubble-primary"
+								: "chat-bubble mt-4 chat-bubble-secondary"
+						}
+					>
+						{message.message}
+					</div>
 				))}
-			</ul>
+			</div>
 		</div>
 	);
 }
