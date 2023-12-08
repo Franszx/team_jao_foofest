@@ -21,7 +21,7 @@ export default function Hero() {
 		fetchData();
 	}, []);
 	return (
-		<div className="hero flex flex-col my-2 lg:my-16 ">
+		<div className="hero flex flex-col -mt-12 lg:my-4 ">
 			<div className="hero-content text-center">
 				<ul className="flex flex-wrap font-sans justify-center lg:gap-4 text-3xl lg:text-6xl w-fit font-extrabold tracking-tight lg:tracking-normal">
 					{pages1.map((band, index, array) => {
