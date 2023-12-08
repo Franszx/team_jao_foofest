@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
 import { IconSend } from "@tabler/icons-react";
@@ -56,7 +56,7 @@ export default function LiveChat(props) {
 
 	useEffect(() => {
 		const subscription = supabase
-			.channel("todos")
+			.channel(`todos-${props.tableName}`)
 			.on(
 				"postgres_changes",
 				{ event: "*", schema: "public", table: props.tableName },
@@ -69,10 +69,16 @@ export default function LiveChat(props) {
 		};
 	}, [props.tableName]);
 
+	const chatEndRef = useRef(null);
+
+	useEffect(() => {
+		chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+	}, [messages]);
+
 	return (
 		<div className="w-96">
-			<h1>Chat</h1>
-			<div className="max-h-[500px] overflow-y-auto scrollbar-hide">
+			<h1 className="capitalize">{props.tableName}</h1>
+			<div className="h-[500px] bg-gray-800 overflow-y-auto scrollbar-hide flex flex-col">
 				{messages.map((message, index) => {
 					if (message.sender === deviceID) {
 						return (
@@ -92,6 +98,7 @@ export default function LiveChat(props) {
 						);
 					}
 				})}
+				<div ref={chatEndRef} />
 			</div>
 			<form className="flex" onSubmit={handleNewMessage}>
 				<input
