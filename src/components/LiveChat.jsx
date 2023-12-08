@@ -76,14 +76,14 @@ export default function LiveChat(props) {
 	}, [messages]);
 
 	return (
-		<div className="w-96">
-			<h1 className="capitalize">{props.tableName}</h1>
-			<div className="h-[500px] bg-gray-800 overflow-y-auto scrollbar-hide flex flex-col">
+		<div className="w-80 md:w-96">
+			<h2 className="capitalize hidden md:block">{props.tableName}</h2>
+			<div className="h-[500px] bg-gray-800 overflow-y-auto scrollbar-hide flex flex-col pb-4 px-4 rounded-lg mb-2">
 				{messages.map((message, index) => {
 					if (message.sender === deviceID) {
 						return (
 							<div key={index} className="chat chat-end">
-								<div className="chat-bubble mt-4 chat-bubble-primary">
+								<div className="chat-bubble mt-4 chat-bubble-primary max-w-[250px] md:max-w-[300px] break-words">
 									{message.message}
 								</div>
 							</div>
@@ -91,7 +91,7 @@ export default function LiveChat(props) {
 					} else {
 						return (
 							<div key={index} className="chat chat-start">
-								<div className="chat-bubble mt-4 chat-bubble-accent max-w-[300px] break-words">
+								<div className="chat-bubble mt-4 chat-bubble-accent max-w-[250px] md:max-w-[300px] break-words">
 									{message.message}
 								</div>
 							</div>
@@ -100,15 +100,20 @@ export default function LiveChat(props) {
 				})}
 				<div ref={chatEndRef} />
 			</div>
-			<form className="flex" onSubmit={handleNewMessage}>
-				<input
-					type="text"
-					className="bg-gray-900"
+			<form className="flex justify-between" onSubmit={handleNewMessage}>
+				<textarea
+					className="bg-gray-900 w-full rounded-lg px-4 py-2 mr-2 resize-none overflow-auto scrollbar-hide"
 					value={newMessage}
 					onChange={handleNewMessageChange}
+					onKeyPress={(event) => {
+						if (event.key === "Enter" && !event.shiftKey) {
+							event.preventDefault();
+							handleNewMessage(event);
+						}
+					}}
 				/>
 				<button type="submit">
-					<IconSend color="#059669" />
+					<IconSend size={28} color="#059669" />
 				</button>
 			</form>
 		</div>
