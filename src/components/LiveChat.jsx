@@ -72,12 +72,20 @@ export default function LiveChat(props) {
 	const chatEndRef = useRef(null);
 
 	useEffect(() => {
-		chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+		const chatContainer = chatEndRef.current?.parentNode;
+		if (chatContainer) {
+			chatContainer.scrollTo({
+				top: chatContainer.scrollHeight,
+				behavior: "smooth",
+			});
+		}
 	}, [messages]);
 
 	return (
 		<div className="w-80 md:w-96">
-			<h2 className="capitalize hidden md:block">{props.tableName}</h2>
+			<h2 className="capitalize text-xl mb-3 text-primary font-semibold hidden md:block">
+				{props.tableName}
+			</h2>
 			<div className="h-[500px] bg-gray-800 overflow-y-auto scrollbar-hide flex flex-col pb-4 px-4 rounded-lg mb-2">
 				{messages.map((message, index) => {
 					if (message.sender === deviceID) {
@@ -102,7 +110,7 @@ export default function LiveChat(props) {
 			</div>
 			<form className="flex justify-between" onSubmit={handleNewMessage}>
 				<textarea
-					className="bg-gray-900 w-full rounded-lg px-4 py-2 mr-2 resize-none overflow-auto scrollbar-hide"
+					className="bg-gray-900 w-full rounded-lg px-4 py-2 mr-2 resize-none overflow-auto scrollbar-hide focus:outline-none focus:ring focus:ring-emerald-600"
 					value={newMessage}
 					onChange={handleNewMessageChange}
 					onKeyPress={(event) => {
