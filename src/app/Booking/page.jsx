@@ -47,6 +47,7 @@ function Booking() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [selectedCamp, setSelectedCamp] = useState(null);
 
   const updateTickets = (type, operation) => {
     if (ticketsReserved === true) {
@@ -202,6 +203,7 @@ function Booking() {
     ) {
       if (!reservationId) {
         setSelectedSpot(null);
+        setSelectedCamp(null);
       }
     }
   }, [totalTickets, selectedSpot, spots, reservationId]);
@@ -297,6 +299,8 @@ function Booking() {
               selectSpot={selectSpot}
               setSelectedSpot={setSelectedSpot}
               ticketsReserved={ticketsReserved}
+              selectedCamp={selectedCamp}
+              setSelectedCamp={setSelectedCamp}
             />
           )) ||
             (currentSlide === 1 && (
