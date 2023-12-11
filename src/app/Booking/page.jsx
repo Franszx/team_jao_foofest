@@ -57,12 +57,11 @@ function Booking() {
       to: email,
       subject: "Order confirmation",
       html: {
-        name: allChoices.name,
-        numRegular: allChoices.numRegular,
-        numVip: allChoices.numVip,
-        campArea: allChoices.campArea,
-        numTwoTent: allChoices.numTwoTent,
-        numThreeTent: allChoices.numThreeTent,
+        numRegular: allChoices.regularTickets,
+        numVip: allChoices.vipTickets,
+        campArea: allChoices.area,
+        numTwoTent: allChoices.twoPersonTents,
+        numThreeTent: allChoices.threePersonTents,
         greenCamping: allChoices.greenCamping ? "Yes" : "No",
         totalPrice: allChoices.totalPrice,
       },
@@ -70,6 +69,8 @@ function Booking() {
       sendername: "FooFest Customer Support / support@foofest.com",
       template: "foofest-template",
     };
+    setMailContent(mailContent);
+    sendMail(mailContent);
   }
 
   const updateTickets = (type, operation) => {
@@ -280,6 +281,20 @@ function Booking() {
     email,
     ,
   ]);
+
+  useEffect(() => {
+    if (currentSlide === 4) {
+      clearInterval(countdownInterval);
+    }
+  }, [currentSlide, countdownInterval]);
+
+  useEffect(() => {
+    console.log("mailContent", mailContent);
+  }, [mailContent]);
+
+  useEffect(() => {
+    console.log(email);
+  }, [email]);
 
   return (
     <main className="md:container mx-auto  flex flex-col justify-center items-center h-screen w-screen">
