@@ -4,6 +4,7 @@ import ReactMapGl, { Marker, Popup } from "react-map-gl";
 import { url } from "/config";
 import MapPin from "./MapPin";
 import PopUpContent from "./PopUpContent";
+import Image from "next/image";
 
 export default function Map({
 	selectedCamp,
@@ -21,11 +22,19 @@ export default function Map({
 		width: "100%",
 		height: "100%",
 		zoom: 7,
-		minZoom: 5,
+		minZoom: 6,
 		maxZoom: 9,
 	});
 
+	const scenes = [
+		{ name: "Midgard", latitude: 55.571488, longitude: 11.677192 },
+		{ name: "Vanaheim", latitude: 55.295297, longitude: 11.773895 },
+		{ name: "Jotunheim", latitude: 55.90243, longitude: 11.958347 },
+	];
+
 	const [dataCamps, setDataCamps] = useState(null);
+	const [sceneMarker, setSceneMarker] = useState(scenes);
+	const [selectedScene, setSelectedScene] = useState(null);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -67,6 +76,7 @@ export default function Map({
 										{
 											chooseSpot && chooseSpot(camp.area);
 										}
+										setSelectedScene(null);
 									}}
 									camp={camp}
 									campName={camp.area}
@@ -85,6 +95,41 @@ export default function Map({
 						}}
 					>
 						<PopUpContent selectedCamp={selectedCamp} />
+					</Popup>
+				) : null}
+				{sceneMarker.map((scene) => {
+					return (
+						<Marker
+							key={scene.latitude}
+							latitude={scene.latitude}
+							longitude={scene.longitude}
+						>
+							<Image
+								src="/img/stageIcon.svg"
+								width={25}
+								height={25}
+								alt="Logo Representing Stage"
+								onClick={(e) => {
+									e.preventDefault();
+									e.stopPropagation();
+									setSelectedScene(scene);
+									setSelectedCamp(null);
+								}}
+							/>
+						</Marker>
+					);
+				})}
+				{selectedScene ? (
+					<Popup
+						latitude={selectedScene.latitude}
+						longitude={selectedScene.longitude}
+						onClose={() => {
+							setSelectedScene(null);
+						}}
+					>
+						<h3 className="text-xl font-semibold text-center">
+							{selectedScene.name}
+						</h3>
 					</Popup>
 				) : null}
 			</ReactMapGl>
