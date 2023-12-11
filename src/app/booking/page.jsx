@@ -123,10 +123,6 @@ function Page() {
     }
   }
 
-  function handleModalClose() {
-    setIsModalOpen(false);
-  }
-
   function handleModalConfirm() {
     resetCountdown();
     setIsModalOpen(false);
@@ -284,14 +280,6 @@ function Page() {
     ,
   ]);
 
-  useEffect(() => {
-    console.log("mailContent", mailContent);
-  }, [mailContent]);
-
-  useEffect(() => {
-    console.log(email);
-  }, [email]);
-
   return (
     <main className="md:container mx-auto  flex flex-col justify-center items-center h-screen w-screen">
       <dialog
@@ -307,7 +295,7 @@ function Page() {
           <div className="modal-action font-medium">
             <button
               className="btn btn-neutral font-medium text-base rounded py-1 px-4 w-fit"
-              onClick={handleModalClose}
+              onClick={() => setIsModalOpen(false)}
             >
               Cancel
             </button>
@@ -372,6 +360,7 @@ function Page() {
             ticketHolders={ticketHolders}
             fulfillReservation={fulfillReservation}
             sendMailToCustomer={sendMailToCustomer}
+            email={email}
           />
         </div>
         {currentSlide !== 4 && (

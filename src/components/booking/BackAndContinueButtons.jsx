@@ -10,6 +10,7 @@ function BackAndContinueButtons({
   selectedSpot,
   fulfillReservation,
   sendMailToCustomer,
+  email,
 }) {
   return (
     <div className="place-self-end space-x-6">
@@ -46,7 +47,8 @@ function BackAndContinueButtons({
               ticketHolders.regular.filter(Boolean).length +
                 ticketHolders.vip.filter(Boolean).length !==
                 totalTickets
-            )
+            ) &&
+            !(currentSlide === 3 && (!email || !email.includes("@")))
               ? "bg-primary text-emerald-100"
               : "btn-disabled"
           } font-medium text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 `}

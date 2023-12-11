@@ -49,13 +49,23 @@ const Payment = ({ email, setEmail }) => {
             name={state.name}
             focused={state.focus}
           />
-          <form className=" flex flex-wrap gap-3 justify-center w-4/5">
+          <form className=" flex flex-col gap-3 justify-center max-w-sm w-full">
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              className="input input-bordered input-sm bg-gray-800 w-full"
+              value={state.name}
+              onChange={handleInputChange}
+              onFocus={handleInputFocus}
+              required
+            />
             <input
               type="tel"
               pattern="\d{4} \d{4} \d{4} \d{4}"
               name="number"
               placeholder="Card Number"
-              className="input input-bordered bg-gray-700 flex-grow"
+              className="input input-bordered input-sm bg-gray-800 w-full"
               value={state.number}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
@@ -67,29 +77,20 @@ const Payment = ({ email, setEmail }) => {
               pattern="\d{2}/\d{2}"
               name="expiry"
               placeholder="MM/YY"
-              className="input input-bordered bg-gray-700 md:w-24"
+              className="input input-bordered input-sm bg-gray-800 w-full"
               value={state.expiry}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
               maxLength="5"
               required
             />
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              className="input input-bordered bg-gray-700 flex-grow"
-              value={state.name}
-              onChange={handleInputChange}
-              onFocus={handleInputFocus}
-              required
-            />
+
             <input
               type="tel"
               pattern="\d{3}"
               name="cvc"
               placeholder="CVC"
-              className="input input-bordered bg-gray-700 md:w-20"
+              className="input input-bordered input-sm bg-gray-800 w-full"
               value={state.cvc}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
@@ -100,7 +101,7 @@ const Payment = ({ email, setEmail }) => {
           <input
             type="email"
             placeholder="Email"
-            className="input input-bordered bg-gray-700"
+            className="input input-bordered input-sm bg-gray-800 w-full max-w-sm"
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);

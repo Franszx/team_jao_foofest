@@ -32,7 +32,7 @@ const TicketHolders = ({
                       key={i}
                       type="text"
                       placeholder={`Regular Ticket ${i + 1}`}
-                      className="input input-bordered bg-neutral w-full"
+                      className="input input-bordered input-sm bg-gray-800 w-full"
                       onChange={(e) =>
                         handleInputChange("regular", i, e.target.value)
                       }
@@ -51,7 +51,7 @@ const TicketHolders = ({
                       key={i}
                       type="text"
                       placeholder={`VIP Ticket ${i + 1}`}
-                      className="input input-bordered bg-neutral w-full"
+                      className="input input-bordered input-sm bg-gray-800 w-full"
                       onChange={(e) =>
                         handleInputChange("vip", i, e.target.value)
                       }
