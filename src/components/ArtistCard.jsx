@@ -6,10 +6,10 @@ export default function ArtistCard(props) {
 		<div className="w-64 md:w-80 snap-start">
 			<Link href={`${props.slug}`}>
 				<article className="h-48 w-64 md:w-80 md:h-56 grid grid-rows-2">
-					<p className="ml-6 mt-4 text-gray-300 col-start-1 row-start-1 z-20">
+					<p className="mx-6 mt-4 text-gray-300 col-start-1 row-start-1 z-20">
 						{props.scene}
 					</p>
-					<div className="ml-6 mb-4 col-start-1 row-start-2 z-20 self-end">
+					<div className="mx-6 mb-4 col-start-1 row-start-2 z-20 self-end">
 						<p className="capitalize text-2xl text-gray-50">{props.artist}</p>
 						<p className="text-gray-300">Until {props.time}</p>
 					</div>
