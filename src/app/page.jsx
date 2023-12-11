@@ -11,16 +11,16 @@ import TestMail from "@/components/TestMail";
 // import { useEffect } from "react";
 
 export default function Home() {
-	return (
-		<>
-			<Header />
-			<BurgerMenu />
-			<main className="container mx-auto max-w-6xl px-6 mt-40 flex flex-col gap-8">
-				<Hero />
-				<LiveArtists />
-				<CampOverview />
-			</main>
-			<Footer />
-		</>
-	);
+  return (
+    <>
+      <Header />
+      <BurgerMenu />
+      <main className="container mx-auto max-w-6xl px-6 mt-40 flex flex-col gap-12">
+        <Hero />
+        <LiveArtists />
+        <CampOverview />
+      </main>
+      <Footer />
+    </>
+  );
 }
