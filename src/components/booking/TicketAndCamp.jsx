@@ -1,5 +1,5 @@
 import { IconMinus, IconPlus } from "@tabler/icons-react";
-import CampMap from "./CampMap";
+import CampMap from "../CampMap";
 import { useState } from "react";
 
 function TicketAndCamp({

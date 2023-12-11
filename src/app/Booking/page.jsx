@@ -1,21 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import TicketAndCamp from "@/components/TicketAndCamp";
-import Payment from "@/components/Payment";
-import Link from "next/link";
-import {
-  IconCash,
-  IconFlag,
-  IconInfoCircle,
-  IconTicket,
-  IconTrees,
-  IconVip,
-  IconMinus,
-  IconPlus,
-  IconTent,
-  IconBuildingCircus,
-  IconCheck,
-} from "@tabler/icons-react";
+import TicketAndCamp from "@/components/booking/TicketAndCamp";
+import { TentOptions } from "@/components/booking/TentOptions";
+import TicketHolders from "@/components/booking/TicketHolders";
+import Payment from "@/components/booking/Payment";
+import PaymentStatus from "@/components/booking/PaymentStatus";
+import OrderSummary from "@/components/booking/OrderSummary";
+import BackAndContinueButtons from "@/components/booking/BackAndContinueButtons";
 
 import { url } from "/config";
 
@@ -262,11 +253,8 @@ function Booking() {
     ticketHolders,
     reservationId,
     email,
+    ,
   ]);
-
-  useEffect(() => {
-    console.log(allChoices);
-  }, [allChoices]);
 
   return (
     <main className="md:container mx-auto  flex flex-col justify-center items-center h-screen w-screen">
@@ -312,399 +300,58 @@ function Booking() {
             />
           )) ||
             (currentSlide === 1 && (
-              <div className=" h-full flex flex-col justify-between">
-                <h1 className="font-medium text-lg">Tents & Options</h1>
-                <div className="flex flex-col justify-evenly flex-grow">
-                  <div className="place-self-center flex flex-col gap-12">
-                    <div className="flex items-center gap-5 justify-end">
-                      <div className="font-medium text-end">
-                        <h2 className="text-gray-400 whitespace-nowrap">
-                          2 Person Tent
-                        </h2>
-                        <p>299 DKK</p>
-                      </div>
-                      <div className="flex items-center w-32 justify-between font-medium">
-                        <button
-                          className="bg-neutral text-gray-100 font-medium text-base p-2 rounded-full w-fit border border-gray-500 hover:bg-gray-600 hover:border-gray-500 transition-colors"
-                          onClick={() => updateTents("two", "decrease")}
-                        >
-                          <IconMinus />
-                        </button>
-                        <p>{twoPersonTents}</p>
-
-                        <button
-                          className={`  font-medium text-base p-2 rounded-full w-fit border transition-colors ${
-                            totalTickets >= 8
-                              ? "btn-disabled bg-gray-800 border-gray-800 stroke-gray-800"
-                              : "bg-primary text-emerald-100 border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 "
-                          }`}
-                          onClick={() => updateTents("two", "increase")}
-                        >
-                          <IconPlus />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-5 justify-end">
-                      <div className="font-medium text-end">
-                        <h2 className="text-gray-400 whitespace-nowrap">
-                          3 Person Tent
-                        </h2>
-                        <p>399 DKK</p>
-                      </div>
-                      <div className="flex items-center w-32 justify-between font-medium">
-                        <button
-                          className="bg-neutral text-gray-100 font-medium text-base p-2 rounded-full w-fit border border-gray-500 hover:bg-gray-600 hover:border-gray-500 transition-colors"
-                          onClick={() => updateTents("three", "decrease")}
-                        >
-                          <IconMinus />
-                        </button>
-                        <p>{threePersonTents}</p>
-
-                        <button
-                          className={`  font-medium text-base p-2 rounded-full w-fit border transition-colors ${
-                            totalTickets >= 8
-                              ? "btn-disabled bg-gray-800 border-gray-800 stroke-gray-800"
-                              : "bg-primary text-emerald-100 border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 "
-                          }`}
-                          onClick={() => updateTents("three", "increase")}
-                        >
-                          <IconPlus />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-5  justify-end">
-                      <div className="font-medium text-end space-y-1">
-                        <div className="flex gap-1">
-                          <h2 className="text-gray-400">Green Camping</h2>
-                          <div
-                            className="tooltip"
-                            data-tip="
-                        Support the environment by choosing a green camping spot.
-                        "
-                          >
-                            <IconInfoCircle color="rgb(156 163 175)" />
-                          </div>
-                        </div>
-                        <p>249 DKK</p>
-                      </div>
-                      <input
-                        type="checkbox"
-                        className="toggle toggle-primary"
-                        onChange={() => setGreenCamping(!greenCamping)}
-                        checked={greenCamping}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <TentOptions
+                updateTents={updateTents}
+                twoPersonTents={twoPersonTents}
+                threePersonTents={threePersonTents}
+                totalTickets={totalTickets}
+                greenCamping={greenCamping}
+                setGreenCamping={setGreenCamping}
+              />
             )) ||
             (currentSlide === 2 && (
-              <div className=" h-full flex flex-col justify-between">
-                <h1 className="font-medium text-lg">Tickets Holders</h1>
-                <div className="flex flex-col justify-evenly flex-grow">
-                  <div className="place-self-center flex flex-col gap-4">
-                    <form className=" w-full space-y-5">
-                      {regularTickets > 0 && (
-                        <div>
-                          <h2 className="mb-3 font-medium text-lg">
-                            Regular Ticket Holders
-                          </h2>
-                          <div className="flex flex-col gap-3">
-                            {[...Array(regularTickets)].map((_, i) => (
-                              <input
-                                key={i}
-                                type="text"
-                                placeholder={`Regular Ticket ${i + 1}`}
-                                className="input input-bordered bg-neutral w-full"
-                                onChange={(e) => {
-                                  let newRegularTicketHolders = [
-                                    ...ticketHolders.regular,
-                                  ];
-                                  newRegularTicketHolders[i] = e.target.value;
-                                  const newTicketHolders = {
-                                    ...ticketHolders,
-                                    regular: newRegularTicketHolders,
-                                  };
-                                  setTicketHolders(newTicketHolders);
-                                }}
-                                value={ticketHolders.regular[i] || ""}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      {vipTickets > 0 && (
-                        <div>
-                          <h2 className="mb-3 font-medium text-lg">
-                            VIP Ticket Holders
-                          </h2>
-                          <div className="flex flex-col gap-3">
-                            {[...Array(vipTickets)].map((_, i) => (
-                              <input
-                                key={i}
-                                type="text"
-                                placeholder={`VIP Ticket ${i + 1}`}
-                                className="input input-bordered bg-neutral w-full"
-                                onChange={(e) => {
-                                  let newVipTicketHolders = [
-                                    ...ticketHolders.vip,
-                                  ];
-                                  newVipTicketHolders[i] = e.target.value;
-                                  const newTicketHolders = {
-                                    ...ticketHolders,
-                                    vip: newVipTicketHolders,
-                                  };
-                                  setTicketHolders(newTicketHolders);
-                                }}
-                                value={ticketHolders.vip[i] || ""}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </form>
-                  </div>
-                </div>
-              </div>
+              <TicketHolders
+                regularTickets={regularTickets}
+                vipTickets={vipTickets}
+                ticketHolders={ticketHolders}
+                setTicketHolders={setTicketHolders}
+              />
             )) ||
             (currentSlide === 3 && (
               <Payment email={email} setEmail={setEmail} />
             )) ||
             (currentSlide === 4 && (
-              <div className="h-full flex flex-col justify-between">
-                <div className="flex flex-col justify-evenly flex-grow">
-                  <div className="place-self-center flex flex-col gap-4 items-center text-center">
-                    {paymentSuccess ? (
-                      <>
-                        <IconCheck className="text-emerald-500" size={64} />
-                        <h1 className="font-medium text-lg">Order Complete!</h1>
-                        <p className="text-gray-400 font-medium max-w-xs">
-                          Your order has been placed and you will receive a
-                          confirmation email shortly.
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <h1 className="font-medium text-lg">Payment Failed!</h1>
-                        <p className="text-gray-400 font-medium max-w-xs">
-                          There was an issue with your payment. Please try
-                          again.
-                        </p>
-                        <button className="btn btn-primary font-medium text-emerald-100 text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400">
-                          Try Again
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <PaymentStatus paymentSuccess={paymentSuccess} />
             ))}
 
-          <div className="place-self-end space-x-6">
-            {currentSlide === 0 && (
-              <Link
-                href="/"
-                className="text-gray-500 hover:text-gray-400 transition-colors font-medium"
-              >
-                Back
-              </Link>
-            )}
-            {currentSlide > 0 && currentSlide < 4 && (
-              <button
-                className="text-gray-500 hover:text-gray-400 transition-colors font-medium"
-                onClick={() => changeSlide("prev")}
-              >
-                Back
-              </button>
-            )}
-            {currentSlide === 4 ? (
-              <Link
-                href="/"
-                className="btn bg-primary text-emerald-100 font-medium text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400"
-              >
-                Return
-              </Link>
-            ) : (
-              <button
-                className={`btn ${
-                  totalTickets > 0 &&
-                  selectedSpot &&
-                  !(
-                    currentSlide === 2 &&
-                    ticketHolders.regular.filter(Boolean).length +
-                      ticketHolders.vip.filter(Boolean).length !==
-                      totalTickets
-                  )
-                    ? "bg-primary text-emerald-100"
-                    : "btn-disabled"
-                } font-medium text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400 `}
-                onClick={() => {
-                  if (
-                    totalTickets > 0 &&
-                    selectedSpot &&
-                    !(
-                      currentSlide === 2 &&
-                      ticketHolders.regular.filter(Boolean).length +
-                        ticketHolders.vip.filter(Boolean).length !==
-                        totalTickets
-                    )
-                  ) {
-                    if (currentSlide === 3) {
-                      fulfillReservation();
-                    }
-                    handleContinue();
-                  }
-                }}
-              >
-                {currentSlide === 3 ? "Finish Payment" : "Continue"}
-              </button>
-            )}
-          </div>
+          <BackAndContinueButtons
+            currentSlide={currentSlide}
+            changeSlide={changeSlide}
+            handleContinue={handleContinue}
+            totalTickets={totalTickets}
+            selectedSpot={selectedSpot}
+            ticketHolders={ticketHolders}
+            fulfillReservation={fulfillReservation}
+          />
         </div>
         {currentSlide !== 4 && (
-          <div className="bg-gray-800 bg-opacity-70 h-24 md:h-full w-full md:w-7/12 flex flex-row md:flex-col justify-between items-baseline md:items-start gap-5 order-1 md:order-2 md:border-l border-l-gray-700 border-opacity-60 p-6 md:p-12">
-            <div className="space-y-5">
-              <h1 className="font-medium text-lg whitespace-nowrap">
-                Order Summary
-              </h1>
-              <div className="space-y-5 font-medium hidden md:block">
-                <div className="flex items-center gap-3">
-                  <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
-                    <IconCash />
-                  </div>
-                  <div className="flex flex-col">
-                    <p className="text-gray-400">Booking Fee</p>
-                    <p className="text-gray-50">
-                      <span>99</span> DKK
-                    </p>
-                  </div>
-                </div>
-                {regularTickets > 0 && (
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
-                      <IconTicket />
-                    </div>
-                    <div className="flex flex-col">
-                      <p className="text-gray-400">Regular Tickets</p>
-                      <p className="text-gray-50">
-                        <span>
-                          799 DKK{" "}
-                          <span className="text-gray-400">
-                            * {regularTickets}
-                          </span>
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                )}
-                {vipTickets > 0 && (
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                      <IconVip />
-                    </div>
-                    <div className="flex flex-col">
-                      <p className="text-gray-400">VIP Tickets</p>
-                      <p className="text-gray-50">
-                        <span>
-                          1299 DKK{" "}
-                          <span className="text-gray-400">* {vipTickets}</span>
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                )}
-
-                <div className="flex items-center gap-3">
-                  <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                    <IconFlag />
-                  </div>
-                  <div className="flex flex-col">
-                    <p className="text-gray-400">Selected Camp</p>
-                    <p className="text-gray-50">
-                      <span>
-                        {selectedSpot ? selectedSpot : "No camp selected"}
-                      </span>
-                    </p>
-                  </div>
-                </div>
-                {greenCamping && (
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                      <IconTrees />
-                    </div>
-                    <div className="flex flex-col">
-                      <p className="text-gray-400">Green Camping</p>
-                      <p className="text-gray-50">
-                        <span>249 DKK</span>
-                      </p>
-                    </div>
-                  </div>
-                )}
-                {twoPersonTents > 0 && (
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                      <IconTent />
-                    </div>
-                    <div className="flex flex-col">
-                      <p className="text-gray-400">2 Person Tents</p>
-                      <p className="text-gray-50">
-                        <span>
-                          299 DKK{" "}
-                          <span className="text-gray-400">
-                            * {twoPersonTents}
-                          </span>
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                )}
-                {threePersonTents > 0 && (
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
-                      <IconBuildingCircus />
-                    </div>
-                    <div className="flex flex-col">
-                      <p className="text-gray-400">3 Person Tents</p>
-                      <p className="text-gray-50">
-                        <span>
-                          399 DKK{" "}
-                          <span className="text-gray-400">
-                            * {threePersonTents}
-                          </span>
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="w-full h-fit space-y-5 ">
-              <div className=" divider mt-0 hidden md:flex "></div>
-
-              {ticketsReserved && (
-                <div
-                  className={`hidden md:block font-medium ${
-                    isPulsing ? " animate-pulse" : ""
-                  }`}
-                >
-                  <p className="text-gray-400">
-                    {totalTickets > 1 ? "Tickets Reserved" : "Ticket Reserved"}
-                  </p>
-                  <span className="countdown">
-                    <span style={{ "--value": minutes }}> :</span>
-                  </span>
-                  <span>:</span>
-                  <span className="countdown">
-                    <span style={{ "--value": seconds }}></span>
-                  </span>
-                </div>
-              )}
-              <div className="font-medium flex flex-row md:flex-col gap-2 md:gap-0">
-                <p className="text-gray-400">Total</p>
-                <p>{totalPrice} DKK</p>
-              </div>
-            </div>
-          </div>
+          <OrderSummary
+            allChoices={allChoices}
+            currentSlide={currentSlide}
+            countdown={countdown}
+            minutes={minutes}
+            seconds={seconds}
+            isPulsing={isPulsing}
+            ticketsReserved={ticketsReserved}
+            totalPrice={totalPrice}
+            regularTickets={regularTickets}
+            vipTickets={vipTickets}
+            selectedSpot={selectedSpot}
+            greenCamping={greenCamping}
+            twoPersonTents={twoPersonTents}
+            threePersonTents={threePersonTents}
+            totalTickets={totalTickets}
+          />
         )}
       </section>
     </main>
