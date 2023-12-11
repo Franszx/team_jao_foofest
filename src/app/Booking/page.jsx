@@ -52,27 +52,6 @@ function Booking() {
 
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
-  // useEffect(() => {
-  //   setMailContent({
-  //     to: email,
-  //     subject: "Order confirmation",
-  //     html: {
-  //       name: allChoices.ticketHolders.regular[0],
-  //       numRegular: allChoices.regularTickets,
-  //       numVip: allChoices.vipTickets,
-  //       campArea: allChoices.area,
-  //       numTwoTent: allChoices.twoPersonTents,
-  //       numThreeTent: allChoices.threePersonTents,
-  //       greenCamping: allChoices.greenCamping ? "Yes" : "No",
-  //       totalPrice: allChoices.totalPrice,
-  //     },
-  //     company: "FooFest - Festival",
-  //     sendername: "FooFest Customer Support / support@foofest.com",
-  //     template: "foofest-template",
-  //   });
-  //   console.log(mailContent);
-  // }, [allChoices, email, mailContent]);
-
   const updateTickets = (type, operation) => {
     if (ticketsReserved === true) {
       setIsModalOpen(true);

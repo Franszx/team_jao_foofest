@@ -1,8 +1,7 @@
 import Header from "@/components/Header";
 import PlayingWhen from "@/components/PlayingWhen";
 import Image from "next/image";
-
-const url = "http://localhost:8080";
+import { url } from "/config";
 
 // Function to generate static paths for each band
 export async function generateStaticParams() {
