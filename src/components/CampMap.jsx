@@ -21,6 +21,8 @@ export default function Map({
 		width: "100%",
 		height: "100%",
 		zoom: 7,
+		minZoom: 5,
+		maxZoom: 9,
 	});
 
 	const [dataCamps, setDataCamps] = useState(null);
