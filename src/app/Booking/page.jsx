@@ -283,12 +283,6 @@ function Booking() {
   ]);
 
   useEffect(() => {
-    if (currentSlide === 4) {
-      clearInterval(countdownInterval);
-    }
-  }, [currentSlide, countdownInterval]);
-
-  useEffect(() => {
     console.log("mailContent", mailContent);
   }, [mailContent]);
 
