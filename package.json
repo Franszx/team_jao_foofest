@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
     "@tabler/icons-react": "^2.42.0",
     "@types/mapbox-gl": "^2.7.19",
     "aos": "^2.3.4",
@@ -21,7 +22,8 @@
     "react-hamburgers": "^1.0.0",
     "react-map-gl": "^7.1.6",
     "react-responsive": "^9.0.2",
-    "react-social-icons": "^6.7.0"
+    "react-social-icons": "^6.7.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

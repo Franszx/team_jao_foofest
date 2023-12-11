@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/components/Header";
 import ScheduleCard from "@/components/ScheduleCard";
-
+import { url } from "/config";
 import BuyButton from "@/components/BuyButton";
 import Footer from "@/components/Footer";
 
@@ -11,10 +11,6 @@ export default function Schedule() {
   const [dataSchedule, setDataSchedule] = useState(null);
   const [dataBands, setDataBands] = useState(null);
   const [selectedScene, showSelectedScene] = useState("All stages");
-  // const url = "http://foofest.glitch.me";
-
-  // Manual override for testing, comment out when done:
-  const url = "http://localhost:8080";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -115,7 +111,7 @@ export default function Schedule() {
           </button>
         </div>
 
-        <div className="grid grid-cols-7 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-7 gap-4">
           {["mon", "tue", "wed", "thu", "fri", "sat", "sun"].map((dayName) => (
             <div key={dayName} className="flex flex-col items-center">
               <h2 className="text-xl font-bold mb-3 text-center">{dayNames[dayName].toUpperCase()}</h2>

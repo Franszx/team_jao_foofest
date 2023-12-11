@@ -4,15 +4,11 @@ import CampMap from "./CampMap";
 import CampDisplay from "./CampDisplay";
 import BuyButton from "./BuyButton";
 import { useEffect, useState } from "react";
+import { url } from "/config";
 
 export default function CampOverview() {
 	const [dataCamps, setDataCamps] = useState(null);
 	const [selectedCamp, setSelectedCamp] = useState(null);
-
-	// const url = "http://foofest.glitch.me";
-
-	// Manual override for testing, comment out when done:
-	const url = "http://localhost:8080";
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -25,7 +21,7 @@ export default function CampOverview() {
 	}, []);
 
 	return (
-		<section className="my-16">
+		<section className="my-4">
 			<h2 className="text-gray-600 mb-4">
 				<span className="text-xl text-gray-50">Camp Map</span> & Avaliable Spots
 			</h2>
@@ -54,6 +50,7 @@ export default function CampOverview() {
 				<CampMap
 					selectedCamp={selectedCamp}
 					setSelectedCamp={setSelectedCamp}
+					className="aspect-[4/5] w-full md:col-start-2 md:col-end-4 md:aspect-[5/4]"
 				/>
 				<div className="flex justify-center mt-6 md:hidden">
 					<BuyButton />
