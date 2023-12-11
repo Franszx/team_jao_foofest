@@ -93,10 +93,10 @@ export default function Schedule() {
   return (
     <>
       <Header />
-      <div className="container mx-auto max-w-6xl mt-40 flex flex-col gap-16">
+      <div className="container mx-auto max-w-6xl px-6 mt-40 flex flex-col gap-4">
         <h2 className="font-sans font-black text-3xl lg:text-5xl">Schedule</h2>
         <h3 className="font-sans font-black text-2xl lg:text-4xl text-stroke-1 text-transparent">Stage</h3>
-        <div className="flex gap-2">
+        <div className="grid grid-cols-2 lg:flex flex-col lg:flex-row gap-2">
           <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-amber-500" onClick={() => showSelectedScene(`Midgard`)}>
             Midgard
           </button>
@@ -111,7 +111,7 @@ export default function Schedule() {
           </button>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-7 gap-4">
+        <div className="flex flex-row lg:grid lg:grid-cols-7 lg:gap-4 md:justify-around overflow-y-auto h-screen gap-x-9 scrollbar-hide lg:border-x-8 lg:border-gray-700 px-4">
           {["mon", "tue", "wed", "thu", "fri", "sat", "sun"].map((dayName) => (
             <div key={dayName} className="flex flex-col items-center">
               <h2 className="text-xl font-bold mb-3 text-center">{dayNames[dayName].toUpperCase()}</h2>
