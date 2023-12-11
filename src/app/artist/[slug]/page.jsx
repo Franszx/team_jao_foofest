@@ -66,7 +66,7 @@ export default async function Page({ params }) {
                 <h1 className="absolute bottom-6 z-50 text-3xl font-medium">
                   {band.name}
                 </h1>
-                <p className="absolute bottom-6 right-0 text-sm text-gray-500 opacity-25 max-w-xl  text-right">
+                <p className="absolute bottom-6 right-0 text-sm text-gray-400 opacity-50 max-w-xl  text-right">
                   {band.logoCredits}
                 </p>
               </div>
