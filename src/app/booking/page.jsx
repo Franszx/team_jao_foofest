@@ -138,6 +138,7 @@ function Page() {
 		resetCountdown();
 		setIsModalOpen(false);
 		setSelectedCamp(null);
+		setReservationId(null);
 	}
 
 	function mapHandleModal() {
@@ -244,6 +245,7 @@ function Page() {
 			totalTickets === 0
 		) {
 			if (!reservationId) {
+				console.log("ingen ID");
 				setSelectedSpot(null);
 				setSelectedCamp(null);
 			}
