@@ -1,5 +1,5 @@
 "use client";
-
+import { url } from "/config";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -7,7 +7,7 @@ function PlayingWhen({ band }) {
   const [schedule, setSchedule] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:8080/schedule")
+    fetch(`${url}/schedule`)
       .then((res) => res.json())
       .then((data) => {
         // Iterate over each stage

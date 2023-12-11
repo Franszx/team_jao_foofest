@@ -9,7 +9,7 @@ function BackAndContinueButtons({
   ticketHolders,
   selectedSpot,
   fulfillReservation,
-  email,
+  sendMailToCustomer,
 }) {
   return (
     <div className="place-self-end space-x-6">
@@ -61,8 +61,9 @@ function BackAndContinueButtons({
                   totalTickets
               )
             ) {
-              if (currentSlide === 3 && email) {
+              if (currentSlide === 3) {
                 fulfillReservation();
+                sendMailToCustomer();
               }
               handleContinue();
             }

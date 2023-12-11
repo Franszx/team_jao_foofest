@@ -52,6 +52,26 @@ function Booking() {
 
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
+  function sendMailToCustomer() {
+    const mailContent = {
+      to: email,
+      subject: "Order confirmation",
+      html: {
+        name: allChoices.name,
+        numRegular: allChoices.numRegular,
+        numVip: allChoices.numVip,
+        campArea: allChoices.campArea,
+        numTwoTent: allChoices.numTwoTent,
+        numThreeTent: allChoices.numThreeTent,
+        greenCamping: allChoices.greenCamping ? "Yes" : "No",
+        totalPrice: allChoices.totalPrice,
+      },
+      company: "FooFest - Festival",
+      sendername: "FooFest Customer Support / support@foofest.com",
+      template: "foofest-template",
+    };
+  }
+
   const updateTickets = (type, operation) => {
     if (ticketsReserved === true) {
       setIsModalOpen(true);
@@ -340,7 +360,7 @@ function Booking() {
             selectedSpot={selectedSpot}
             ticketHolders={ticketHolders}
             fulfillReservation={fulfillReservation}
-            email={email}
+            sendMailToCustomer={sendMailToCustomer}
           />
         </div>
         {currentSlide !== 4 && (
