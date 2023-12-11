@@ -111,7 +111,7 @@ export default function Schedule() {
           </button>
         </div>
 
-        <div className="grid grid-cols-7 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-7 gap-4">
           {["mon", "tue", "wed", "thu", "fri", "sat", "sun"].map((dayName) => (
             <div key={dayName} className="flex flex-col items-center">
               <h2 className="text-xl font-bold mb-3 text-center">{dayNames[dayName].toUpperCase()}</h2>
