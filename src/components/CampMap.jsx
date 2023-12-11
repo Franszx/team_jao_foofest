@@ -66,8 +66,10 @@ export default function Map({
 											chooseSpot && chooseSpot(camp.area);
 										}
 									}}
+									camp={camp}
 									campName={camp.area}
 									selectedCamp={selectedCamp}
+									totalTickets={totalTickets}
 								/>
 							</Marker>
 						);

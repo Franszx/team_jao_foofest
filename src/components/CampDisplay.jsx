@@ -32,7 +32,9 @@ export default function CampDisplay(props) {
 			className={`font-thin flex justify-between w-full hover:text-gray-100 border rounded-lg mb-4 py-7 px-6 bg-opacity-20 hover:bg-opacity-60 hover:cursor-pointer ${
 				isActive ? "bg-opacity-60 text-gray-100" : "text-gray-400"
 			} ${isClicked ? "ani_scale" : ""} ${
-				campColors[props.campName] || "bg-gray-700 border-gray-800"
+				props.available === 0
+					? "text-gray-800 bg-gray-800 border-gray-900"
+					: campColors[props.campName] || "bg-gray-700 border-gray-800"
 			}`}
 			onClick={handleClick}
 		>
