@@ -21,7 +21,10 @@ const PaymentStatus = ({ paymentSuccess }) => (
             <p className="text-gray-400 font-medium max-w-xs">
               There was an issue with your payment. Please try again.
             </p>
-            <Link className="btn btn-primary font-medium text-emerald-100 text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400">
+            <Link
+              href="/booking"
+              className="btn btn-primary font-medium text-emerald-100 text-base rounded py-1 px-4 w-fit border border-emerald-500 hover:bg-emerald-500 hover:border-emerald-400"
+            >
               Try Again
             </Link>
           </>
