@@ -12,7 +12,7 @@ import BackAndContinueButtons from "@/components/booking/BackAndContinueButtons"
 
 import { url } from "/config";
 
-function Booking() {
+function Page() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const [regularTickets, setRegularTickets] = useState(0);
@@ -396,4 +396,4 @@ function Booking() {
   );
 }
 
-export default Booking;
+export default Page;
