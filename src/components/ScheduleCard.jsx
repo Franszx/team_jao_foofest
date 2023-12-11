@@ -20,7 +20,7 @@ export default function ScheduleCard({ scene, ...props }) {
   return (
     <>
       <Link className="" href={`${props.slug}`}>
-        <div className="card w-36  bg-base-100 image-full cursor-pointer text-center ">
+        <div className="card w-36  bg-base-100 image-full cursor-pointer text-center">
           <figure className={`h-36 relative border border-4 ${borderColor}`}>
             <Image src={props.src} alt={props.artist} layout="fill" objectFit="cover" />
           </figure>
@@ -29,7 +29,7 @@ export default function ScheduleCard({ scene, ...props }) {
             <p className="text-sm font-thin">{scene}</p>
             <p className="text-2xl font-black">{props.time}</p>
             <div>
-              <p className="text-xs font-thin p-0 text-wrap">{props.artist}</p>
+              <p className="text-xs font-thin p-0 text-wrap break-words ">{props.artist}</p>
             </div>
           </div>
           {/* Display logo credits if there are any */}
