@@ -91,7 +91,7 @@ export default function LiveChat(props) {
 					if (message.sender === deviceID) {
 						return (
 							<div key={index} className="chat chat-end">
-								<div className="chat-bubble mt-4 chat-bubble-primary max-w-[250px] md:max-w-[300px] break-words">
+								<div className="chat-bubble mt-4 chat-bubble-primary max-w-[250px] break-words">
 									{message.message}
 								</div>
 							</div>
@@ -99,7 +99,7 @@ export default function LiveChat(props) {
 					} else {
 						return (
 							<div key={index} className="chat chat-start">
-								<div className="chat-bubble mt-4 chat-bubble-accent max-w-[250px] md:max-w-[300px] break-words">
+								<div className="chat-bubble mt-4 chat-bubble-accent max-w-[250px] break-words">
 									{message.message}
 								</div>
 							</div>
