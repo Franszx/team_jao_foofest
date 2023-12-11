@@ -16,14 +16,14 @@ const Payment = ({ email, setEmail }) => {
 
     let newValue = value;
 
-    // Add spaces every 4 digits if the input is the card number
-    if (name === "number") {
-      newValue = value.replace(/\W/gi, "").replace(/(.{4})/g, "$1 ");
+    // Prevent non-numeric input for card number
+    if (name === "number" || name === "cvc" || name === "expiry") {
+      newValue = value.replace(/\D/g, "");
     }
 
-    // Add slash after 2 digits if the input is the expiry date
-    if (name === "expiry") {
-      newValue = value.replace(/\W/gi, "").replace(/(.{2})/, "$1/");
+    // Prevent non-alphabetic input for name
+    if (name === "name") {
+      newValue = value.replace(/[^a-zA-Z ]/g, "");
     }
 
     setState((prev) => ({ ...prev, [name]: newValue }));
@@ -69,19 +69,19 @@ const Payment = ({ email, setEmail }) => {
               value={state.number}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
-              maxLength="19"
+              maxLength="16"
               required
             />
             <input
-              type="text"
-              pattern="\d{2}/\d{2}"
+              type="tel"
+              pattern="\d{2}\/\d{2}"
               name="expiry"
               placeholder="MM/YY"
               className="input input-bordered input-sm bg-gray-800 w-full"
               value={state.expiry}
               onChange={handleInputChange}
               onFocus={handleInputFocus}
-              maxLength="5"
+              maxLength="4"
               required
             />
 
