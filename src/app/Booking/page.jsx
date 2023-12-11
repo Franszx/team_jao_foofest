@@ -1,7 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import TicketAndCamp from "@/components/booking/TicketAndCamp";
+import { sendMail } from "@/utils/sendMail";
+
 import { TentOptions } from "@/components/booking/TentOptions";
+import TicketAndCamp from "@/components/booking/TicketAndCamp";
 import TicketHolders from "@/components/booking/TicketHolders";
 import Payment from "@/components/booking/Payment";
 import PaymentStatus from "@/components/booking/PaymentStatus";
@@ -27,12 +29,14 @@ function Booking() {
 
   const [spots, setSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
+  const [selectedCamp, setSelectedCamp] = useState(null);
 
   const [twoPersonTents, setTwoPersonTents] = useState(0);
   const [threePersonTents, setThreePersonTents] = useState(0);
   const [greenCamping, setGreenCamping] = useState(false);
 
   const [email, setEmail] = useState("");
+  const [mailContent, setMailContent] = useState({});
 
   const [reservationId, setReservationId] = useState(null);
 
@@ -47,7 +51,27 @@ function Booking() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [paymentSuccess, setPaymentSuccess] = useState(false);
-  const [selectedCamp, setSelectedCamp] = useState(null);
+
+  // useEffect(() => {
+  //   setMailContent({
+  //     to: email,
+  //     subject: "Order confirmation",
+  //     html: {
+  //       name: allChoices.ticketHolders.regular[0],
+  //       numRegular: allChoices.regularTickets,
+  //       numVip: allChoices.vipTickets,
+  //       campArea: allChoices.area,
+  //       numTwoTent: allChoices.twoPersonTents,
+  //       numThreeTent: allChoices.threePersonTents,
+  //       greenCamping: allChoices.greenCamping ? "Yes" : "No",
+  //       totalPrice: allChoices.totalPrice,
+  //     },
+  //     company: "FooFest - Festival",
+  //     sendername: "FooFest Customer Support / support@foofest.com",
+  //     template: "foofest-template",
+  //   });
+  //   console.log(mailContent);
+  // }, [allChoices, email, mailContent]);
 
   const updateTickets = (type, operation) => {
     if (ticketsReserved === true) {
@@ -286,6 +310,7 @@ function Booking() {
           </div>
         </div>
       </dialog>
+
       <section className="w-full h-full md:h-5/6 bg-gray-900 max-w-7xl flex flex-col md:flex-row md:rounded-xl overflow-hidden md:border border-gray-700 border-opacity-60 relative">
         <div className="bg-gray-900 w-full  h-full order-2 md:order-1 p-6 md:p-12 flex flex-col justify-between">
           {(currentSlide === 0 && (
@@ -336,6 +361,7 @@ function Booking() {
             selectedSpot={selectedSpot}
             ticketHolders={ticketHolders}
             fulfillReservation={fulfillReservation}
+            email={email}
           />
         </div>
         {currentSlide !== 4 && (
