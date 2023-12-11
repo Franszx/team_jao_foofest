@@ -4,6 +4,7 @@ import ScheduleCard from "@/components/ScheduleCard";
 import { url } from "/config";
 import BuyButton from "@/components/BuyButton";
 import Footer from "@/components/Footer";
+import BurgerMenu from "@/components/BurgerMenu";
 
 import { useEffect, useState } from "react";
 
@@ -11,6 +12,7 @@ export default function Schedule() {
   const [dataSchedule, setDataSchedule] = useState(null);
   const [dataBands, setDataBands] = useState(null);
   const [selectedScene, showSelectedScene] = useState("All stages");
+  const [selectedButton, setSelectedButton] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -93,27 +95,56 @@ export default function Schedule() {
   return (
     <>
       <Header />
-      <div className="container mx-auto max-w-6xl mt-40 flex flex-col gap-16">
+      <BurgerMenu />
+      <div className="container mx-auto max-w-6xl px-6 mt-40 flex flex-col gap-4">
         <h2 className="font-sans font-black text-3xl lg:text-5xl">Schedule</h2>
         <h3 className="font-sans font-black text-2xl lg:text-4xl text-stroke-1 text-transparent">Stage</h3>
-        <div className="flex gap-2">
-          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-amber-500" onClick={() => showSelectedScene(`Midgard`)}>
+        <div className="grid grid-cols-2 lg:flex flex-col lg:flex-row gap-2">
+          <button
+            style={{ backgroundColor: selectedButton === "Midgard" ? "rgb(245, 158, 11)" : "rgb(17 24 39)" }}
+            className={`btn btn-block px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border ${selectedButton === "Midgard" ? "border-amber-500" : "border-gray-500"} hover:bg-gray-900 hover:border-amber-500`}
+            onClick={() => {
+              showSelectedScene(`Midgard`);
+              setSelectedButton(`Midgard`);
+            }}
+          >
             Midgard
           </button>
-          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-emerald-500" onClick={() => showSelectedScene(`Vanaheim`)}>
+          <button
+            style={{ backgroundColor: selectedButton === "Vanaheim" ? "rgb(16, 185, 129)" : "rgb(17 24 39)" }}
+            className={`btn px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border ${selectedButton === "Vanaheim" ? "border-emerald-500" : "border-gray-500"} hover:bg-gray-900 hover:border-emerald-500`}
+            onClick={() => {
+              showSelectedScene(`Vanaheim`);
+              setSelectedButton(`Vanaheim`);
+            }}
+          >
             Vanaheim
           </button>
-          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-pink-500" onClick={() => showSelectedScene(`Jotunheim`)}>
+          <button
+            style={{ backgroundColor: selectedButton === "Jotunheim" ? "rgb(219, 39, 119)" : "rgb(17 24 39)" }}
+            className={`btn px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border ${selectedButton === "Jotunheim" ? "border-pink-600" : "border-gray-500"} hover:bg-gray-900 hover:border-pink-600`}
+            onClick={() => {
+              showSelectedScene(`Jotunheim`);
+              setSelectedButton(`Jotunheim`);
+            }}
+          >
             Jotunheim
           </button>
-          <button className="btn ml-4 px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-gray-300" onClick={() => showSelectedScene(`All stages`)}>
+          <button
+            style={{ backgroundColor: selectedButton === "All stages" ? "rgb(17 24 39)" : "rgb(17 24 39)" }}
+            className="btn px-8 py-2 bg-gray-900 text-gray-100 text-xs lg:text-base w-fit rounded border border-gray-500 hover:bg-gray-900 hover:border-gray-300"
+            onClick={() => {
+              showSelectedScene(`All stages`);
+              setSelectedButton(`All stages`);
+            }}
+          >
             All stages
           </button>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-7 gap-4">
+        <div className="flex flex-row lg:grid lg:grid-cols-7 lg:gap-4 md:justify-around overflow-y-auto h-screen gap-x-9 scrollbar-hide p-4 mb-20">
           {["mon", "tue", "wed", "thu", "fri", "sat", "sun"].map((dayName) => (
-            <div key={dayName} className="flex flex-col items-center">
+            <div key={dayName} className="flex flex-col items-start">
               <h2 className="text-xl font-bold mb-3 text-center">{dayNames[dayName].toUpperCase()}</h2>
 
               {Object.keys(dataSchedule).map((scene) => {
