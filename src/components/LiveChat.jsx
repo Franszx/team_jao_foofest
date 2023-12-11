@@ -4,21 +4,24 @@ import { createClient } from "@supabase/supabase-js";
 import { v4 as uuidv4 } from "uuid";
 import { IconSend } from "@tabler/icons-react";
 
-const supabase = createClient(
-	"https://urhncfuwsqbvnyotdqmh.supabase.co",
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVyaG5jZnV3c3Fidm55b3RkcW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5ODAzOTIsImV4cCI6MjAxNzU1NjM5Mn0.p3JncVVNOfKr1dMrWFcYxXKxHesdYaRlwIwZs7hqd_Y"
-);
-
-let deviceID = localStorage.getItem("deviceID");
-
-if (!deviceID) {
-	deviceID = uuidv4();
-	localStorage.setItem("deviceID", deviceID);
-}
-
 export default function LiveChat(props) {
 	const [messages, setMessages] = useState([]);
 	const [newMessage, setNewMessage] = useState("");
+	const [deviceID, setDeviceID] = useState(null);
+
+	const supabase = createClient(
+		"https://urhncfuwsqbvnyotdqmh.supabase.co",
+		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVyaG5jZnV3c3Fidm55b3RkcW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDE5ODAzOTIsImV4cCI6MjAxNzU1NjM5Mn0.p3JncVVNOfKr1dMrWFcYxXKxHesdYaRlwIwZs7hqd_Y"
+	);
+
+	useEffect(() => {
+		let id = localStorage.getItem("deviceID");
+		if (!id) {
+			id = uuidv4();
+			localStorage.setItem("deviceID", id);
+		}
+		setDeviceID(id);
+	}, []);
 
 	const handleInserts = (payload) => {
 		setMessages((messages) => [...messages, payload.new]);
