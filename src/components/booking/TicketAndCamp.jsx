@@ -1,5 +1,5 @@
 import { IconMinus, IconPlus } from "@tabler/icons-react";
-import CampMap from "./CampMap";
+import CampMap from "../CampMap";
 import { useState } from "react";
 
 function TicketAndCamp({
@@ -10,9 +10,9 @@ function TicketAndCamp({
   selectedSpot,
   setSelectedSpot,
   updateTickets,
+  setSelectedCamp,
+  selectedCamp,
 }) {
-  const [selectedCamp, setSelectedCamp] = useState(null);
-
   function chooseSpot(selectedCamp) {
     setSelectedSpot(selectedCamp);
   }

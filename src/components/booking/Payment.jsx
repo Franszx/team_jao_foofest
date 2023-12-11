@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 
@@ -32,6 +32,10 @@ const Payment = ({ email, setEmail }) => {
   const handleInputFocus = (evt) => {
     setState((prev) => ({ ...prev, focus: evt.target.name }));
   };
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
 
   return (
     <div className=" h-full flex flex-col justify-between w-full">
