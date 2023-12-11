@@ -347,6 +347,7 @@ function Page() {
 							selectedCamp={selectedCamp}
 							setSelectedCamp={setSelectedCamp}
 							mapHandleModal={mapHandleModal}
+							reservationId={reservationId}
 						/>
 					)) ||
 						(currentSlide === 1 && (

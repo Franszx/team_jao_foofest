@@ -50,13 +50,16 @@ function TicketAndCamp({
 	setSelectedCamp,
 	selectedCamp,
 	mapHandleModal,
+	reservationId,
 }) {
 	function chooseSpot(selectedCamp) {
 		const selectedSpotDetails = spots.find(
 			(spot) => spot.area === selectedCamp
 		);
 
-		if (
+		if (reservationId) {
+			return;
+		} else if (
 			selectedSpotDetails.available === 0 ||
 			totalTickets > selectedSpotDetails.available
 		) {
@@ -106,6 +109,7 @@ function TicketAndCamp({
 						totalTickets={totalTickets}
 						className="aspect-[3/2] w-full md:col-start-2 md:col-end-4 md:aspect-[2/1]"
 						mapHandleModal={mapHandleModal}
+						reservationId={reservationId}
 					/>
 					// <div>
 					//   <ul className="flex flex-wrap items-center gap-12 justify-center h-48 max-w-md mx-auto ">

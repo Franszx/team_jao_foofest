@@ -12,6 +12,7 @@ export default function Map({
 	totalTickets,
 	className,
 	mapHandleModal,
+	reservationId,
 }) {
 	const [viewPort, setViewPort] = useState({
 		latitude: 55.515097,
@@ -55,8 +56,12 @@ export default function Map({
 									onClick={(e) => {
 										e.preventDefault();
 										e.stopPropagation();
-										setSelectedCamp(camp);
-										mapHandleModal();
+										if (reservationId) {
+											mapHandleModal();
+										} else {
+											setSelectedCamp(camp);
+										}
+
 										{
 											chooseSpot && chooseSpot(camp.area);
 										}
