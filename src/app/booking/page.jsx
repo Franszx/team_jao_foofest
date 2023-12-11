@@ -52,6 +52,8 @@ function Page() {
 
 	const [paymentSuccess, setPaymentSuccess] = useState(false);
 
+	const [warningCamp, setWarningCamp] = useState(false);
+
 	function sendMailToCustomer() {
 		const mailContent = {
 			to: email,
@@ -240,15 +242,24 @@ function Page() {
 			(spot) => spot.area === selectedSpot
 		);
 
-		if (
+		if (selectedSpotDetails && totalTickets > selectedSpotDetails.available) {
+			console.log("Set warning camp to true");
+			setWarningCamp(true);
+			setSelectedSpot(null);
+			setSelectedCamp(null);
+		} else if (
 			(selectedSpotDetails && totalTickets > selectedSpotDetails.available) ||
 			totalTickets === 0
 		) {
 			if (!reservationId) {
-				console.log("ingen ID");
 				setSelectedSpot(null);
 				setSelectedCamp(null);
 			}
+		} else if (
+			selectedSpotDetails &&
+			totalTickets <= selectedSpotDetails.available
+		) {
+			setWarningCamp(false);
 		}
 	}, [totalTickets, selectedSpot, spots, reservationId]);
 
@@ -348,6 +359,7 @@ function Page() {
 							setSelectedCamp={setSelectedCamp}
 							mapHandleModal={mapHandleModal}
 							reservationId={reservationId}
+							warningCamp={warningCamp}
 						/>
 					)) ||
 						(currentSlide === 1 && (
