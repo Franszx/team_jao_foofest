@@ -12,8 +12,6 @@ import BackAndContinueButtons from "@/components/booking/BackAndContinueButtons"
 
 import { url } from "/config";
 
-// med lille b
-
 function Page() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -74,13 +72,17 @@ function Page() {
     sendMail(mailContent);
   }
 
+  // Function to update the number of tickets
   const updateTickets = (type, operation) => {
-    if (ticketsReserved === true) {
+    // Check if tickets are already reserved
+    if (ticketsReserved) {
       setIsModalOpen(true);
       return;
     }
+    // Determine if the ticket type is VIP
     const isVip = type === "vip";
     const currentTickets = isVip ? vipTickets : regularTickets;
+    // Check if operation is valid
     if (
       operation === "increase" ||
       (operation === "decrease" && currentTickets > 0)
@@ -92,10 +94,11 @@ function Page() {
     }
   };
 
+  // Function to update the number of tents
   const updateTents = (tentType, operation) => {
     const tentCapacity = tentType === "two" ? 2 : 3;
     const currentTents = tentType === "two" ? twoPersonTents : threePersonTents;
-
+    // Check if operation is valid
     if (
       operation === "increase" &&
       totalSelectedCapacity + tentCapacity <= totalTickets
@@ -113,10 +116,6 @@ function Page() {
       setTotalSelectedCapacity((prevCapacity) => prevCapacity - tentCapacity);
     }
   };
-
-  useEffect(() => {
-    console.log(totalSelectedCapacity);
-  }, [totalSelectedCapacity]);
 
   function changeSlide(direction) {
     if (direction === "next") {
@@ -300,10 +299,6 @@ function Page() {
     email,
     ,
   ]);
-
-  useEffect(() => {
-    console.log(reservationId);
-  }, [reservationId]);
 
   return (
     <main className="md:container mx-auto  flex flex-col justify-center items-center h-screen w-screen">
