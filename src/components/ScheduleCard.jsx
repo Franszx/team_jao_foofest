@@ -31,7 +31,6 @@ export default function ScheduleCard({ scene, ...props }) {
             <div>
               <p className="text-xs font-thin p-0 text-wrap">{props.artist}</p>
             </div>
-            {/* <p className="text-xs font-normal p-2">{props.artist}</p> */}
           </div>
           {/* Display logo credits if there are any */}
           {props.logoCredits && (
