@@ -127,9 +127,10 @@ export default function Map({
 							setSelectedScene(null);
 						}}
 					>
-						<h3 className="text-xl font-semibold text-center">
-							{selectedScene.name}
-						</h3>
+						<div className="flex items-center gap-2">
+							<h3 className="text-lg font-">Stage:</h3>
+							<h3 className="text-lg font-light">{selectedScene.name}</h3>
+						</div>
 					</Popup>
 				) : null}
 			</ReactMapGl>
