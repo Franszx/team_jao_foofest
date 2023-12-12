@@ -19,7 +19,7 @@ function About() {
           alt="Random Unsplash Image"
           width={500}
           height={500}
-          className=" aspect-video object-cover object-center w-full mt-8"
+          className=" aspect-video object-cover object-center w-full mt-16"
         />
         <p className="text-md mt-16">
           Our festival brings together the most talented DJs, producers, and
@@ -32,7 +32,7 @@ function About() {
           alt="Random Unsplash Image"
           width={500}
           height={500}
-          className=" aspect-video object-cover object-center w-full mt-8"
+          className=" aspect-video object-cover object-center w-full mt-16"
         />
         <p className="text-md mt-16">
           In addition to the incredible music, we offer a wide range of
@@ -46,7 +46,7 @@ function About() {
           alt="Random Unsplash Image"
           width={500}
           height={500}
-          className=" aspect-video object-cover object-center w-full mt-8"
+          className=" aspect-video object-cover object-center w-full mt-16"
         />
         <p className="text-md mt-16">
           Join us for an unforgettable weekend of music, dancing, and pure
