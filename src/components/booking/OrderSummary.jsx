@@ -28,7 +28,7 @@ function OrderSummary({
       <div className="space-y-5">
         <h1 className="font-medium text-lg whitespace-nowrap">Order Summary</h1>
         <div className="space-y-5 font-medium hidden md:block">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
               <IconCash />
             </div>
@@ -40,39 +40,39 @@ function OrderSummary({
             </div>
           </div>
           {regularTickets > 0 && (
-            <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
+            <div className="flex items-center gap-4">
+              <div className="indicator rounded-lg bg-gray-600 border border-gray-500 p-2 ">
+                <span class="indicator-item bg-emerald-600 border-emerald-500 badge badge-secondary h-5 w-5 rounded-full text-xs">
+                  {regularTickets}
+                </span>
                 <IconTicket />
               </div>
               <div className="flex flex-col">
                 <p className="text-gray-400">Regular Tickets</p>
                 <p className="text-gray-50">
-                  <span>
-                    799 DKK{" "}
-                    <span className="text-gray-400">* {regularTickets}</span>
-                  </span>
+                  <span>799 DKK </span>
                 </p>
               </div>
             </div>
           )}
           {vipTickets > 0 && (
-            <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
+            <div className="flex items-center gap-4">
+              <div className="indicator rounded-lg bg-gray-600 border border-gray-500 p-2">
+                <span class="indicator-item bg-emerald-600 border-emerald-500 badge badge-secondary h-5 w-5 rounded-full text-xs">
+                  {vipTickets}
+                </span>
                 <IconVip />
               </div>
               <div className="flex flex-col">
                 <p className="text-gray-400">VIP Tickets</p>
                 <p className="text-gray-50">
-                  <span>
-                    1299 DKK{" "}
-                    <span className="text-gray-400">* {vipTickets}</span>
-                  </span>
+                  <span>1299 DKK </span>
                 </p>
               </div>
             </div>
           )}
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
               <IconFlag />
             </div>
@@ -84,7 +84,7 @@ function OrderSummary({
             </div>
           </div>
           {greenCamping && (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
                 <IconTrees />
               </div>
@@ -97,33 +97,33 @@ function OrderSummary({
             </div>
           )}
           {twoPersonTents > 0 && (
-            <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
+            <div className="flex items-center gap-4">
+              <div className="indicator rounded-lg bg-gray-600 border border-gray-500 p-2">
+                <span class="indicator-item bg-emerald-600 border-emerald-500 badge badge-secondary h-5 w-5 rounded-full text-xs">
+                  {twoPersonTents}
+                </span>
                 <IconTent />
               </div>
               <div className="flex flex-col">
                 <p className="text-gray-400">2 Person Tents</p>
                 <p className="text-gray-50">
-                  <span>
-                    299 DKK{" "}
-                    <span className="text-gray-400">* {twoPersonTents}</span>
-                  </span>
+                  <span>299 DKK </span>
                 </p>
               </div>
             </div>
           )}
           {threePersonTents > 0 && (
-            <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-gray-600 border border-gray-500 p-2">
+            <div className="flex items-center gap-4">
+              <div className="indicator rounded-lg bg-gray-600 border border-gray-500 p-2">
+                <span class="indicator-item bg-emerald-600 border-emerald-500 badge badge-secondary h-5 w-5 rounded-full text-xs">
+                  {threePersonTents}
+                </span>
                 <IconBuildingCircus />
               </div>
               <div className="flex flex-col">
                 <p className="text-gray-400">3 Person Tents</p>
                 <p className="text-gray-50">
-                  <span>
-                    399 DKK{" "}
-                    <span className="text-gray-400">* {threePersonTents}</span>
-                  </span>
+                  <span>399 DKK </span>
                 </p>
               </div>
             </div>
