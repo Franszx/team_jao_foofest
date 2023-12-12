@@ -24,7 +24,7 @@ function About() {
         <p className="text-md mt-16">
           Our festival brings together the most talented DJs, producers, and
           artists from around the globe. With multiple stages, each showcasing
-          different genres of electronic music, you'll have the opportunity to
+          different genres of electronic music, you will have the opportunity to
           dance to your favorite beats all night long.
         </p>
         <Image
@@ -38,7 +38,7 @@ function About() {
           In addition to the incredible music, we offer a wide range of
           amenities and activities to enhance your festival experience. From
           food vendors serving delicious cuisine to interactive art
-          installations and immersive light shows, there's something for
+          installations and immersive light shows, there is something for
           everyone to enjoy.
         </p>
         <Image
