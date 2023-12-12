@@ -10,6 +10,7 @@ function BackAndContinueButtons({
   selectedSpot,
   fulfillReservation,
   sendMailToCustomer,
+  dataToSupabase,
   email,
 }) {
   return (
@@ -66,6 +67,7 @@ function BackAndContinueButtons({
               if (currentSlide === 3) {
                 fulfillReservation();
                 sendMailToCustomer();
+                dataToSupabase();
               }
               handleContinue();
             }
