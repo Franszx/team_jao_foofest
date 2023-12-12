@@ -3,6 +3,11 @@ import Footer from "@/components/Footer";
 import BurgerMenu from "@/components/BurgerMenu";
 import WrapperLiveChat from "@/components/WrapperLiveChat";
 
+export const metadata = {
+	title: "Stage Chats",
+	description: "Welcome to our stage chats",
+};
+
 export default function page() {
 	return (
 		<>
