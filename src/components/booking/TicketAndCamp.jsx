@@ -99,7 +99,7 @@ function TicketAndCamp({
 					</div>
 				</div>
 				{warningCamp && (
-					<div role="alert" className="alert alert-warning shadow-lg">
+					<div role="alert" className="alert shadow-lg">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
