@@ -8,7 +8,7 @@ const PaymentStatus = ({ paymentSuccess }) => (
       <div className="place-self-center flex flex-col gap-4 items-center text-center">
         {paymentSuccess ? (
           <>
-            <IconCheck className="text-emerald-500" size={64} />
+            <IconCheck className="text-emerald-500 animate-bounce" size={64} />
             <h1 className="font-medium text-lg">Order Complete!</h1>
             <p className="text-gray-400 font-medium max-w-xs">
               Your order has been placed and you will receive a confirmation
