@@ -7,10 +7,7 @@ export default function Footer() {
         <div className="hero-content flex flex-wrap mb-4">
           <ul className="grid grid-cols-2 lg:grid-cols-4 gap-x-9 lg:gap-x-36 justify-items-center ">
             <li>
-              <Link
-                className="text-sm lg:text-sm text-gray-300"
-                href="/booking"
-              >
+              <Link className="text-sm lg:text-sm text-gray-300" href="/booking">
                 Tickets
               </Link>
             </li>
@@ -52,30 +49,10 @@ export default function Footer() {
           </ul>
         </div>
         <div className="hero-content flex flex-wrap mb-4">
-          <SocialIcon
-            network="facebook"
-            bgColor="#030712"
-            fgColor="#A1A1AA"
-            url="www.facebook.com"
-          />
-          <SocialIcon
-            network="x"
-            bgColor="#030712"
-            fgColor="#A1A1AA"
-            url="www.twitterx.com"
-          />
-          <SocialIcon
-            network="instagram"
-            bgColor="#030712"
-            fgColor="#A1A1AA"
-            url="www.instagram.com"
-          />
-          <SocialIcon
-            network="snapchat"
-            bgColor="#030712"
-            fgColor="#A1A1AA"
-            url="www.snapchat.com"
-          />
+          <SocialIcon network="facebook" bgColor="#030712" fgColor="#A1A1AA" url="www.facebook.com" />
+          <SocialIcon network="x" bgColor="#030712" fgColor="#A1A1AA" url="www.twitterx.com" />
+          <SocialIcon className="hover:color-emerald-500" network="instagram" bgColor="#030712" fgColor="#A1A1AA" url="www.instagram.com" />
+          <SocialIcon network="snapchat" bgColor="#030712" fgColor="#A1A1AA" url="www.snapchat.com" />
         </div>
         <div>
           <p className="text-gray-300">info@foofest.com</p>
