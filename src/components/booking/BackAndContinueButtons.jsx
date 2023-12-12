@@ -14,7 +14,7 @@ function BackAndContinueButtons({
   email,
 }) {
   return (
-    <div className="place-self-end space-x-6">
+    <div className="place-self-end space-x-6 z-50">
       {currentSlide === 0 && (
         <Link
           href="/"
