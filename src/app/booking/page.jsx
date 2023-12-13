@@ -8,6 +8,7 @@ import TicketHolders from "@/components/booking/TicketHolders";
 import Payment from "@/components/booking/Payment";
 import PaymentStatus from "@/components/booking/PaymentStatus";
 import OrderSummary from "@/components/booking/OrderSummary";
+import MobileOrderSummary from "@/components/booking/MobileOrderSummary";
 import BackAndContinueButtons from "@/components/booking/BackAndContinueButtons";
 import { supabase } from "@/utils/supabaseClient";
 
@@ -337,7 +338,7 @@ function Page() {
 	]);
 
 	return (
-		<main className="md:container mx-auto  flex flex-col justify-center items-center h-screen w-screen">
+		<main className="md:container mx-auto flex flex-col justify-center items-center h-screen w-screen">
 			<dialog
 				id="my_modal_1"
 				className={isModalOpen ? "modal modal-open " : "modal"}
@@ -366,7 +367,11 @@ function Page() {
 			</dialog>
 
 			<section className="w-full h-full md:h-5/6 bg-gray-900 max-w-7xl flex flex-col md:flex-row md:rounded-xl overflow-hidden md:border border-gray-700 border-opacity-60 relative">
-				<div className="bg-gray-900 w-full  h-full order-2 md:order-1 p-6 md:p-12 flex flex-col justify-between">
+				<div
+					className={` ${
+						ticketsReserved ? "mt-28" : "mt-12"
+					} md:mt-0 bg-gray-900 w-full  h-full order-2 md:order-1 p-6 md:p-12 flex flex-col justify-between`}
+				>
 					{(currentSlide === 0 && (
 						<TicketAndCamp
 							regularTickets={regularTickets}
@@ -428,6 +433,27 @@ function Page() {
 				<div className="hidden h-full w-7/12 order-2 md:block">
 					{currentSlide !== 4 && (
 						<OrderSummary
+							allChoices={allChoices}
+							currentSlide={currentSlide}
+							countdown={countdown}
+							minutes={minutes}
+							seconds={seconds}
+							isPulsing={isPulsing}
+							ticketsReserved={ticketsReserved}
+							totalPrice={totalPrice}
+							regularTickets={regularTickets}
+							vipTickets={vipTickets}
+							selectedSpot={selectedSpot}
+							greenCamping={greenCamping}
+							twoPersonTents={twoPersonTents}
+							threePersonTents={threePersonTents}
+							totalTickets={totalTickets}
+						/>
+					)}
+				</div>
+				<div className="order-1 md:hidden">
+					{currentSlide !== 4 && (
+						<MobileOrderSummary
 							allChoices={allChoices}
 							currentSlide={currentSlide}
 							countdown={countdown}
