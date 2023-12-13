@@ -158,7 +158,7 @@ export default function MobileOrderSummary({
 						<div>
 							<p className="text-lg">Total</p>
 							<p className="text-gray-400 text-sm">
-								Including {totalPrice * 0.2} kr in taxes
+								Including {Number((totalPrice * 0.2).toFixed(2))} kr in taxes
 							</p>
 						</div>
 						<p className="text-lg">{totalPrice} DKK</p>
