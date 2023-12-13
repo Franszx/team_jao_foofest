@@ -72,31 +72,33 @@ const Payment = ({ email, setEmail }) => {
 							maxLength="16"
 							required
 						/>
-						<input
-							type="tel"
-							pattern="\d{2}\/\d{2}"
-							name="expiry"
-							placeholder="MM/YY"
-							className="input input-bordered input-sm bg-gray-800 w-full"
-							value={state.expiry}
-							onChange={handleInputChange}
-							onFocus={handleInputFocus}
-							maxLength="4"
-							required
-						/>
+						<div className="grid grid-cols-3 gap-4">
+							<input
+								type="tel"
+								pattern="\d{2}\/\d{2}"
+								name="expiry"
+								placeholder="MM/YY"
+								className="input input-bordered input-sm bg-gray-800 w-full col-span-2"
+								value={state.expiry}
+								onChange={handleInputChange}
+								onFocus={handleInputFocus}
+								maxLength="4"
+								required
+							/>
 
-						<input
-							type="tel"
-							pattern="\d{3}"
-							name="cvc"
-							placeholder="CVC"
-							className="input input-bordered input-sm bg-gray-800 w-full"
-							value={state.cvc}
-							onChange={handleInputChange}
-							onFocus={handleInputFocus}
-							maxLength="3"
-							required
-						/>
+							<input
+								type="tel"
+								pattern="\d{3}"
+								name="cvc"
+								placeholder="CVC"
+								className="input input-bordered input-sm bg-gray-800 w-full"
+								value={state.cvc}
+								onChange={handleInputChange}
+								onFocus={handleInputFocus}
+								maxLength="3"
+								required
+							/>
+						</div>
 					</form>
 					<input
 						type="email"
