@@ -65,6 +65,17 @@ export default function MobileOrderSummary({
 			</div>
 			{showOrderSummary && (
 				<div className="bg-gray-700 px-8 py-6 flex flex-col gap-4">
+					<div className="flex items-center gap-4">
+						<div className="rounded-lg bg-gray-600 border border-gray-500 p-2 ">
+							<IconCash />
+						</div>
+						<div className="flex flex-col">
+							<p className="text-gray-400">Booking Fee</p>
+							<p className="text-gray-50">
+								<span>99</span> DKK
+							</p>
+						</div>
+					</div>
 					{regularTickets > 0 && (
 						<div className="flex items-center gap-4">
 							<div className="indicator rounded-lg bg-gray-600 border border-gray-500 p-2 ">
