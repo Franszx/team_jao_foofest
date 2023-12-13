@@ -25,7 +25,7 @@ function OrderSummary({
 }) {
   return (
     <div className="bg-gray-800 bg-opacity-70 h-24 md:h-full w-full md:w-7/12 flex flex-row md:flex-col justify-between items-baseline md:items-start gap-5 order-1 md:order-2 md:border-l border-l-gray-700 border-opacity-60 p-6 md:p-12">
-      <div className="space-y-5">
+      <div className="space-y-5 hidden md:block">
         <h1 className="font-medium text-lg whitespace-nowrap">Order Summary</h1>
         <div className="space-y-5 font-medium hidden md:block">
           <div className="flex items-center gap-4">
@@ -130,9 +130,8 @@ function OrderSummary({
           )}
         </div>
       </div>
-      <div className="w-full h-fit space-y-5 ">
-        <div className=" divider mt-0 hidden md:flex "></div>
-
+      <div className="w-full h-fit md:space-y-5">
+        <div className=" divider mt-0 hidden md:flex"></div>
         {ticketsReserved && (
           <div
             className={`hidden md:block font-medium ${
