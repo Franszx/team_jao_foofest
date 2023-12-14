@@ -21,7 +21,7 @@ export default function page() {
 					</h1>
 					<p className="text-lg">
 						We have three stage chats, one for each of our stages. Feel free to
-						chat with other attendees, or ask questions to the speakers!
+						chat with other attendees, or ask questions to the organizers!
 					</p>
 				</div>
 				<WrapperLiveChat />
