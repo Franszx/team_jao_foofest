@@ -53,7 +53,7 @@ export default async function Page({ params }) {
     <>
       <Header />
       <BurgerMenu />
-      <main className="h-screen">
+      <main className="min-h-screen">
         {bands
           .filter((band) => band.slug === slug)
           .map((band) => (
@@ -71,7 +71,7 @@ export default async function Page({ params }) {
                   <h1 className="absolute bottom-6 z-50 text-3xl font-medium">
                     {band.name}
                   </h1>
-                  <p className="absolute bottom-6 right-0 text-sm text-gray-400 opacity-50 max-w-xl  text-right">
+                  <p className="absolute bottom-6 right-0 text-xs text-gray-400 opacity-50 max-w-xs pr-6 text-right">
                     {band.logoCredits}
                   </p>
                 </div>

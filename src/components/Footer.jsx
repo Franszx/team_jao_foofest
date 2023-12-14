@@ -7,12 +7,18 @@ export default function Footer() {
         <div className="hero-content flex flex-wrap mb-4">
           <ul className="grid grid-cols-2 lg:grid-cols-4 gap-x-9 lg:gap-x-36 justify-items-center ">
             <li>
-              <Link className="text-sm lg:text-sm text-gray-300" href="/booking">
+              <Link
+                className="text-sm lg:text-sm text-gray-300"
+                href="/booking"
+              >
                 Tickets
               </Link>
             </li>
             <li>
-              <Link className="text-sm lg:text-sm text-gray-300" href="/stageChat">
+              <Link
+                className="text-sm lg:text-sm text-gray-300"
+                href="/stageChat"
+              >
                 Stage chat
               </Link>
             </li>
@@ -50,16 +56,36 @@ export default function Footer() {
         </div>
         <div className="hero-content flex flex-wrap mb-4">
           <div className="hover:opacity-75">
-            <SocialIcon network="facebook" bgColor="#030712" fgColor="#A1A1AA" url="/" />
+            <SocialIcon
+              network="facebook"
+              bgColor="#030712"
+              fgColor="#A1A1AA"
+              url="/"
+            />
           </div>
           <div className="hover:hover:opacity-75">
-            <SocialIcon network="x" bgColor="#030712" fgColor="#A1A1AA" url="/" />
+            <SocialIcon
+              network="x"
+              bgColor="#030712"
+              fgColor="#A1A1AA"
+              url="/"
+            />
           </div>
           <div className="hover:hover:opacity-75">
-            <SocialIcon network="instagram" bgColor="#030712" fgColor="#A1A1AA" url="/" />
+            <SocialIcon
+              network="instagram"
+              bgColor="#030712"
+              fgColor="#A1A1AA"
+              url="/"
+            />
           </div>
           <div className="hover:hover:opacity-75">
-            <SocialIcon network="snapchat" bgColor="#030712" fgColor="#A1A1AA" url="/" />
+            <SocialIcon
+              network="snapchat"
+              bgColor="#030712"
+              fgColor="#A1A1AA"
+              url="/"
+            />
           </div>
         </div>
         <div>
