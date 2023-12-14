@@ -366,7 +366,7 @@ function Page() {
 				</div>
 			</dialog>
 
-			<section className="w-full h-full md:h-5/6 bg-gray-900 max-w-7xl flex flex-col md:flex-row md:rounded-xl overflow-hidden md:border border-gray-700 border-opacity-60 relative">
+			<section className="w-full h-full md:h-5/6 bg-gray-900 max-w-7xl flex flex-col md:flex-row md:rounded-xl md:border border-gray-700 border-opacity-60 relative">
 				<div
 					className={` ${
 						ticketsReserved ? "mt-28" : "mt-12"

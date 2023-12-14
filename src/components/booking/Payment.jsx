@@ -113,7 +113,7 @@ const Payment = ({ email, setEmail }) => {
 							setEmail(e.target.value);
 						}}
 					/>
-					<div className="flex items-center gap-2 text-gray-400">
+					<div className="flex items-center gap-2 text-gray-400 mb-6">
 						<input
 							id="checkbox"
 							type="checkbox"
