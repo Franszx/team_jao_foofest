@@ -74,7 +74,7 @@ function TicketAndCamp({
 
   return (
     <div className=" h-full flex flex-col justify-between">
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center mt-4 md:mt-0">
         <IconTicket />
         <h1 className="font-medium text-lg">Tickets & Camp</h1>
       </div>

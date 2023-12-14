@@ -19,7 +19,7 @@ export const TentOptions = ({
 }) => {
   return (
     <div className=" h-full flex flex-col justify-between">
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center mt-4 md:mt-0">
         <IconTent />
         <h1 className="font-medium text-lg">Tents & Options</h1>
       </div>

@@ -18,7 +18,7 @@ const TicketHolders = ({
 
   return (
     <div className=" h-full flex flex-col justify-between">
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center mt-4 md:mt-0">
         <IconUsers />
         <h1 className="font-medium text-lg">Tickets Holders</h1>
       </div>

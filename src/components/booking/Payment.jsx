@@ -40,7 +40,7 @@ const Payment = ({ email, setEmail }) => {
 
   return (
     <div className=" h-full flex flex-col justify-between w-full">
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center mt-4 md:mt-0">
         <IconCreditCard />
         <h1 className="font-medium text-lg">Payment</h1>
       </div>
