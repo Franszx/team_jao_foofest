@@ -1,3 +1,4 @@
+import { IconUsers } from "@tabler/icons-react";
 import React from "react";
 
 const TicketHolders = ({
@@ -17,7 +18,10 @@ const TicketHolders = ({
 
   return (
     <div className=" h-full flex flex-col justify-between">
-      <h1 className="font-medium text-lg">Tickets Holders</h1>
+      <div className="flex gap-2 items-center">
+        <IconUsers />
+        <h1 className="font-medium text-lg">Tickets Holders</h1>
+      </div>
       <div className="flex flex-col justify-evenly flex-grow">
         <div className="place-self-center flex flex-col gap-4">
           <form className=" w-full space-y-5">

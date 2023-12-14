@@ -1,4 +1,4 @@
-import { IconMinus, IconPlus } from "@tabler/icons-react";
+import { IconMinus, IconPlus, IconTicket } from "@tabler/icons-react";
 import CampMap from "../CampMap";
 import { useState } from "react";
 
@@ -74,7 +74,10 @@ function TicketAndCamp({
 
   return (
     <div className=" h-full flex flex-col justify-between">
-      <h1 className="font-medium text-lg">Tickets & Camp</h1>
+      <div className="flex gap-2 items-center">
+        <IconTicket />
+        <h1 className="font-medium text-lg">Tickets & Camp</h1>
+      </div>
       <div className="flex flex-col justify-evenly flex-grow">
         <div className="place-self-center flex flex-col gap-4">
           <div className="space-y-12">

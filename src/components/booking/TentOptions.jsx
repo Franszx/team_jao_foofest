@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 
-import { IconInfoCircle, IconMinus, IconPlus } from "@tabler/icons-react";
+import {
+  IconInfoCircle,
+  IconMinus,
+  IconPlus,
+  IconTent,
+} from "@tabler/icons-react";
 
 export const TentOptions = ({
   updateTents,
@@ -14,7 +19,10 @@ export const TentOptions = ({
 }) => {
   return (
     <div className=" h-full flex flex-col justify-between">
-      <h1 className="font-medium text-lg">Tents & Options</h1>
+      <div className="flex gap-2 items-center">
+        <IconTent />
+        <h1 className="font-medium text-lg">Tents & Options</h1>
+      </div>
       <div className="flex flex-col justify-evenly flex-grow">
         <div className="place-self-center flex flex-col gap-12">
           <TentOption
