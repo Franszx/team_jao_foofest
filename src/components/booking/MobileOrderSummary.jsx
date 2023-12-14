@@ -42,11 +42,11 @@ export default function MobileOrderSummary({
 						{totalTickets > 1 ? "Tickets Reserved" : "Ticket Reserved"}
 					</p>
 					<div>
-						<span className="countdown border border-gray-700 bg-gray-900 rounded-lg p-2 mr-1 ml-2">
+						<span className="countdown border border-gray-600 bg-gray-800 rounded-lg p-2 mr-1 ml-2">
 							<span style={{ "--value": minutes }}> :</span>
 						</span>
 						<span className="text-gray-400">min</span>
-						<span className="countdown border border-gray-700 bg-gray-900 rounded-lg p-2 mr-1 ml-2">
+						<span className="countdown border border-gray-600 bg-gray-800 rounded-lg p-2 mr-1 ml-2">
 							<span style={{ "--value": seconds }}></span>
 						</span>
 						<span className="text-gray-400">sec</span>
