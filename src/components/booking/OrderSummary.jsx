@@ -25,7 +25,7 @@ function OrderSummary({
   totalTickets,
 }) {
   return (
-    <div className="bg-gray-800 bg-opacity-70 h-24 md:h-full w-full md:w-7/12 flex flex-row md:flex-col justify-between items-baseline md:items-start gap-5 order-1 md:order-2 md:border-l border-l-gray-700 border-opacity-60 p-6 md:p-12">
+    <div className="bg-gray-800 bg-opacity-70 h-24 md:h-full w-full  flex flex-row md:flex-col justify-between items-baseline md:items-start gap-5 order-1 md:order-2 md:border-l border-l-gray-700 border-opacity-60 p-6 md:p-12">
       <div className="space-y-5 hidden md:block">
         <div className="flex gap-2 items-center">
           <IconShoppingCart />
