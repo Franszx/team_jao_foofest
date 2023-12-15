@@ -430,8 +430,8 @@ function Page() {
 						email={email}
 					/>
 				</div>
-				<div className="hidden h-full w-7/12 order-2 md:block">
-					{currentSlide !== 4 && (
+				{currentSlide !== 4 && (
+					<div className="hidden h-full w-7/12 order-2 md:block">
 						<OrderSummary
 							allChoices={allChoices}
 							currentSlide={currentSlide}
@@ -449,8 +449,8 @@ function Page() {
 							threePersonTents={threePersonTents}
 							totalTickets={totalTickets}
 						/>
-					)}
-				</div>
+					</div>
+				)}
 				<div className="order-1 md:hidden">
 					{currentSlide !== 4 && (
 						<MobileOrderSummary
