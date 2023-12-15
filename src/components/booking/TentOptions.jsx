@@ -24,23 +24,25 @@ export const TentOptions = ({
 				<h1 className="font-medium text-lg">Tents & Options</h1>
 			</div>
 			<div className="flex flex-col justify-evenly flex-grow">
-				<div className="place-self-center flex flex-col gap-12">
-					<TentOption
-						tentType="two"
-						tentPrice="299 DKK"
-						tentCount={twoPersonTents}
-						updateTents={updateTents}
-						totalTickets={totalTickets}
-						totalSelectedCapacity={totalSelectedCapacity}
-					/>
-					<TentOption
-						tentType="three"
-						tentPrice="399 DKK"
-						tentCount={threePersonTents}
-						updateTents={updateTents}
-						totalTickets={totalTickets}
-						totalSelectedCapacity={totalSelectedCapacity}
-					/>
+				<div className="place-self-center items-center flex flex-col gap-12">
+					<div className="flex flex-col gap-12">
+						<TentOption
+							tentType="two"
+							tentPrice="299 DKK"
+							tentCount={twoPersonTents}
+							updateTents={updateTents}
+							totalTickets={totalTickets}
+							totalSelectedCapacity={totalSelectedCapacity}
+						/>
+						<TentOption
+							tentType="three"
+							tentPrice="399 DKK"
+							tentCount={threePersonTents}
+							updateTents={updateTents}
+							totalTickets={totalTickets}
+							totalSelectedCapacity={totalSelectedCapacity}
+						/>
+					</div>
 					<GreenCampingOption
 						greenCamping={greenCamping}
 						setGreenCamping={setGreenCamping}
@@ -59,7 +61,7 @@ const TentOption = ({
 	totalTickets,
 	totalSelectedCapacity,
 }) => (
-	<div className="flex items-center gap-5 justify-center">
+	<div className="flex items-center gap-5 justify-end">
 		<div className="font-medium text-end">
 			<h2 className="text-gray-400 whitespace-nowrap">
 				{tentType.charAt(0).toUpperCase() + tentType.slice(1)} Person Tent
