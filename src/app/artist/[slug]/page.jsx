@@ -49,6 +49,9 @@ export default async function Page({ params }) {
       band.logo = getBandLogo(band);
     });
 
+  const bandMatch = bands.find((band) => band.slug === slug);
+  console.log(bandMatch);
+
   return (
     <>
       <Header />
@@ -100,6 +103,18 @@ export default async function Page({ params }) {
                   </div>
                 </div>
               </div>
+              {band.id && (
+                <div className="max-w-4xl mx-auto container px-4 mt-6 md:mt-16 outline">
+                  <iframe
+                    src={`https://open.spotify.com/embed/artist/${band.id}?utm_source=generator`}
+                    width="100%"
+                    height="352"
+                    allowfullscreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                  ></iframe>
+                </div>
+              )}
             </div>
           ))}
       </main>
