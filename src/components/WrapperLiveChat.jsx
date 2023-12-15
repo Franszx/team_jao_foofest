@@ -12,7 +12,7 @@ export default function WrapperLiveChat() {
 				<button
 					className={`text-md bg-gray-900 border-2 w-fit py-2 px-3 mt-2 rounded-lg ${
 						activeChat === "midgard"
-							? "text-gray-50 border-emerald-600"
+							? "text-gray-50 border-amber-500"
 							: "text-gray-400 border-gray-800"
 					}`}
 					onClick={() => setActiveChat("midgard")}
@@ -22,7 +22,7 @@ export default function WrapperLiveChat() {
 				<button
 					className={`text-md bg-gray-900 border-2 w-fit py-2 px-3 mt-2 rounded-lg ${
 						activeChat === "vanaheim"
-							? "text-gray-50 border-emerald-600"
+							? "text-gray-50 border-primary"
 							: "text-gray-400 border-gray-800"
 					}`}
 					onClick={() => setActiveChat("vanaheim")}
@@ -32,7 +32,7 @@ export default function WrapperLiveChat() {
 				<button
 					className={`text-md bg-gray-900 border-2 w-fit py-2 px-3 mt-2 rounded-lg ${
 						activeChat === "jotunheim"
-							? "text-gray-50 border-emerald-600"
+							? "text-gray-50 border-pink-600"
 							: "text-gray-400 border-gray-800"
 					}`}
 					onClick={() => setActiveChat("jotunheim")}
