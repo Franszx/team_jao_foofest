@@ -5,6 +5,7 @@ import PlayingWhen from "@/components/PlayingWhen";
 import Image from "next/image";
 import { url } from "/config";
 import BackButton from "@/components/BackButton";
+import SpotifyPlayer from "@/components/SpotifyPlayer";
 
 // Function to generate static paths for each band
 export async function generateStaticParams() {
@@ -103,18 +104,7 @@ export default async function Page({ params }) {
                   </div>
                 </div>
               </div>
-              {band.id && (
-                <div className="max-w-4xl mx-auto container px-4 mt-6 md:mt-16 outline">
-                  <iframe
-                    src={`https://open.spotify.com/embed/artist/${band.id}?utm_source=generator`}
-                    width="100%"
-                    height="352"
-                    allowfullscreen=""
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                  ></iframe>
-                </div>
-              )}
+              {band.id && <SpotifyPlayer band={band} />}
             </div>
           ))}
       </main>
