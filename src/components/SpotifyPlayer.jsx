@@ -30,6 +30,10 @@ function SpotifyPlayer({ band }) {
     }
   }, [bands, band]);
 
+  if (!band.id) {
+    return null;
+  }
+
   return (
     <div className="container mx-auto max-w-4xl px-6 mt-6 md:mt-12 flex items-center justify-center min-h-[352px]">
       {spotifyId ? (
