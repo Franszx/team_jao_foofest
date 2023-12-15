@@ -95,6 +95,7 @@ export default async function Page({ params }) {
                     <p className="">{band.bio}</p>
                     <ul className="list-none space-y-1">
                       <span className="mb-1">Members</span>
+                      <li className="text-sm text-gray-300">Oliver</li>
                       {band.members.map((member) => (
                         <li key={member} className="text-sm text-gray-300">
                           {member}
