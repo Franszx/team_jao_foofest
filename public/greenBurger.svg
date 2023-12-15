@@ -1,14 +1,14 @@
-<svg width="73" height="73" viewBox="0 0 73 73" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="56" height="55" viewBox="0 0 56 55" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_179_89)">
-<rect x="5" y="3" width="63" height="63" rx="31.5" fill="#1F2937" shape-rendering="crispEdges"/>
-<rect x="6.5" y="4.5" width="60" height="60" rx="30" stroke="#10B981" stroke-width="3" shape-rendering="crispEdges"/>
+<rect x="5" y="3" width="46" height="45" rx="22.5" fill="#1F2937" shape-rendering="crispEdges"/>
+<rect x="6.5" y="4.5" width="43" height="42" rx="21" stroke="#10B981" stroke-width="3" shape-rendering="crispEdges"/>
 <g clip-path="url(#clip0_179_89)">
-<path d="M28 30H44" stroke="#F9FAFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M28 38H44" stroke="#F9FAFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22.667 22.3333H33.3337" stroke="#F9FAFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22.667 27.6667H33.3337" stroke="#F9FAFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 </g>
 <defs>
-<filter id="filter0_d_179_89" x="0.8" y="0.8" width="71.4" height="71.4" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_179_89" x="0.8" y="0.8" width="54.4" height="53.4" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="2"/>
@@ -19,7 +19,7 @@
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_179_89" result="shape"/>
 </filter>
 <clipPath id="clip0_179_89">
-<rect width="24" height="24" fill="white" transform="translate(24 22)"/>
+<rect width="16" height="16" fill="white" transform="translate(20 17)"/>
 </clipPath>
 </defs>
 </svg>

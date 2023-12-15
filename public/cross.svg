@@ -1,12 +1,12 @@
-<svg width="73" height="73" viewBox="0 0 73 73" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="56" height="55" viewBox="0 0 56 55" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_220_728)">
-<rect x="5" y="3" width="63" height="63" rx="31.5" fill="#1F2937" shape-rendering="crispEdges"/>
-<rect x="6.5" y="4.5" width="60" height="60" rx="30" stroke="#374151" stroke-width="3" shape-rendering="crispEdges"/>
-<path d="M31 39.6577L41.6577 29" stroke="#F9FAFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M42 40L30.9998 28.9999" stroke="#F9FAFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="5" y="3" width="46" height="45" rx="22.5" fill="#1F2937" shape-rendering="crispEdges"/>
+<rect x="6.5" y="4.5" width="43" height="42" rx="21" stroke="#374151" stroke-width="3" shape-rendering="crispEdges"/>
+<path d="M22 30.6577L32.6577 20" stroke="#F9FAFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M33 31L21.9998 19.9999" stroke="#F9FAFB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
 <defs>
-<filter id="filter0_d_220_728" x="0.8" y="0.8" width="71.4" height="71.4" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_220_728" x="0.8" y="0.8" width="54.4" height="53.4" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="2"/>
