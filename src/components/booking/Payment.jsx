@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 
-const Payment = ({ email, setEmail }) => {
+const Payment = ({ email, setEmail, termsAccepted, setTermsAccepted }) => {
   const [state, setState] = useState({
     number: "",
     expiry: "",
@@ -118,6 +118,10 @@ const Payment = ({ email, setEmail }) => {
               id="checkbox"
               type="checkbox"
               className="checkbox checkbox-primary w-6 h-6"
+              checked={termsAccepted}
+              onChange={(e) => {
+                setTermsAccepted(e.target.checked);
+              }}
             />
             <label for="checkbox" className="text-sm select-none">
               I accept{" "}

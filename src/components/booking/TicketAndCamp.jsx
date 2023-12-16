@@ -132,54 +132,10 @@ function TicketAndCamp({
             setSelectedCamp={setSelectedCamp}
             chooseSpot={chooseSpot}
             totalTickets={totalTickets}
-            className="aspect-[3/2] w-full md:col-start-2 md:col-end-4 md:aspect-[2.25/1]"
+            className="aspect-[3/2] w-full md:col-start-2 md:col-end-4 md:aspect-[2.25/1] rounded-2xl overflow-hidden border border-gray-800"
             mapHandleModal={mapHandleModal}
             reservationId={reservationId}
           />
-          // <div>
-          //   <ul className="flex flex-wrap items-center gap-12 justify-center h-48 max-w-md mx-auto ">
-          //     {spots.map((spot) => (
-          //       <li
-          //         key={spot.area}
-          //         className="flex flex-col justify-center items-center gap-1 "
-          //       >
-          //         <div
-          //           className={`${
-          //             totalTickets > 0 &&
-          //             (spot.available === 0 || totalTickets > spot.available)
-          //               ? "tooltip tooltip-accent"
-          //               : ""
-          //           }`}
-          //           data-tip={
-          //             spot.available === 0
-          //               ? "No more spots"
-          //               : totalTickets > spot.available
-          //               ? "Not enough room"
-          //               : ""
-          //           }
-          //         >
-          //           <button
-          //             className={`btn ${
-          //               totalTickets > 0 && totalTickets <= spot.available
-          //                 ? selectedSpot === spot.area
-          //                   ? "bg-gray-500 text-gray-50 border-gray-400 hover:bg-gray-500 hover:border-gray-400"
-          //                   : "bg-neutral text-gray-50 border-gray-600 hover:bg-gray-600 hover:border-gray-500"
-          //                 : "btn-disabled"
-          //             } font-medium text-base rounded py-1 px-4 w-fit border  `}
-          //             onClick={() => selectSpot(spot.area)}
-          //           >
-          //             {spot.area}
-          //           </button>
-          //         </div>
-          //         <p className="text-gray-400 text-sm font-medium">
-          //           {spot.available === 1
-          //             ? "1 Spot"
-          //             : `${spot.available} Spots`}
-          //         </p>
-          //       </li>
-          //     ))}
-          //   </ul>
-          // </div>
         )}
       </div>
     </div>

@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { sendMail } from "@/utils/sendMail";
-
 import { TentOptions } from "@/components/booking/TentOptions";
 import TicketAndCamp from "@/components/booking/TicketAndCamp";
 import TicketHolders from "@/components/booking/TicketHolders";
@@ -10,12 +9,15 @@ import PaymentStatus from "@/components/booking/PaymentStatus";
 import OrderSummary from "@/components/booking/OrderSummary";
 import MobileOrderSummary from "@/components/booking/MobileOrderSummary";
 import BackAndContinueButtons from "@/components/booking/BackAndContinueButtons";
-import { supabase } from "@/utils/supabaseClient";
 
+import { supabase } from "@/utils/supabaseClient";
 import { url } from "/config";
 
 function Page() {
+  // States
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const [allChoices, setAllChoices] = useState({});
 
   const [regularTickets, setRegularTickets] = useState(0);
   const [vipTickets, setVipTickets] = useState(0);
@@ -23,11 +25,8 @@ function Page() {
     regular: new Array(regularTickets).fill(""),
     vip: new Array(vipTickets).fill(""),
   });
-
   const [totalTickets, setTotalTickets] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-
-  const [allChoices, setAllChoices] = useState({});
 
   const [spots, setSpots] = useState([]);
   const [selectedSpot, setSelectedSpot] = useState(null);
@@ -39,6 +38,7 @@ function Page() {
   const [totalSelectedCapacity, setTotalSelectedCapacity] = useState(0);
 
   const [email, setEmail] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const [reservationId, setReservationId] = useState(null);
 
@@ -49,13 +49,11 @@ function Page() {
   const [isPulsing, setIsPulsing] = useState(false);
 
   const [ticketsReserved, setTicketsReserved] = useState(false);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [paymentSuccess, setPaymentSuccess] = useState(false);
-
   const [warningCamp, setWarningCamp] = useState(false);
 
+  // Function to send mail with order confirmation to customer
   function sendMailToCustomer() {
     const mailContent = {
       to: email,
@@ -121,6 +119,7 @@ function Page() {
     }
   };
 
+  // Function to change the slide
   function changeSlide(direction) {
     if (direction === "next") {
       setCurrentSlide(currentSlide + 1);
@@ -129,6 +128,7 @@ function Page() {
     }
   }
 
+  // Function to handle the continue button
   function handleContinue() {
     if (currentSlide === 0) {
       changeSlide("next");
@@ -138,6 +138,7 @@ function Page() {
     }
   }
 
+  // Function to handle the modal confirm button
   function handleModalConfirm() {
     resetCountdown();
     setIsModalOpen(false);
@@ -145,6 +146,7 @@ function Page() {
     setReservationId(null);
   }
 
+  // Function to open the modal if tickets are reserved and user tries to change order
   function mapHandleModal() {
     if (ticketsReserved === true) {
       setIsModalOpen(true);
@@ -153,6 +155,7 @@ function Page() {
     }
   }
 
+  // Function to select a spot
   function selectSpot(spot) {
     if (ticketsReserved === true) {
       setIsModalOpen(true);
@@ -161,6 +164,7 @@ function Page() {
     }
   }
 
+  // Function to reserve a spot
   function reserveSpot() {
     if (ticketsReserved) {
       return;
@@ -210,6 +214,7 @@ function Page() {
       });
   }
 
+  // Function to send data to Supabase on successful payment
   async function dataToSupabase() {
     const { data, error } = await supabase.from("orders").insert([
       {
@@ -232,6 +237,7 @@ function Page() {
     }
   }
 
+  // Function to fulfill the reservation using the API and the reservation ID
   function fulfillReservation() {
     fetch(`${url}/fullfill-reservation`, {
       method: "POST",
@@ -250,6 +256,7 @@ function Page() {
       });
   }
 
+  // Reset the countdown and other states
   function resetCountdown() {
     setCountdown(300);
     setMinutes(5);
@@ -261,25 +268,32 @@ function Page() {
     setTicketHolders({ regular: [], vip: [] });
   }
 
+  // Hook tot check if the selected spot can accommodate the total tickets.
+  // If not, it sets a warning and resets the selected spot and camp.
+  // If the total tickets are zero or more than the available spots, it resets the selected spot and camp.
+  // If the selected spot can accommodate the total tickets, it removes the warning.
   useEffect(() => {
     const selectedSpotDetails = spots.find(
       (spot) => spot.area === selectedSpot
     );
 
+    // Check if the selected spot can accommodate the total tickets
     if (selectedSpotDetails && totalTickets > selectedSpotDetails.available) {
-      console.log("Set warning camp to true");
       setWarningCamp(true);
       setSelectedSpot(null);
       setSelectedCamp(null);
     } else if (
+      // Check if the total tickets are zero or more than the available spots
       (selectedSpotDetails && totalTickets > selectedSpotDetails.available) ||
       totalTickets === 0
     ) {
+      // If no reservation ID, reset the selected spot and camp
       if (!reservationId) {
         setSelectedSpot(null);
         setSelectedCamp(null);
       }
     } else if (
+      // If the selected spot can accommodate the total tickets, remove the warning
       selectedSpotDetails &&
       totalTickets <= selectedSpotDetails.available
     ) {
@@ -287,19 +301,7 @@ function Page() {
     }
   }, [totalTickets, selectedSpot, spots, reservationId]);
 
-  useEffect(() => {
-    const fetchSpots = () => {
-      fetch(`${url}/available-spots`)
-        .then((res) => res.json())
-        .then((data) => {
-          setSpots(data);
-        });
-    };
-    fetchSpots();
-    const interval = setInterval(fetchSpots, 30000);
-    return () => clearInterval(interval);
-  }, []);
-
+  // Calculate the total price and number of tickets, and update the allChoices object
   useEffect(() => {
     const bookingFee = 99;
     const ticketPrice = regularTickets * 799 + vipTickets * 1299;
@@ -314,7 +316,7 @@ function Page() {
       regularTickets,
       vipTickets,
       totalTickets,
-      area: selectedSpot,
+      selectedSpot,
       greenCamping,
       totalPrice,
       twoPersonTents,
@@ -336,6 +338,20 @@ function Page() {
     email,
     ,
   ]);
+
+  // Fetch the available spots from the API on page load
+  useEffect(() => {
+    const fetchSpots = () => {
+      fetch(`${url}/available-spots`)
+        .then((res) => res.json())
+        .then((data) => {
+          setSpots(data);
+        });
+    };
+    fetchSpots();
+    const interval = setInterval(fetchSpots, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <main className="md:container mx-auto flex flex-col justify-center items-center h-screen w-screen">
@@ -411,7 +427,12 @@ function Page() {
               />
             )) ||
             (currentSlide === 3 && (
-              <Payment email={email} setEmail={setEmail} />
+              <Payment
+                email={email}
+                setEmail={setEmail}
+                termsAccepted={termsAccepted}
+                setTermsAccepted={setTermsAccepted}
+              />
             )) ||
             (currentSlide === 4 && (
               <PaymentStatus paymentSuccess={paymentSuccess} />
@@ -428,6 +449,7 @@ function Page() {
             dataToSupabase={dataToSupabase}
             sendMailToCustomer={sendMailToCustomer}
             email={email}
+            termsAccepted={termsAccepted}
           />
         </div>
         {currentSlide !== 4 && (
